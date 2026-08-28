@@ -13,3 +13,15 @@ import OrdersBaseline from './views/OrdersBaseline.vue'
   min-height: 100vh;
 }
 </style>
+
+<style>
+@media (max-width: 860px) {
+  .orders-page:not(.has-mobile-detail) .detail-pane.empty {
+    display: none;
+  }
+
+  .orders-page.has-mobile-detail .detail-pane.empty {
+    display: block;
+  }
+}
+</style>
