@@ -1,0 +1,42 @@
+{
+  "case_id": "01-vue-element-plus-orders",
+  "mode": "model-only",
+  "model": "grok-build",
+  "skill_version": "none",
+  "run_at": "2026-08-28T19:13:59.551Z",
+  "prompt_ref": "evals/cases/01-vue-element-plus-orders.md",
+  "host_fixture_ref": "vue-element-plus-orders",
+  "selected_skeleton": null,
+  "selected_patterns": [],
+  "dependency_changes": [],
+  "build_status": "passed",
+  "runtime_notes": "GitHub Actions Capture Eval 01 (run 33202875702, job 98956469011) built the frozen Vue 3 + Element Plus 2.9.5 fixture at commit 9bdc80553e0db5b0d6d571c3fbe37e359388763b, served vite preview on :4173, and captured desktop 1440x1000 plus mobile 390x844. metrics.json reports evidenceLevel rendered-ci, no console/page errors, no page-level overflow, table visible, Tab focus on Export with 2px solid outline, detailMode dialog. Capture hardFailures array was empty.",
+  "keyboard_notes": "Tab from load lands on the Export button with a 2px solid focus outline. AppTable assigns tabIndex=0 and an aria-label to each tbody row; Enter/Space inspects the focused row without activating nested checkboxes. Bulk actions and filters are Element Plus controls. Inspection opens AppDialog (Element Plus dialog), which traps focus until Close.",
+  "reduced_motion_notes": "prefers-reduced-motion: reduce emulation matched. The page has no decorative motion beyond Element Plus defaults; no additional animation stack was added.",
+  "artifacts": {
+    "desktop": "evals/results/01-vue-element-plus-orders/model-only-2026-08-28-a-desktop.png",
+    "mobile": "evals/results/01-vue-element-plus-orders/model-only-2026-08-28-a-mobile.png",
+    "extra": [
+      "evals/results/01-vue-element-plus-orders/model-only-2026-08-28-a-desktop-detail.png",
+      "evals/results/01-vue-element-plus-orders/model-only-2026-08-28-a-mobile-detail.png",
+      "evals/harness/artifacts/eval-01/model-only-2026-08-28-a-metrics.json"
+    ]
+  },
+  "rubric": {
+    "visual_quality": 19,
+    "design_consistency": 14,
+    "task_fit": 8,
+    "host_stack_compliance": 10,
+    "accessibility": 8,
+    "responsive": 7,
+    "build_runtime_success": 5,
+    "dependency_discipline": 5,
+    "anti_slop": 5,
+    "total": 81
+  },
+  "hard_failures": [],
+  "decision_errors": [
+    "wrong-skeleton"
+  ],
+  "review_notes": "Scored from CI-rendered screenshots and metrics, plus source review of OrdersBaseline.vue / AppTable.vue at 9bdc805. The page is a dense Element Plus operations list: labeled search/status/date filters, result count, striped table, sticky bulk bar with selected count, loading/empty/error debug toggles. Host tokens and wrappers are reused; package.json is unchanged (vue 3.5.13 + element-plus 2.9.5 only). Row inspection uses AppDialog, which covers the list \u2014 the case asked for inspection without losing list context and expected skeleton master-detail-workspace (desktop split, mobile list-then-detail). That is a wrong-skeleton decision, not a host-stack or build failure. Mobile stacks filters and uses an inner table scroll; capture recorded no page-level overflow. Not a hard fail: it builds, keeps Element Plus, has labeled/keyboard primary controls, and has no severe overflow. Deducted mainly on task fit and the weaker overlay composition."
+}
