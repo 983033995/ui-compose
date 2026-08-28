@@ -213,6 +213,32 @@ devouring-details sign-in). One file per component, CLI install.
 for a live session, not for settings).
 **Skip:** cursor trails on data-entry screens.
 
+### SOLESHIFT° / SWIRL° — Shams campaign landings
+
+Not a library. A **register**. Full recipe: `editorial-campaign.md`.
+
+**Fingerprints (from the H3 prompts + UI stills):**
+
+- Warm cream paper (`#f6efe4`-family), not white, not dark-first
+- Locked chrome: `MARK°` · tracked nav · `BAG 00` · six SKU cards
+- Hero cutout 65–70% of the stage, slightly right; giant cropped index
+  behind it
+- Display face: Cooper Black / Fredoka / inflated bubble. Meta: 11px
+  geometric sans, tracking ~0.18em
+- Subline is three punched words: `SOFT. BOLD. DREAMY.`
+- Hover physics: card `translateY(-6px) scale(1.04)` + accent outline
+- SKU owns the world: palette + motif family + transition verb swap
+  together. Sequence always `01 → 02 → … → 06`
+- Camera locked. Bounce on cards/hero only
+- Motif cap: one family (bubbles *or* pixels *or* orbits), 4–8 shapes
+
+**Steal:** the locked skeleton, SKU-as-data, world-swap interaction,
+staccato sublines, numbered chips.
+**Skip:** carrying bounce/blobs into checkout; stacking every Y2K motif
+at once; morphing product A into product B.
+**Agent move:** opt into `editorial-campaign.md` only when the user
+asks for a playful explorer / lookbook / campaign.
+
 ---
 
 ## C. Primitive kits and page blocks (the skeleton)
@@ -324,7 +350,14 @@ Is it a marketing landing?
 Need a distinctive moment?
   yes → one beUI/Rare/Skiper piece, restyle to tokens
   no  → do not add Magic UI "just because"
+
+Is it a playful product explorer / Y2K campaign / lookbook?
+  yes → editorial-campaign.md (locked chrome + SKU worlds)
+        bounce only on SKU cards + hero; checkout stays quiet
+  no  → do not import blobs, Cooper Black, or 104% card bounce
+        into app chrome
 ```
 
 **Hard cap:** 3–7 stolen blocks per surface, one primitive kit, one
-AI-chrome family, one decorative effect.
+AI-chrome family, one decorative effect. Campaign pages add one extra
+cap: **one motif family per SKU**.

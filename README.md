@@ -47,6 +47,7 @@ The skill is `SKILL.md`. Depth is loaded on demand from `references/`.
 | [`references/layout-steal.md`](references/layout-steal.md) | Canonical skeletons (app shell, dashboard, chat, marketing) |
 | [`references/ai-primitives.md`](references/ai-primitives.md) | Implementable streaming / thinking / tools / composer |
 | [`references/motion-blocks.md`](references/motion-blocks.md) | Tilt, morphing panel, toast stack, when to ship zero motion |
+| [`references/editorial-campaign.md`](references/editorial-campaign.md) | Y2K × editorial DTC landings (SOLESHIFT° / SWIRL°) |
 
 ## Method (short)
 

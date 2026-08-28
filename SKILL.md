@@ -10,7 +10,8 @@ description: >
   shadcn, ReUI, Kibo, Magic UI, Aceternity, and related registries.
   Triggers on "frontend", "UI", "looks like AI", "slop", "polish",
   "landing", "dashboard", "chat UI", "agent UI", "component library",
-  "make it look good", "design system".
+  "make it look good", "design system", "Y2K", "lookbook", "campaign",
+  "product explorer", "footwear", "DTC".
 metadata:
   short-description: "Lego frontend: steal structure, compose proven blocks, anti-slop AI-native UI"
 user-invocable: false
@@ -34,6 +35,7 @@ does not look vibe-coded.
 - `references/layout-steal.md` — steal the skeleton before styling
 - `references/ai-primitives.md` — reverse-engineered AI-native chrome (Beautiful UI)
 - `references/motion-blocks.md` — distinctive motion blocks (beUI / Rare UI / Emil)
+- `references/editorial-campaign.md` — Y2K × editorial DTC landings (SOLESHIFT° / SWIRL°)
 
 ---
 
@@ -97,6 +99,7 @@ This workspace is TanStack Start + React 19 + Tailwind v4 + Radix. Prefer
 | One ambient mark (orb, grid-reveal, beam) | Rare UI / [orbs](https://orbs.jakubantalik.com/) / [beam](https://beam.jakubantalik.com/) | **One** per surface |
 | Landing-page structure | shadcnblocks / Tailark / ReUI blocks | Steal tracks, delete their theme |
 | Landing-page *effect* | Magic UI / Aceternity / Originkit / Skiper | **At most one.** These are the slop-risk kits |
+| Playful product explorer / Y2K campaign | `references/editorial-campaign.md` | Locked chrome + SKU-owned worlds. Not for dashboards |
 | Token / theme discipline | swagui idea: surfaces from `color-mix` of fg/bg | Dark mode for free; radius/type/shadow stay fixed |
 
 **Do not install** a second component library next to shadcn. One kit, restyle
@@ -109,7 +112,9 @@ with tokens.
 These are the negative reference. If a screenshot of the app would match this
 list, rewrite the surface before calling UI done.
 
-- Gradient-blob / aurora / mesh / "AI purple" heroes
+- Gradient-blob / aurora / mesh / "AI purple" heroes **on app chrome**
+  (campaign register may use *one motif family* of blobs — see
+  `editorial-campaign.md`)
 - Glassmorphism soup, rainbow borders, neon glow
 - Emoji as icons or in chrome copy
 - Inter-everywhere with no weight/size hierarchy
@@ -117,7 +122,9 @@ list, rewrite the surface before calling UI done.
 - Elements floating with no grid, no max-width, no shared gutter
 - Lorem / gray placeholder boxes in a finished view
 - Every control bouncing, glittering, or using `transition: all`
+  (campaign: bounce is allowed on **SKU cards + hero only**)
 - Purple/violet/gold as the brand accent unless the user named that brand
+  **or** a SKU world in the campaign register
 - "Live" badges, shimmer on static text, decorative grain on every panel
 - AI inventing spacing like `p-[13px]` / `gap-[17px]` instead of the scale
 
@@ -181,6 +188,10 @@ them a skeleton.
 - Marketing and app interiors are two registers: marketing is generous
   (large type, big gaps); app interiors are compact (13–14px base, tight
   toolbars). Do not mix.
+- A **third register** exists for campaign/lookbook pages only:
+  `references/editorial-campaign.md` (cream paper, chunky type, SKU-owned
+  worlds, hover swaps the whole stage). Never carry its bounce/blobs into
+  app chrome.
 - Mobile (~390px) first. No horizontal overflow. Tap targets ≥ 44px.
 
 ---

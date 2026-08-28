@@ -27,6 +27,7 @@ From swagui: one token set, two densities.
 | --- | --- | --- | --- | --- |
 | **Marketing** | 16–18px body, display headings `clamp` | `--space-6`–`--space-8` | larger (`--radius-xl` cards) | Landing, pricing, blog |
 | **App interior** | 13–14px body, 12px meta | `--space-2`–`--space-4` | tighter (`--radius-control` / `--radius-card`) | Dashboards, chat, settings, CRUD |
+| **Editorial campaign** | chunky display + 11px tracked meta | generous stage, tight rail | cards 18 / stage 28 | DTC lookbooks only — `editorial-campaign.md` |
 
 Beautiful UI itself runs at `font-size: 14px` on the document with
 `letter-spacing: -0.01em` — that's the app-interior register.

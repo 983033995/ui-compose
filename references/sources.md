@@ -93,5 +93,8 @@ not the links as a cargo cult.
 - Tran Mau Tri Tam / Nero: additional agent-ready kits (AICSS, orbs,
   beam, canvas, originkit).
 - Keisuke: micro-interaction registries (copy-own, not a closed API).
+- Shams (@ShamsAmin56): Y2K × editorial campaign landings (SOLESHIFT°,
+  SWIRL°) — locked chrome, SKU-owned worlds, hover swaps the stage.
+  See `editorial-campaign.md`.
 - Comment on Peng's post: models hallucinate spacing tokens.
   **Design systems > vibe coding.**
