@@ -153,6 +153,7 @@ ui-compose/
     source-registry.schema.json
     pattern-registry.schema.json
     skeleton-registry.schema.json
+    eval-fixture.schema.json
     eval-result.schema.json
   scripts/
     validate_skill.py
@@ -173,6 +174,11 @@ ui-compose/
       09-custom-design-system.md
     harness/
       README.md
+      fixtures/
+        vue-element-plus-orders.yaml
+        agent-chat.yaml
+        react-tailwind-data-workspace.yaml
+        custom-design-system.yaml
     results/
       README.md
   .github/workflows/
@@ -200,8 +206,10 @@ CI currently checks:
 - adapter IDs
 - density/motion ranges
 - source verification metadata consistency
+- benchmark Fixture schema conformance
+- Fixture → Case references and dependency-policy consistency
 - eval-result schema conformance
-- Eval → Case / Pattern / Skeleton references
+- Eval Result → Fixture / Case / Pattern / Skeleton references
 - rubric arithmetic
 - desktop/mobile artifact references for passed rendered runs
 
@@ -237,9 +245,11 @@ The current nine-case matrix covers:
 - restrained WebGL hero
 - unfamiliar custom/internal design system
 
-The first empirical batch should prioritize cases 01, 02, 04 and 09 because together they test dense B2B composition, AI-native state modeling, React/Tailwind without shadcn-by-default, and unfamiliar internal design-system portability.
+The first empirical batch prioritizes cases 01, 02, 04 and 09. These now have machine-validated Fixture Contracts that pin the host framework/primitive system, existing dependencies, forbidden default dependencies, required product states, accessibility contract, mobile contract, representative files, and build commands.
 
-No benchmark score is considered real until an observed result record exists. The largest remaining delivery gap is **real rendered benchmark evidence**: build results, desktop/mobile screenshots, keyboard/reduced-motion notes, dependency diffs, and comparative scores.
+Fixture Contracts are not benchmark results. They define the clean host baseline from which every comparison mode should start. No benchmark score is considered real until an observed result record exists.
+
+The largest remaining delivery gap is **real executable fixtures and rendered benchmark evidence**: buildable fixture apps, generated comparison runs, desktop/mobile screenshots, keyboard/reduced-motion notes, dependency diffs, and comparative scores.
 
 ## Delivery readiness
 
