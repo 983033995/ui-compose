@@ -1,223 +1,315 @@
 ---
-name: ui-lego
+name: ui-compose
 description: >
-  Compose frontend from proven UI blocks instead of inventing from a blank
-  canvas. Use whenever you build or restyle pages, dashboards, landing pages,
-  AI-product chrome (chat, thinking, streaming, approvals, tool calls), or
-  any interface that would otherwise look like generic "AI slop". Encodes the
-  Lego workflow from public agent-UI practice plus reverse-engineered recipes
-  from Beautiful UI, AICSS, AI Elements, beUI, Rare UI, transitions.dev,
-  shadcn, ReUI, Kibo, Magic UI, Aceternity, ThreeUI, and related
-  registries. Triggers on "frontend", "UI", "looks like AI", "slop",
-  "polish", "landing", "dashboard", "chat UI", "agent UI",
-  "component library", "make it look good", "design system", "Y2K",
-  "lookbook", "campaign", "product explorer", "three.js", "WebGL",
-  "shader", "3D hero", "taste", "redesign", "portfolio", "anti-slop".
+  Stack-aware UI composition skill for coding agents. Detect the host frontend
+  stack and design system first, then compose proven layout, interaction, motion,
+  and AI-native patterns without directly depending on or cloning popular UI
+  libraries. Use for dashboards, app interiors, landing pages, AI interfaces,
+  product explorers, redesigns, and frontend polish when the result must feel
+  intentional rather than generic or "AI slop".
+license: MIT
+compatibility: >
+  Framework-agnostic core. Works with React, Vue, Svelte, Tailwind, UnoCSS,
+  CSS/SCSS, and existing design systems through adapter guidance.
 metadata:
-  short-description: "Lego frontend: steal structure, compose proven blocks, anti-slop AI-native UI"
-user-invocable: false
+  short-description: "Stack-aware UI composition engine for coding agents"
 ---
 
-# UI Lego
+# UI Compose
 
-AI is good at filling details and terrible at inventing taste, spacing, or
-structure. Do not ask it (you) to design a UI from zero. Steal a skeleton,
-compose real components like Lego, then customize.
+UI Compose is a **composition engine**, not a component library and not a
+license to install every popular UI kit.
 
-This skill is the **composition workflow**. Visual tokens, anti-slop bans,
-typography, surfaces, and chrome motion still live in **`design-ui`** — open
-that too. This file tells you *how to pick blocks and wire them* so the result
-does not look vibe-coded.
+The goal is to extract the *useful traits* of proven interfaces — information
+architecture, layout tracks, density, interaction models, motion physics,
+state patterns, and AI-native primitives — and re-express them using the host
+project's existing framework, tokens, components, and conventions.
 
-**Read `references/` on demand (do not inline all of them):**
-- `references/goals.md` — what this skill is for, and what it is not
-- `references/sources.md` — which library to steal from, for what
-- `references/reverse-engineering.md` — CSS fingerprints, steal/skip, decision tree
-- `references/layout-steal.md` — steal the skeleton before styling
-- `references/ai-primitives.md` — reverse-engineered AI-native chrome (Beautiful UI)
-- `references/motion-blocks.md` — distinctive motion blocks (beUI / Rare UI / Emil)
-- `references/editorial-campaign.md` — Y2K × editorial DTC landings (SOLESHIFT° / SWIRL°)
-- `references/threeui.md` — 3D / WebGL Lego (ThreeUI catalog, mount, disposal)
-- `references/taste-dials.md` — Design Read, V/M/D knobs, extra tells, redesign audit (taste-skill)
+> Taste decides the direction. UI Compose decides how to build it.
 
----
+## Core contract
 
-## 0. Pairing with `design-ui`
+Do not begin by choosing a library. Begin by understanding the host.
 
-| Concern | Owner |
-| --- | --- |
-| Tokens, color cap, type, concentric radii, anti-slop bans | `design-ui` |
-| Chrome motion catalog (menu, modal, tooltip, number pop-in) | `design-ui` `references/` |
-| *Which* blocks to compose, layout skeleton, AI-native primitives | **this skill** |
-| When *not* to animate | this skill §4 + Emil |
+**Host Read → Design Read → Skeleton → Pattern Set → Adapter → Verify**
 
-Never invent a second token set. Map any stolen block onto the `@theme`
-tokens already defined in `src/styles.css`.
+Read references only when needed:
 
----
-
-## 1. The Lego workflow (do this in order)
-
-Copied from the method that actually works in the wild (Peng, Machina, Rexan
-Wong, Greg Isenberg, Ole Lehmann, LexnLin / taste-skill):
-
-0. **Design Read.** One line before code: *Reading this as: \<kind> for
-   \<audience>, \<vibe>, leaning toward \<system>.* Ambiguous? Ask one
-   question, not five. Then set three knobs (`references/taste-dials.md`):
-   VARIANCE / MOTION / DENSITY. App interiors default `4 / 2 / 8`;
-   landings default `8 / 6 / 4`. Do not mix those baselines.
-1. **Positive reference.** Name one real product feel (Linear / Raycast /
-   Stripe / Notion / a specific block library). Do not say "make it modern".
-2. **Negative reference.** Explicitly ban the slop tells (see §3). Treat them
-   as an anti-target, not a vibe.
-3. **Steal the skeleton first** (`references/layout-steal.md`). Layout and
-   spacing before color, motion, or illustration. Paste a real block's
-   structure (grid, max-width, header/body/aside) and *fill* it.
-4. **Pick 3–7 blocks** from `references/sources.md`. Prefer copy-own
-   components (shadcn / ReUI / coss) over generating a button from scratch.
-5. **Inspect → pick → integrate → customize.** Once the agent has actual
-   component source, editing is easy. Inventing source is how slop happens.
-6. **One style guide.** If the app has no tokens yet, write them once in
-   `src/styles.css` `@theme` *before* any JSX hex. Every later component
-   references that file — this is how consistency happens.
-7. **Restrain motion.** High-frequency and keyboard-driven UI: no animation.
-   Infrequent, explanatory, or spatial UI: use a recipe from `design-ui` or
-   `references/motion-blocks.md`. UI motion ≤ 300ms.
-
-Quote that is the whole skill: *give the model a professional skeleton, not a
-blank canvas.*
+- `references/goals.md` — goals, non-goals, and composition principles
+- `references/host-read.md` — framework/design-system detection protocol
+- `references/layout-steal.md` — canonical page skeletons and layout tracks
+- `references/sources.md` — human-readable source catalog
+- `references/sources/registry.yaml` — structured source-trait registry
+- `references/sources/provenance.md` — provenance and license boundaries
+- `references/reverse-engineering.md` — observed UI fingerprints and abstractions
+- `references/ai-primitives.md` — AI-native UI states and primitives
+- `references/motion-blocks.md` — motion recipes and zero-motion rules
+- `references/editorial-campaign.md` — editorial/product campaign register
+- `references/threeui.md` — 3D/WebGL composition register
+- `references/taste-dials.md` — Design Read and V/M/D dials
+- `references/adapters/` — stack-specific integration guidance
+- `evals/rubric.md` — quality rubric for benchmark/evaluation
 
 ---
 
-## 2. Source picker (default for this stack)
+## 0. Host Read — mandatory before design decisions
 
-This workspace is TanStack Start + React 19 + Tailwind v4 + Radix. Prefer
-**copy-own** source over new npm UI kits.
+Before changing UI, inspect the repository and state the host contract in a
+short internal note:
 
-| Need | Steal from | Notes |
-| --- | --- | --- |
-| Buttons, dialogs, inputs, menus, cards, tabs, sheets | **shadcn/ui** (Radix already in tree) | Default. Generate into `src/components/ui` |
-| Chat *layout* (message, bubble, scroller) | shadcn 2026 chat components | Layout only; stream/think still from `ai-primitives.md` |
-| Dashboard / data-heavy compositions | [ReUI](https://reui.io/components) **or** [Kibo](https://www.kibo-ui.com/) | Pick one. Data grid, filters, kanban, gantt, stepper |
-| Base-UI-flavored primitives | [coss ui](https://coss.com/ui) | Same job as shadcn; do not mix kits in one app |
-| AI chat, thinking, streaming, tool calls, approvals | `references/ai-primitives.md` | Beautiful UI fingerprints. AICSS if Vue/Svelte |
-| AI SDK already in the app | [AI Elements](https://elements.ai-sdk.dev/) | Don't also install Beautiful UI / AICSS |
-| Voice agent | LiveKit Agents UI | Only if the product is actually voice |
-| Distinctive motion (tilt, morphing panel, toast stack) | `references/motion-blocks.md` (beUI) | CSS-first; add `motion` only if already in `package.json` |
-| One ambient mark (orb, grid-reveal, beam) | Rare UI / [orbs](https://orbs.jakubantalik.com/) / [beam](https://beam.jakubantalik.com/) | **One** per surface |
-| Real 3D / WebGL hero, shader field, liquid-metal CTA | `references/threeui.md` ([threeui.com](https://threeui.com)) | One GPU scene per view. Copy Community source; do not invent GLSL |
-| Landing-page structure | shadcnblocks / Tailark / ReUI blocks | Steal tracks, delete their theme |
-| Landing-page *effect* | Magic UI / Aceternity / Originkit / Skiper | **At most one.** These are the slop-risk kits |
-| Playful product explorer / Y2K campaign | `references/editorial-campaign.md` | Locked chrome + SKU-owned worlds. Not for dashboards |
-| Landing / portfolio *taste* (read the room) | `references/taste-dials.md` + [taste-skill](https://github.com/leonxlnx/taste-skill) | Dials + copy tells. They do not own app interiors |
-| Token / theme discipline | swagui idea: surfaces from `color-mix` of fg/bg | Dark mode for free; radius/type/shadow stay fixed |
+1. **Framework/runtime** — React, Vue, Svelte, Nuxt, Next, Vite, etc.
+2. **Styling system** — Tailwind, UnoCSS, CSS Modules, SCSS, CSS-in-JS, plain CSS.
+3. **Primitive/component system** — shadcn/Radix, Element Plus, Ant Design,
+   Base UI, custom design system, or none.
+4. **Existing tokens** — colors, spacing, radius, typography, shadows, z-index.
+5. **Motion stack** — CSS only, Motion/Framer Motion, Vue transitions, GSAP, none.
+6. **Existing product patterns** — shell, cards, forms, tables, dialogs, loading,
+   error/empty states, mobile behavior.
+7. **Constraints** — browser targets, accessibility rules, bundle budget,
+   SSR/hydration, mobile/touch, existing architecture.
 
-**Do not install** a second component library next to shadcn. One kit, restyle
-with tokens.
+Never assume React, Tailwind, Radix, or `src/styles.css`.
 
----
+If an existing design system exists, **adapt to it**. Do not install a second
+button/input/modal system merely because a reference library contains a good
+pattern.
 
-## 3. Anti-slop (the tells — hard fails)
-
-These are the negative reference. If a screenshot of the app would match this
-list, rewrite the surface before calling UI done.
-
-- Gradient-blob / aurora / mesh / "AI purple" heroes **on app chrome**
-  (campaign register may use *one motif family* of blobs — see
-  `editorial-campaign.md`)
-- Glassmorphism soup, rainbow borders, neon glow
-- Emoji as icons or in chrome copy
-- Inter-everywhere with no weight/size hierarchy
-- Cards with identical radius to their inner controls
-- Elements floating with no grid, no max-width, no shared gutter
-- Lorem / gray placeholder boxes in a finished view
-- Every control bouncing, glittering, or using `transition: all`
-  (campaign: bounce is allowed on **SKU cards + hero only**)
-- Purple/violet/gold as the brand accent unless the user named that brand
-  **or** a SKU world in the campaign register
-- "Live" badges, shimmer on static text, decorative grain on every panel
-- AI inventing spacing like `p-[13px]` / `gap-[17px]` instead of the scale
-- Marketing copy tells: em-dash in UI strings, numbered eyebrows
-  (`001 · Capabilities`), div-fake screenshots, "Quietly in use at",
-  three equal feature cards, beige+brass as the silent luxury default
-  (full list: `taste-dials.md`)
-
-Comment that matters: **design systems beat vibe coding** — models hallucinate
-spacing tokens unless you give them one scale and refuse ad-hoc values.
+If no design-system skill is available, enforce the fallback quality gates in
+§7 yourself.
 
 ---
 
-## 4. Motion: purpose, frequency, speed
+## 1. Design Read
 
-From Emil Kowalski, *You Don't Need Animations*:
+Write one concise interpretation before implementation:
 
-- **Purpose first.** If you cannot name what the motion explains, delete it.
-- **Frequency.** Daily / many-times-an-hour / keyboard-initiated → **no
-  animation**. Raycast does not animate open. Highlight that follows arrow
-  keys must be instant.
-- **Speed.** UI motion generally **under 300ms**. 180ms dropdown beats 400ms.
-- **Asymmetric.** Enter a bit slower, exit quicker. Never `scale(0)`.
-- **Interruptible.** CSS transitions for hover/open/close; keyframes only for
-  one-shot sequences (success check, error shake).
-- **Reduced motion.** Every recipe has a `prefers-reduced-motion` branch.
+> Reading this as: `<surface>` for `<audience>`, `<vibe>`, leaning toward
+> `<design direction>`.
 
-Chrome recipes (menus, modals, tooltips, sliding pills, number pop-in) are
-already in `design-ui`. Use `references/motion-blocks.md` only for the
-distinctive blocks (tilt, morphing height panel, toast stack, grid-reveal,
-streaming caret).
+Then set three dials from `references/taste-dials.md`:
 
----
+- `VARIANCE` — visual novelty / composition asymmetry
+- `MOTION` — amount and prominence of movement
+- `DENSITY` — information density and spacing compression
 
-## 5. AI-native surfaces (when the product talks to a model)
+Treat values as directional, not a universal preset. Product interiors are
+usually denser and calmer than campaigns/marketing pages.
 
-If the app streams tokens, shows tools, asks the user to approve, or has a
-composer: implement primitives from `references/ai-primitives.md`. Do not
-fake them with a single `<pre>` and a spinner.
+Pick:
 
-Minimum set for any agent/chat view:
+- one **positive reference**: the interaction/layout feel to learn from;
+- one **negative reference**: the slop/tells to avoid.
 
-1. **Streaming text** — tail blur + caret, not a blinking block cursor on the
-   whole paragraph
-2. **Thinking trace** — collapsed by default, elapsed time, expandable steps
-3. **Tool chips** — compact, file + status, not a wall of JSON
-4. **Composer / prompt bar** — `@` sources, `/` commands, one primary send
-5. **Approval card** — when the model needs a human decision before acting
-
-Loading is a **pixel-grid or shimmer-on-status-line**, not a centered CSS
-spinner on a blank page.
+Do not clone brand identity, copy, illustrations, or proprietary source.
 
 ---
 
-## 6. Layout rules that actually kill slop
+## 2. Choose a skeleton before styling
 
-From the layout-steal posts: models place elements randomly unless you give
-them a skeleton.
+Use `references/layout-steal.md` to choose the page architecture first.
+Examples:
 
-- One content `max-width` (marketing ~1120–1200px, product ~960–1080px, reading
-  ~60–75ch). Gutters from the spacing scale, not magic numbers.
-- CSS grid for page chrome (`header / aside / main` or `header / main /
-  footer`). Flex only inside a cell.
-- **Steal a block's structure first** (hero + 3-up + quote + footer, or
-  app-shell + list + detail). Then swap copy and tokens.
-- Marketing and app interiors are two registers: marketing is generous
-  (large type, big gaps); app interiors are compact (13–14px base, tight
-  toolbars). Do not mix.
-- A **third register** for campaign/lookbook pages only:
-  `references/editorial-campaign.md`. Never carry bounce/blobs into app chrome.
-- A **fourth register** for a single GPU moment: `references/threeui.md`.
-  One scene per view, seated behind HTML. Never a second WebGL toy.
-- Mobile (~390px) first. No horizontal overflow. Tap targets ≥ 44px.
+- app shell + master/detail
+- dashboard + summary + data regions
+- settings + nav + sections
+- chat/agent workspace
+- landing tracks
+- editorial product explorer
+- single WebGL hero moment
+
+Steal **tracks and relationships**, not pixels:
+
+- max-width strategy
+- grid/flex regions
+- hierarchy
+- gutters
+- sticky/fixed regions
+- list/detail relationships
+- mobile collapse order
+
+The skeleton should make the page coherent before color, animation, or visual
+ornament is added.
+
+---
+
+## 3. Compose traits, not libraries
+
+Pick roughly 3–7 useful **patterns/traits** from the source registry. Examples:
+
+- compact data toolbar
+- keyboard-first command surface
+- nested-radius card hierarchy
+- stream-tail treatment
+- approval gate
+- morphing-height disclosure
+- editorial SKU world switch
+- restrained ambient mark
+- one GPU scene behind HTML chrome
+
+Popular libraries are evidence and reference material, not default runtime
+dependencies.
+
+### Dependency rule
+
+Prefer this order:
+
+1. existing host component
+2. existing host utility / primitive
+3. reimplement a small observed pattern using host primitives
+4. copy-own source **only when license and architecture make it appropriate**
+5. add a dependency only when its behavior is substantial enough to justify it
+
+Do not mix competing primitive systems in one surface unless the repository
+already does so intentionally.
+
+Consult `references/sources/registry.yaml` for source type, jobs, framework,
+license/provenance, integration mode, and risk flags.
+
+---
+
+## 4. Adapt to the host stack
+
+Use the closest adapter in `references/adapters/`.
+
+Adapters do not redefine the visual direction. They translate a selected
+pattern into the host's implementation vocabulary.
+
+Current adapter baseline:
+
+- `react-tailwind.md`
+- `vue-element-plus.md`
+- `vue-unocss.md`
+- `generic-css.md`
+
+If no exact adapter exists, follow the generic rules:
+
+- keep existing component APIs
+- map colors/space/radius/type to existing tokens
+- use existing responsive conventions
+- preserve form semantics and validation behavior
+- preserve SSR/hydration constraints
+- reuse current icon set
+- avoid new runtime dependencies for purely visual effects
+
+---
+
+## 5. Anti-slop hard fails
+
+Rewrite the surface before calling it done if it exhibits these generic tells
+without a deliberate product reason:
+
+- random aurora/mesh/AI-purple decoration on app chrome
+- glassmorphism on every panel
+- rainbow borders / neon glow without brand rationale
+- emoji used as product UI icons
+- arbitrary spacing values that bypass the host scale
+- identical radius everywhere regardless of nesting
+- floating elements with no shared grid/gutter logic
+- lorem/placeholder boxes in a finished view
+- animation on every click or keyboard action
+- `transition: all`
+- fake dashboards/screenshots built from decorative rectangles
+- three equal marketing cards simply because the model needs a section
+- copied visual identity from a reference product
+
+Campaign/editorial surfaces can be more expressive, but must still use one
+coherent motif family rather than an effect sampler.
+
+---
+
+## 6. Motion policy
+
+Motion explains state, hierarchy, causality, or spatial change. Otherwise,
+delete it.
+
+- high-frequency / keyboard-driven interactions: usually instant
+- hover/focus/open/close: prefer CSS transitions when sufficient
+- general UI motion: usually ≤ 300ms
+- enter may be slightly slower than exit
+- avoid `scale(0)` for ordinary UI
+- animations must be interruptible where repeated interaction is possible
+- always provide a `prefers-reduced-motion` path
+- do not add a motion library only to animate opacity/translate
+
+Use `references/motion-blocks.md` for distinctive recipes.
+
+---
+
+## 7. AI-native surfaces
+
+For model/agent products, do not reduce the experience to "chat bubbles +
+spinner". Compose explicit states for:
+
+- streaming response
+- progress/activity summary
+- tool invocation status
+- approval / human decision gate
+- sources/context
+- composer state
+- retry/error/cancel
+- queued/running/success/failed task states
+
+Do **not** imply that hidden chain-of-thought is available. UI labels such as
+"Thinking trace" should represent only provider-exposed progress, summarized
+reasoning, or tool/activity traces. Prefer names like **Activity**, **Progress**,
+**Execution trace**, or **Reasoning summary** when appropriate.
+
+See `references/ai-primitives.md`.
+
+---
+
+## 8. Fallback quality gates
+
+Even when there is no sibling design skill, every finished implementation must
+pass these minimum gates:
+
+- semantic HTML / correct native controls where applicable
+- keyboard reachable and operable
+- visible focus state
+- accessible names/labels
+- sufficient contrast
+- reduced-motion support
+- touch targets appropriate for mobile usage
+- no accidental horizontal overflow
+- responsive hierarchy, not merely shrinking desktop
+- loading, empty, error, disabled, and success states where the flow requires them
+- host tokens/conventions reused instead of creating an untracked parallel theme
+
+---
+
+## 9. Verification
+
+Never finish from source inspection alone.
+
+Verify in the real rendered environment when tooling allows:
+
+1. desktop target width
+2. ~390px mobile width
+3. keyboard navigation
+4. hover/focus/active/disabled states
+5. loading/empty/error states
+6. reduced motion
+7. console/hydration errors
+8. overflow and layout jumps
+
+Then compare the result against the chosen positive and negative references:
+
+- Did we inherit useful structure/behavior?
+- Did we accidentally inherit brand identity or source-specific gimmicks?
+- Does the result still look native to the host project?
 
 ---
 
 ## Finish checklist
 
-- [ ] Design Read + V/M/D declared; landing 8/6/4 not used on app chrome
-- [ ] Tokens exist in `@theme`; stolen blocks remapped onto them (no second kit)
-- [ ] Layout skeleton stolen, not invented; one max-width + grid
-- [ ] ≤ 5 colors, ≤ 2 fonts, concentric radii, no ad-hoc hex / arbitrary px
-- [ ] None of the §3 slop tells
-- [ ] Motion has a purpose and a frequency test; ≤ 300ms; reduced-motion safe
-- [ ] If a 3D/WebGL moment exists: one Community ThreeUI scene, disposed on unmount, reduced-motion still. Not a second GPU toy.
-- [ ] If it's an AI product: streaming / thinking / tools / composer are real primitives
-- [ ] Eyeballed in a real browser (AGENTS.md verification), not just curl
+- [ ] Host Read completed; no framework/library was assumed
+- [ ] Design Read + V/M/D direction declared
+- [ ] One skeleton chosen before styling
+- [ ] 3–7 traits/patterns selected; libraries treated as references, not defaults
+- [ ] Existing host component/token system preserved
+- [ ] No competing primitive kit added without a strong reason
+- [ ] Anti-slop hard fails removed
+- [ ] Motion passes purpose/frequency/reduced-motion tests
+- [ ] AI UI exposes activity summaries, not hidden chain-of-thought
+- [ ] Accessibility/responsive/state gates pass
+- [ ] Rendered result verified in-browser when possible
