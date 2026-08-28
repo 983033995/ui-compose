@@ -6,7 +6,7 @@ sources:
   - id: shadcn
     name: shadcn/ui
     role: primitive-reference
-    canonical_url: https://ui.shadcn.com/
+    canonical_url: https://github.com/shadcn-ui/ui
     frameworks: [react]
     jobs: [forms, dialogs, menus, tabs, sheets, cards]
     traits: [copy-own, accessible-primitives, composable-structure]
@@ -20,24 +20,28 @@ sources:
   - id: reui
     name: ReUI
     role: composition-reference
+    canonical_url: https://github.com/keenthemes/reui
     frameworks: [react]
     jobs: [dashboard, data-grid, filters, kanban, gantt, stepper]
     traits: [dense-app-layout, data-toolbars, workflow-composition]
     integration: trait-reimplementation
-    license: verify-upstream
-    provenance: public-source
+    license: MIT
+    provenance: public-source-free-catalog
+    last_verified: 2026-08-29
     runtime_dependency_default: false
-    risks: [react-specific, bundle-growth]
+    risks: [react-specific, bundle-growth, paid-catalog-boundary]
 
   - id: kibo
     name: Kibo UI
     role: composition-reference
+    canonical_url: https://github.com/shadcnblocks/kibo
     frameworks: [react]
     jobs: [dashboard, data-heavy, workflow]
     traits: [dense-controls, compound-components, application-patterns]
     integration: trait-reimplementation
-    license: verify-upstream
+    license: MIT
     provenance: public-source
+    last_verified: 2026-08-29
     runtime_dependency_default: false
     risks: [react-specific, overlaps-with-reui]
 
@@ -108,12 +112,12 @@ sources:
   - id: ai-elements
     name: AI Elements
     role: ai-native-reference
-    canonical_url: https://vercel.com/ai
+    canonical_url: https://github.com/vercel/ai-elements
     frameworks: [react]
     jobs: [ai-chat, ai-sdk, tools, sources, composer, streaming]
     traits: [ai-sdk-alignment, structured-agent-components, tool-state-ui, source-ui]
     integration: prefer-only-if-host-already-uses-stack
-    license: verify-upstream
+    license: Apache-2.0
     provenance: public-source
     last_verified: 2026-08-29
     runtime_dependency_default: false
@@ -146,12 +150,14 @@ sources:
   - id: magic-ui
     name: Magic UI
     role: effect-reference
+    canonical_url: https://github.com/magicuidesign/magicui
     frameworks: [react]
     jobs: [landing-effect, hero-accent]
     traits: [high-salience-effects]
     integration: inspiration-only-by-default
-    license: verify-upstream
+    license: MIT
     provenance: public-source
+    last_verified: 2026-08-29
     runtime_dependency_default: false
     risks: [high-slop-risk, react-specific]
 
@@ -170,24 +176,28 @@ sources:
   - id: threeui
     name: ThreeUI
     role: webgl-reference
+    canonical_url: https://github.com/MengTo/threeui
     frameworks: [webgl]
     jobs: [3d-hero, shader-field, gpu-accent]
     traits: [single-gpu-scene, dom-over-canvas, disposal-discipline]
     integration: reference-or-copy-when-explicitly-permitted
-    license: verify-per-component
-    provenance: mixed
+    license: MIT-community-code-and-authored-assets
+    provenance: public-community-source-with-tier-and-asset-boundaries
+    last_verified: 2026-08-29
     runtime_dependency_default: false
-    risks: [gpu-cost, accessibility, bundle-growth]
+    risks: [gpu-cost, accessibility, bundle-growth, external-asset-boundary, pro-beta-boundary]
 
   - id: taste-skill
     name: taste-skill
     role: direction-reference
+    canonical_url: https://github.com/Leonxlnx/taste-skill
     frameworks: [agent-skill]
     jobs: [landing, portfolio, redesign, design-read]
     traits: [variance-motion-density, anti-slop, design-inference]
     integration: methodology-reference
-    license: verify-upstream
+    license: MIT
     provenance: public-source
+    last_verified: 2026-08-29
     runtime_dependency_default: false
     risks: [scope-overlap]
 
