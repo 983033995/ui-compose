@@ -1,62 +1,63 @@
 # Goals
 
-This skill exists because coding agents can write CSS and still ship
-interfaces that look vibe-coded. The failure is not syntax. It is **taste
-without a skeleton**: random spacing, invented buttons, gradient-blob
-heroes, and motion on every click.
+UI Compose exists because coding agents can write valid frontend code and still make poor product decisions. The main failure is not syntax. It is composition without context: generic cards, arbitrary spacing, mismatched primitives, fashionable effects, weak product states, and layouts that ignore the host system.
 
 ## Primary goal
 
-Give an agent a **closed method** to compose frontend from proven blocks
-so the output reads as a designed product, not as "AI slop".
+Give a coding agent a repeatable method to compose interfaces from proven structural and interaction decisions while keeping the result native to the host project.
+
+The operating sequence is:
+
+**Host Read → Design Read → Skeleton → Pattern Set → Adapter → Verify**
 
 Success looks like:
 
-- One visual system (tokens, radius, type, density) used everywhere
-- Layout stolen from a real skeleton, not invented cell-by-cell
-- Primitives copied/owned (shadcn-class) instead of generated from zero
-- AI-product chrome (stream, think, tools, approve, composer) uses real
-  primitives, not a spinner plus a `<pre>`
-- Motion has a purpose, a frequency test, and a duration ≤ 300ms
-- A screenshot would not match the slop tell-list
+- the host framework, component system and tokens are preserved
+- page architecture is chosen before decorative styling
+- patterns are selected because they fit the product job, density and interaction model
+- external libraries/products are treated as evidence, not default dependencies
+- AI-native UI exposes real streaming/tool/approval/error states without implying hidden chain-of-thought
+- motion has a purpose, respects interaction frequency, and supports reduced motion
+- mobile, keyboard, loading, empty, error and destructive states are intentionally designed
+- the result does not visually clone a reference brand
 
 ## Secondary goals
 
-1. **Catalog, don't cargo-cult.** Name which library to steal from for
-   which job, and which ones are decoration that become slop if overused.
-2. **Reverse, don't iframe.** For sites with no npm package, extract the
-   actual CSS fingerprints (easing, radii, caret, shimmer) and reimplement
-   against the app's tokens.
-3. **Teach restraint.** Emil Kowalski's rule is part of the goal: the
-   best animation is often no animation. Keyboard and high-frequency UI
-   stay instant.
-4. **Stay kit-monogamous.** One primitive kit per app. Restyle stolen
-   blocks onto that kit's tokens. Never mix shadcn + MUI + HeroUI in one
-   tree.
+1. **Catalog decisions, not libraries.** Record reusable patterns and skeletons independently from the sources that inspired them.
+2. **Adapt, do not cargo-cult.** Re-express useful structure, interaction and motion using the host implementation vocabulary.
+3. **Teach restraint.** High-frequency and keyboard interactions should usually be instant or nearly instant. Decorative motion must earn its cost.
+4. **Stay primitive-system consistent.** Reuse the host button/input/dialog/table system unless there is a strong, explicit reason not to.
+5. **Keep provenance visible.** Source code, assets, trademarks and licenses remain upstream concerns; observations and independently reimplemented traits belong in UI Compose.
+6. **Measure decisions.** Eval failures should be classified as wrong skeleton, wrong pattern, wrong density, ignored host system, unnecessary dependency, missing state, accessibility failure, or brand-copy risk.
 
 ## Non-goals
 
-- Not a new component library or npm package
-- Not a Figma file or a visual clone of Linear/Stripe/Beautiful UI
-- Not permission to dump Magic UI / Aceternity / ThreeUI scenes on every
-  surface. One decorative family, one GPU scene, or none.
-- Not a replacement for a sibling design-system skill (tokens, type,
-  a11y). This skill owns *composition*; that skill owns *the system*
+UI Compose is not:
+
+- a new npm component library
+- a replacement design system
+- a visual clone of Linear, Stripe, Apple, Raycast, Beautiful UI, or any other product
+- permission to combine multiple primitive kits in one app
+- a bundle of trendy effects
+- a reason to add Tailwind, Radix, Motion, GSAP, Three.js, or any other dependency when the host does not need it
+- a replacement for a dedicated visual-direction/taste skill
+
+A design-direction skill can decide *what the interface should feel like*. UI Compose decides *how the interface should be structured and implemented in the host project*.
 
 ## Agent contract
 
-When this skill is loaded, the agent must:
+When this skill is loaded, the agent should:
 
-1. Name a **positive reference** (a real product or one block library)
-2. Name a **negative reference** (the slop tell-list)
-3. Steal a **layout skeleton** before choosing colors
-4. Pick **3–7 blocks** from `sources.md`, mapped onto existing tokens
-5. If the product talks to a model, implement the AI-native minimum set
-   in `ai-primitives.md`
-6. Refuse ad-hoc spacing (`p-[13px]`) and a second component kit
+1. perform Host Read before proposing implementation
+2. state the inferred surface, audience, density and motion direction
+3. choose a page skeleton before styling details
+4. select the smallest coherent pattern set, usually 3–7 patterns
+5. prefer host-native implementation over introducing a new UI dependency
+6. use the relevant stack adapter
+7. implement required product states, not only the happy path
+8. verify desktop, mobile, keyboard, focus, reduced motion, overflow and runtime behavior
+9. avoid copying reference identity, proprietary assets or unverified source code
 
 ## Outcome the user should feel
 
-The UI looks like someone with taste laid the tracks, and the agent
-filled them. Editing later is easy because the source of every block is
-known and owned.
+The interface should feel intentionally designed for the product and naturally implemented in its existing codebase. The user should not need to know which external products or libraries informed the decisions, because the final result should belong to the host application.
