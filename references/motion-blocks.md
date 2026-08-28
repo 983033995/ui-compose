@@ -1,94 +1,68 @@
 # Distinctive motion blocks
 
-Chrome recipes (menus, modals, tooltips, sliding pills, number pop-in,
-icon swap, error shake, skeleton reveal) already live in
-`design-ui/references/refined-ui.md` and `animations.md`. Use those
-first.
+Use these recipes only after Host Read confirms they fit the product and stack. They are **traits to translate**, not React/Tailwind defaults.
 
-This file is the **extra** blocks reverse-engineered from beUI, Rare UI,
-transitions.dev, and Emil's constraints. CSS-first. Add `motion` only if
-it is already in `package.json`.
+Hard rules:
 
-Hard rules (Emil Kowalski):
-
-- If the user will see it many times a day, or it follows the keyboard →
-  **no animation**
-- UI motion **≤ 300ms**
+- If the user will see it many times a day, or it follows the keyboard → **no animation**
+- UI motion is generally **≤ 300ms**
 - Name the purpose or delete the motion
-- `prefers-reduced-motion: reduce` on every recipe
-- Never `transition: all`; never enter from `scale(0)`
+- provide `prefers-reduced-motion: reduce`
+- never `transition: all`; never enter ordinary UI from `scale(0)`
 
 ---
 
-## 1. 3D tilt + glare (beUI Tilt Card)
+## 1. 3D tilt + glare
 
-Pointer-tracked perspective on a **rare** marketing/feature card. Do not
-put this on every list row, table, or button.
+Pointer-tracked perspective on a rare marketing/feature card. Do not use on every list row, table, or button.
 
-```tsx
-function TiltCard({ children }: { children: React.ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null);
-  function onMove(e: React.PointerEvent) {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width;
-    const py = (e.clientY - r.top) / r.height;
-    el.style.setProperty("--rx", `${(0.5 - py) * 8}deg`);
-    el.style.setProperty("--ry", `${(px - 0.5) * 10}deg`);
-    el.style.setProperty("--gx", `${px * 100}%`);
-    el.style.setProperty("--gy", `${py * 100}%`);
-  }
-  function onLeave() {
-    const el = ref.current;
-    if (!el) return;
-    el.style.setProperty("--rx", "0deg");
-    el.style.setProperty("--ry", "0deg");
-  }
-  return (
-    <div
-      ref={ref}
-      onPointerMove={onMove}
-      onPointerLeave={onLeave}
-      className="tilt relative rounded-[14px] bg-surface p-5 shadow-[0_0_0_1px_var(--color-border)]"
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-[14px] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-        style={{
-          background:
-            "radial-gradient(420px circle at var(--gx, 50%) var(--gy, 50%), color-mix(in oklab, var(--color-fg) 18%, transparent), transparent 40%)",
-        }}
-      />
-      {children}
-    </div>
-  );
-}
-```
+Framework-neutral behavior:
+
+1. read pointer position inside the card;
+2. set CSS custom properties `--rx`, `--ry`, `--gx`, `--gy`;
+3. reset rotation on pointer leave;
+4. disable transform on reduced motion and coarse/no-hover pointers.
 
 ```css
 .tilt {
+  position: relative;
   transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transform-style: preserve-3d;
   transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
 }
-@media (prefers-reduced-motion: reduce) {
-  .tilt { transform: none; transition: none; }
+
+.tilt::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 180ms ease;
+  background: radial-gradient(
+    420px circle at var(--gx, 50%) var(--gy, 50%),
+    color-mix(in oklab, currentColor 18%, transparent),
+    transparent 40%
+  );
 }
-@media (hover: none) {
-  .tilt { transform: none; }
+
+.tilt:hover::after { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce), (hover: none) {
+  .tilt { transform: none; transition: none; }
+  .tilt::after { display: none; }
 }
 ```
 
-Cap tilt at ~8–10deg. More than that looks like a souvenir shop.
+This replaces the previous example's broken `group-hover` relationship and avoids binding the recipe to React/Tailwind.
+
+Cap tilt at ~8–10deg.
 
 ---
 
-## 2. Morphing-height panel (beUI Morphing Modal)
+## 2. Morphing-height panel
 
-One surface, inner views swap, **height morphs**. Content cross-fades with
-a 2px blur. Use for settings that switch panes, checkout steps, "family
-app" sheets — not for every dialog.
+One surface, inner views swap, and the container height morphs. Useful for infrequent settings/checkout/sheet flows.
 
 ```css
 .morph-panel {
@@ -108,32 +82,29 @@ app" sheets — not for every dialog.
 }
 ```
 
-Measure the incoming view (`offsetHeight`) and set the panel height before
-swapping content. Exit 150ms, enter 220ms. Do not animate `padding`.
+Measure the incoming content height using the host framework's normal lifecycle tools. Do not animate padding.
 
 ---
 
-## 3. Toast stack (beUI Animated Toast Stack)
+## 3. Toast stack
 
-Toasts rise from one corner, stack with a slight scale-down on older
-items, swipe to dismiss. Spatial: enter and exit along the **same axis**
-(Emil / Sonner) so the swipe gesture matches.
+If the host already has a toast system, keep it. Improve only stack physics/visual hierarchy if necessary.
 
-- Newest at the front, `scale(1)`; the one behind `scale(0.96)` + 8px
-  translate; third `scale(0.92)`
-- Enter: 220ms up + fade; exit: 150ms the same way
-- Auto-dismiss ~4.2s (beUI default)
-- Status morph (loading → success) is an **icon swap** from `design-ui`,
-  not a new card
+Suggested behavior:
 
-Do not invent a fourth toast library if `sonner` or a local stack exists.
+- newest at scale 1
+- older items recede slightly
+- enter ~220ms; exit ~150ms along the same axis
+- swipe direction should match exit direction
+- loading → success should morph status inside the same toast rather than create a new toast
+
+Do not install a fourth toast library for this effect.
 
 ---
 
-## 4. Grid reveal (Rare UI)
+## 4. Grid reveal
 
-Hero media or a feature panel appears cell-by-cell. One use per page,
-on first paint only.
+Hero media or a feature panel appears cell-by-cell. One use per page, first paint only.
 
 ```css
 @keyframes grid-cell {
@@ -143,68 +114,55 @@ on first paint only.
 .grid-reveal > * {
   animation: grid-cell 320ms cubic-bezier(0.23, 1, 0.32, 1) both;
 }
-.grid-reveal > *:nth-child(1) { animation-delay: 0ms; }
-.grid-reveal > *:nth-child(2) { animation-delay: 40ms; }
-.grid-reveal > *:nth-child(3) { animation-delay: 80ms; }
-/* stagger 40ms; cap at ~12 cells */
 @media (prefers-reduced-motion: reduce) {
   .grid-reveal > * { animation: none; }
 }
 ```
 
----
-
-## 5. Fluid orb (Rare UI, ambient only)
-
-WebGL orb with drifting color patches — ChatGPT-voice energy. Use as a
-**listening / generating** mark in an agent product, 48–80px, one on
-screen. Do not use as a hero background.
-
-If WebGL is too heavy for the app, fake the ambient with the pixel-grid
-loader from `ai-primitives.md` instead.
+Stagger lightly and cap the number of animated cells.
 
 ---
 
-## 6. Streaming + thinking (transitions.dev verbs)
+## 5. Ambient orb
 
-Already specified in `ai-primitives.md`:
+A small animated mark can communicate listening/generating state. Keep it small and singular. Prefer CSS/canvas/WebGL only when the product meaning justifies the cost.
 
-| Verb | Recipe |
+Do not use it as a generic full-page AI background.
+
+---
+
+## 6. Streaming / agent activity
+
+For AI surfaces:
+
+| State | Motion treatment |
 | --- | --- |
-| Tokens arriving | stream-tail blur + solid caret |
-| Idle after stream | blinking 2px caret |
-| Model is thinking | shimmer-line on the status, then swap to "Thought for Ns" |
-| Skeleton → content | cross-fade 400ms, optional 2px blur (design-ui) |
+| tokens arriving | stream-tail / caret only |
+| running activity | subtle status-line animation |
+| tool state change | compact icon/status transition |
+| skeleton → content | short cross-fade, optional tiny blur |
 
-Do not also bounce, sparkle, or gradient-wash the text.
+Do not imply hidden chain-of-thought. Animate only provider-exposed activity/progress or summarized reasoning.
 
 ---
 
 ## 7. When to ship zero motion
 
-Copy this test before adding a recipe:
-
 | Interaction | Motion? |
 | --- | --- |
-| Command palette open from keyboard | No |
-| Highlight moving with arrow keys | No (instant background) |
-| App / overlay open that happens dozens of times a day | No |
-| Hover on a nav item used all session | Color/opacity only, 0–80ms or none |
-| Primary button press | Optional `scale(0.96)`, 150ms |
-| Modal / sheet the user opens a few times a session | Yes, design-ui modal/panel |
-| First-run hero, rare success, first thinking reveal | Yes, once |
-| Streaming tokens | Yes, the tail/caret only |
-
-A faster spinner (or no spinner — just the pixel grid + elapsed time)
-improves *perceived* speed more than a 400ms flourish.
+| Command palette from keyboard | No |
+| Arrow-key highlight | No |
+| Frequently used app overlay | Usually no |
+| Nav hover | Color/opacity only or none |
+| Primary button press | Optional subtle press |
+| Rare modal/sheet | Yes, restrained |
+| First-run hero / rare success | Yes, once |
+| Streaming tokens | Tail/caret only |
 
 ---
 
-## 8. Origin-aware surfaces (beUI + design-ui)
+## 8. Origin-aware surfaces
 
-Dropdowns and morphing menus scale from the **trigger**, not the viewport
-center. Centered dialogs stay center-origin at `--motion-scale-modal`
-(~0.96). Close is faster than open.
+Menus/dropdowns should appear from their trigger/spatial origin. Centered dialogs stay center-origin. Exit is usually quicker than enter.
 
-If you find yourself animating the outer page wrapper so a badge can pop,
-you picked the wrong node — animate the badge.
+Animate the smallest node that communicates the state change; do not move the entire page just to make a badge or icon feel alive.
