@@ -1,0 +1,172 @@
+version: 0.2
+updated: 2026-08-29
+principle: "Sources are evidence of good UI decisions, not default runtime dependencies."
+
+sources:
+  - id: shadcn
+    name: shadcn/ui
+    role: primitive-reference
+    frameworks: [react]
+    jobs: [forms, dialogs, menus, tabs, sheets, cards]
+    traits: [copy-own, accessible-primitives, composable-structure]
+    integration: reference-or-copy-own
+    license: MIT
+    provenance: public-source
+    runtime_dependency_default: false
+    risks: [react-specific]
+
+  - id: reui
+    name: ReUI
+    role: composition-reference
+    frameworks: [react]
+    jobs: [dashboard, data-grid, filters, kanban, gantt, stepper]
+    traits: [dense-app-layout, data-toolbars, workflow-composition]
+    integration: trait-reimplementation
+    license: verify-upstream
+    provenance: public-source
+    runtime_dependency_default: false
+    risks: [react-specific, bundle-growth]
+
+  - id: kibo
+    name: Kibo UI
+    role: composition-reference
+    frameworks: [react]
+    jobs: [dashboard, data-heavy, workflow]
+    traits: [dense-controls, compound-components, application-patterns]
+    integration: trait-reimplementation
+    license: verify-upstream
+    provenance: public-source
+    runtime_dependency_default: false
+    risks: [react-specific, overlaps-with-reui]
+
+  - id: coss
+    name: coss ui
+    role: primitive-reference
+    frameworks: [react]
+    jobs: [controls, primitives]
+    traits: [base-ui-style-primitives, restrained-visuals]
+    integration: reference-only-by-default
+    license: verify-upstream
+    provenance: public-source
+    runtime_dependency_default: false
+    risks: [competing-primitive-system]
+
+  - id: beautiful-ui
+    name: Beautiful UI
+    role: ai-native-reference
+    frameworks: [web]
+    jobs: [streaming, agent-status, thinking-summary, tool-status, composer]
+    traits: [compact-ai-chrome, stream-tail, execution-state-visualization]
+    integration: trait-reimplementation
+    license: verify-upstream
+    provenance: observed-behavior
+    runtime_dependency_default: false
+    risks: [proprietary-identity, chain-of-thought-wording]
+
+  - id: aicss
+    name: AICSS
+    role: ai-native-reference
+    frameworks: [react, vue, svelte]
+    jobs: [ai-interface, streaming, status]
+    traits: [cross-framework-ai-patterns, lightweight-states]
+    integration: trait-reimplementation
+    license: verify-upstream
+    provenance: public-source
+    runtime_dependency_default: false
+    risks: []
+
+  - id: ai-elements
+    name: AI Elements
+    role: ai-native-reference
+    frameworks: [react]
+    jobs: [ai-chat, ai-sdk, tools, sources]
+    traits: [ai-sdk-alignment, structured-agent-components]
+    integration: prefer-only-if-host-already-uses-stack
+    license: verify-upstream
+    provenance: public-source
+    runtime_dependency_default: false
+    risks: [react-specific, stack-coupling]
+
+  - id: beui
+    name: beUI
+    role: motion-reference
+    frameworks: [web]
+    jobs: [tilt, morphing-panel, toast-stack]
+    traits: [css-first-motion, tactile-feedback, restrained-duration]
+    integration: trait-reimplementation
+    license: verify-upstream
+    provenance: observed-behavior
+    runtime_dependency_default: false
+    risks: [over-animation]
+
+  - id: rare-ui
+    name: Rare UI
+    role: ambient-reference
+    frameworks: [web]
+    jobs: [ambient-mark, reveal, decorative-accent]
+    traits: [single-accent-moment, lightweight-ornament]
+    integration: trait-reimplementation
+    license: verify-upstream
+    provenance: observed-behavior
+    runtime_dependency_default: false
+    risks: [slop-if-stacked]
+
+  - id: magic-ui
+    name: Magic UI
+    role: effect-reference
+    frameworks: [react]
+    jobs: [landing-effect, hero-accent]
+    traits: [high-salience-effects]
+    integration: inspiration-only-by-default
+    license: verify-upstream
+    provenance: public-source
+    runtime_dependency_default: false
+    risks: [high-slop-risk, react-specific]
+
+  - id: aceternity
+    name: Aceternity UI
+    role: effect-reference
+    frameworks: [react]
+    jobs: [landing-effect, hero]
+    traits: [dramatic-interaction, display-effects]
+    integration: inspiration-only-by-default
+    license: verify-upstream
+    provenance: public-source
+    runtime_dependency_default: false
+    risks: [high-slop-risk, react-specific]
+
+  - id: threeui
+    name: ThreeUI
+    role: webgl-reference
+    frameworks: [webgl]
+    jobs: [3d-hero, shader-field, gpu-accent]
+    traits: [single-gpu-scene, dom-over-canvas, disposal-discipline]
+    integration: reference-or-copy-when-explicitly-permitted
+    license: verify-per-component
+    provenance: mixed
+    runtime_dependency_default: false
+    risks: [gpu-cost, accessibility, bundle-growth]
+
+  - id: taste-skill
+    name: taste-skill
+    role: direction-reference
+    frameworks: [agent-skill]
+    jobs: [landing, portfolio, redesign, design-read]
+    traits: [variance-motion-density, anti-slop, design-inference]
+    integration: methodology-reference
+    license: verify-upstream
+    provenance: public-source
+    runtime_dependency_default: false
+    risks: [scope-overlap]
+
+  - id: editorial-campaign
+    name: SOLESHIFT / SWIRL campaign observations
+    role: editorial-reference
+    frameworks: [web]
+    jobs: [dtc, lookbook, product-explorer, campaign]
+    traits: [sku-owned-worlds, locked-chrome, editorial-type, palette-switching]
+    integration: observed-trait-reimplementation
+    license: not-applicable-to-observed-traits
+    provenance: observed-behavior
+    runtime_dependency_default: false
+    risks: [brand-cloning, touch-hover-mismatch]
