@@ -1,0 +1,47 @@
+id: agent-chat
+case_ids:
+  - 02-agent-chat
+framework: framework-agnostic host application
+runtime: browser app with provider-exposed streaming and tool state
+styling: existing host tokens and component styles
+primitive_system: host-owned button input panel dialog and typography primitives
+tokens: existing semantic color spacing radius typography and state tokens
+motion: host CSS/transition system; no default motion dependency
+package_manager: pnpm
+dependencies:
+  - provider-sdk-or-mock
+forbidden_default_dependencies:
+  - ai-elements
+  - shadcn
+  - radix-ui
+  - framer-motion
+commands:
+  install: pnpm install --frozen-lockfile
+  build: pnpm build
+  test: pnpm test
+  dev: pnpm dev
+representative_files:
+  - package.json
+  - src/ai/provider-contract.ts
+  - src/components/AppButton.tsx
+  - src/components/AppComposer.tsx
+  - src/views/AgentBaseline.tsx
+required_states:
+  - streaming
+  - tool-queued
+  - tool-running
+  - tool-success
+  - tool-failure
+  - approval-required
+  - disconnected
+  - retryable-error
+accessibility_contract:
+  - Tool and approval status is expressed in text or semantics, not color alone.
+  - Stop retry and approval actions are keyboard-operable and visibly focused.
+  - Approval copy names consequence and scope before a consequential action executes.
+mobile_contract:
+  - Around 390px, the composer remains reachable when the virtual keyboard is open.
+  - Tool detail and source/context inspection do not force page-level horizontal overflow.
+  - Approval actions remain readable and operable at touch sizes.
+snapshot_ref: null
+notes: Provider data may expose streaming text, tool lifecycle, sources, approvals, and concise reasoning summaries. The fixture must not expose or fabricate hidden chain-of-thought. AI component libraries are evidence sources only unless the host already uses them.
