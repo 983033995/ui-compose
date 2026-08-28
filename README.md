@@ -48,6 +48,7 @@ The skill is `SKILL.md`. Depth is loaded on demand from `references/`.
 | [`references/ai-primitives.md`](references/ai-primitives.md) | Implementable streaming / thinking / tools / composer |
 | [`references/motion-blocks.md`](references/motion-blocks.md) | Tilt, morphing panel, toast stack, when to ship zero motion |
 | [`references/editorial-campaign.md`](references/editorial-campaign.md) | Y2K × editorial DTC landings (SOLESHIFT° / SWIRL°) |
+| [`references/threeui.md`](references/threeui.md) | 3D / WebGL Lego — ThreeUI catalog, mount, disposal |
 
 ## Method (short)
 
@@ -75,7 +76,8 @@ Per-site steal/skip: [`references/reverse-engineering.md`](references/reverse-en
 Catalog includes Beautiful UI, AICSS, AI Elements, Cult UI, LiveKit
 Agents UI, shadcn, ReUI, Kibo, coss, beUI, Rare UI, transitions.dev,
 Magic UI, Aceternity, Originkit, Canvas UI, Skiper, orbs, border-beam,
-swagui, and the "you don't need animations" rule.
+swagui, ThreeUI (Meng To), SOLESHIFT°/SWIRL° campaign register, and
+the "you don't need animations" rule.
 
 ## Pairing
 

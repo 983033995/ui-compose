@@ -213,6 +213,33 @@ devouring-details sign-in). One file per component, CLI install.
 for a live session, not for settings).
 **Skip:** cursor trails on data-entry screens.
 
+### ThreeUI — [threeui.com](https://threeui.com) · [MengTo/threeui](https://github.com/MengTo/threeui)
+
+Meng To's copy-ready Three.js catalog. Community MIT (`@designcodeio/threeui`,
+160+). Procedural scenes, 100–200 KB, "copy the prompt, give it to your
+agent." Full recipe: `threeui.md`.
+
+**Fingerprints:**
+
+- Theme machine: `data-theme` + `data-scheme` + `data-palette`
+  (`mono|sepia|azure|moss|mauve`), default dark/mono
+- Mount: `isolation: isolate`, canvas `opacity: 0 → 1` in **180ms ease-out**,
+  `pointer-events: none` unless the scene *is* the control
+- Paper: dark fields `#030304` / `#05070a`; light `#f3f5f8`; warm analog
+  `#ecdcbc` / `#ece7dc`
+- Meta type: Fragment Mono 8–10px, tracking `0.10–0.12em`
+- Dock: radius 11/7, `blur(18px) saturate(75%)`, hairline `#292929`
+- Pixel ratio cap 2; dispose geometry/material/renderer on unmount
+- Reduced motion: still poster, no RAF
+
+**Steal:** one Community item whose *interaction* matches the job; retune
+palette/lights/copy; HTML chrome on top of the canvas.
+**Skip:** inventing GLSL; stacking with Magic UI / Aceternity / Rare orbs;
+WebGL inside chat, tables, settings; hotlinking threeui.com thumbnails;
+pasting Pro source without a license.
+**Agent move:** `threeui.md` workflow. Background ≠ hero. One GPU scene
+per view.
+
 ### SOLESHIFT° / SWIRL° — Shams campaign landings
 
 Not a library. A **register**. Full recipe: `editorial-campaign.md`.
@@ -350,6 +377,11 @@ Is it a marketing landing?
 Need a distinctive moment?
   yes → one beUI/Rare/Skiper piece, restyle to tokens
   no  → do not add Magic UI "just because"
+
+Need a real 3D / WebGL / shader scene (not a CSS orb)?
+  yes → threeui.md — one Community item, mount behind HTML, dispose
+  no  → CSS-first (orbs, beam, motion-blocks). Do not add Three.js
+        "to look premium"
 
 Is it a playful product explorer / Y2K campaign / lookbook?
   yes → editorial-campaign.md (locked chrome + SKU worlds)

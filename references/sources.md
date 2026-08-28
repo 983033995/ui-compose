@@ -48,6 +48,7 @@ chips, composer, approval card. See `ai-primitives.md`.
 | [Originkit](https://www.originkit.dev/) | One free animated piece | Theming the app around it |
 | [Canvas UI](https://canvasui.dev/) | Hero / generative mark over live HTML | Product chrome inside a canvas |
 | [Skiper UI](https://skiper-ui.com/) | One uncommon interaction (island, trail) | Cursor trails on data-entry |
+| [ThreeUI](https://threeui.com) | One real 3D/WebGL moment (hero, shader field, liquid-metal CTA). Community MIT: `@designcodeio/threeui` / [MengTo/threeui](https://github.com/MengTo/threeui) | Inventing GLSL. Stacking with Magic UI. GPU inside chat/CRUD. See `threeui.md` |
 | [You Don't Need Animations](https://emilkowal.ski/ui/you-dont-need-animations) | When to ship **zero** motion | — |
 
 Rare UI names: `fluidorb`, `gridreveal`, `gravityletters`,
@@ -96,5 +97,8 @@ not the links as a cargo cult.
 - Shams (@ShamsAmin56): Y2K × editorial campaign landings (SOLESHIFT°,
   SWIRL°) — locked chrome, SKU-owned worlds, hover swaps the stage.
   See `editorial-campaign.md`.
+- Meng To (@MengTo): ThreeUI — copy-ready Three.js scenes, 100–200 KB
+  procedural, "give the prompt to your agent". Same Lego method for GPU.
+  See `threeui.md`.
 - Comment on Peng's post: models hallucinate spacing tokens.
   **Design systems > vibe coding.**

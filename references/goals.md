@@ -38,7 +38,8 @@ Success looks like:
 
 - Not a new component library or npm package
 - Not a Figma file or a visual clone of Linear/Stripe/Beautiful UI
-- Not permission to dump Magic UI / Aceternity effects on every surface
+- Not permission to dump Magic UI / Aceternity / ThreeUI scenes on every
+  surface. One decorative family, one GPU scene, or none.
 - Not a replacement for a sibling design-system skill (tokens, type,
   a11y). This skill owns *composition*; that skill owns *the system*
 

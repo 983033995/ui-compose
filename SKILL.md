@@ -7,11 +7,12 @@ description: >
   any interface that would otherwise look like generic "AI slop". Encodes the
   Lego workflow from public agent-UI practice plus reverse-engineered recipes
   from Beautiful UI, AICSS, AI Elements, beUI, Rare UI, transitions.dev,
-  shadcn, ReUI, Kibo, Magic UI, Aceternity, and related registries.
-  Triggers on "frontend", "UI", "looks like AI", "slop", "polish",
-  "landing", "dashboard", "chat UI", "agent UI", "component library",
-  "make it look good", "design system", "Y2K", "lookbook", "campaign",
-  "product explorer", "footwear", "DTC".
+  shadcn, ReUI, Kibo, Magic UI, Aceternity, ThreeUI, and related
+  registries. Triggers on "frontend", "UI", "looks like AI", "slop",
+  "polish", "landing", "dashboard", "chat UI", "agent UI",
+  "component library", "make it look good", "design system", "Y2K",
+  "lookbook", "campaign", "product explorer", "three.js", "WebGL",
+  "shader", "3D hero".
 metadata:
   short-description: "Lego frontend: steal structure, compose proven blocks, anti-slop AI-native UI"
 user-invocable: false
@@ -36,6 +37,7 @@ does not look vibe-coded.
 - `references/ai-primitives.md` — reverse-engineered AI-native chrome (Beautiful UI)
 - `references/motion-blocks.md` — distinctive motion blocks (beUI / Rare UI / Emil)
 - `references/editorial-campaign.md` — Y2K × editorial DTC landings (SOLESHIFT° / SWIRL°)
+- `references/threeui.md` — 3D / WebGL Lego (ThreeUI catalog, mount, disposal)
 
 ---
 
@@ -97,6 +99,7 @@ This workspace is TanStack Start + React 19 + Tailwind v4 + Radix. Prefer
 | Voice agent | LiveKit Agents UI | Only if the product is actually voice |
 | Distinctive motion (tilt, morphing panel, toast stack) | `references/motion-blocks.md` (beUI) | CSS-first; add `motion` only if already in `package.json` |
 | One ambient mark (orb, grid-reveal, beam) | Rare UI / [orbs](https://orbs.jakubantalik.com/) / [beam](https://beam.jakubantalik.com/) | **One** per surface |
+| Real 3D / WebGL hero, shader field, liquid-metal CTA | `references/threeui.md` ([threeui.com](https://threeui.com)) | One GPU scene per view. Copy Community source; do not invent GLSL |
 | Landing-page structure | shadcnblocks / Tailark / ReUI blocks | Steal tracks, delete their theme |
 | Landing-page *effect* | Magic UI / Aceternity / Originkit / Skiper | **At most one.** These are the slop-risk kits |
 | Playful product explorer / Y2K campaign | `references/editorial-campaign.md` | Locked chrome + SKU-owned worlds. Not for dashboards |
@@ -188,10 +191,8 @@ them a skeleton.
 - Marketing and app interiors are two registers: marketing is generous
   (large type, big gaps); app interiors are compact (13–14px base, tight
   toolbars). Do not mix.
-- A **third register** exists for campaign/lookbook pages only:
-  `references/editorial-campaign.md` (cream paper, chunky type, SKU-owned
-  worlds, hover swaps the whole stage). Never carry its bounce/blobs into
-  app chrome.
+- A **fourth register** for a single GPU moment: `references/threeui.md`.
+  One scene per view, seated behind HTML. Never a second WebGL toy.
 - Mobile (~390px) first. No horizontal overflow. Tap targets ≥ 44px.
 
 ---
@@ -203,5 +204,4 @@ them a skeleton.
 - [ ] ≤ 5 colors, ≤ 2 fonts, concentric radii, no ad-hoc hex / arbitrary px
 - [ ] None of the §3 slop tells
 - [ ] Motion has a purpose and a frequency test; ≤ 300ms; reduced-motion safe
-- [ ] If it's an AI product: streaming / thinking / tools / composer are real primitives
-- [ ] Eyeballed in a real browser (AGENTS.md verification), not just curl
+- [ ] If a 3D/WebGL moment exists: one Community ThreeUI scene, disposed on unmount, reduced-motion still. Not a second GPU toy.
