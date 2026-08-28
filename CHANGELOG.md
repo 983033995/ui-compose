@@ -7,47 +7,52 @@
 - `references/patterns/registry.yaml` for reusable product/UI decisions independent of source libraries.
 - `references/skeletons/registry.yaml` for page-level composition structures.
 - `references/composition-selection.md` for host-aware skeleton/pattern selection and risk filtering.
-- JSON Schemas for Source, Pattern, Skeleton, and observed Eval Result records.
+- `references/physics.md` for host-neutral fallback UI physics: timing, easing, type/measure, radius nesting, elevation, and AI-streaming behavior.
+- `references/patterns/recipes.md` for host-neutral implementation recipes attached to mature canonical Pattern IDs.
+- Initial recipes for dense filter toolbar, master/detail preview, AI conversation thread, AI tool execution, human approval, persistent composer, and sticky contextual actions.
+- JSON Schemas for Source, Pattern, Skeleton, Fixture, and observed Eval Result records.
 - `scripts/validate_registries.py` for schema and cross-reference validation.
 - `scripts/validate_skill.py` for Agent Skills frontmatter/name/description checks, progressive-disclosure budget, and OpenAI UI metadata validation.
-- `scripts/validate_evals.py` for observed benchmark record validation, case/pattern/skeleton references, rubric arithmetic, and rendered-artifact requirements.
-- GitHub Actions workflow to run skill + registry + eval-result validation on pushes and pull requests.
+- `scripts/validate_evals.py` for benchmark Fixture/Result validation, references, rubric arithmetic, and rendered-artifact requirements.
+- GitHub Actions workflow to run skill + registry + eval validation on pushes and pull requests.
 - `DELIVERY.md` defining stable-release gates, hard blockers, and a 100-point project-readiness model.
 - `evals/harness/README.md` defining a reproducible rendered-benchmark execution and capture protocol.
 - `evals/results/README.md` defining how observed benchmark evidence, screenshots, build status, dependency diffs, and scores are stored without fabricating results.
-- Repeatable eval case format plus a nine-case host/product diversity matrix:
-  - Vue 3 + Element Plus order management
-  - AI agent chat/tool/approval workflow
-  - product settings
-  - React + Tailwind/local-primitives data workspace
-  - Vue + UnoCSS CRM
-  - SaaS marketing landing
-  - editorial product explorer
-  - restrained WebGL hero
-  - unfamiliar custom/internal design system
+- Repeatable eval case format plus a nine-case host/product diversity matrix.
 - Linear and Raycast as product-interaction evidence in the Source Registry.
+
+### Second-opinion / recipe restoration
+
+Integrated the useful parts of Grok PR #2 without merging its older review branch directly:
+
+- retained Host Read, Source/Pattern/Skeleton registries, adapters, provenance, fixtures, and eval architecture;
+- moved framework compatibility guidance out of top-level `SKILL.md` frontmatter for stricter packager compatibility;
+- fixed SKILL pointers so Skeleton and Pattern selection come from their registries before Source evidence lookup;
+- changed the Pattern target from a hard 3–7 quota to the **smallest coherent compatible set**;
+- restored implementable AI recipes and shared UI physics without reintroducing React/shadcn assumptions;
+- fixed the streaming-caret completion bug: completed responses remove/hide active caret state;
+- demoted synthetic numeric composition scoring to qualitative ranking after authoritative hard rejects;
+- split anti-slop guidance into hard failures and contextual heuristics rather than banning editorial conventions globally.
 
 ### Validation
 
-CI now checks:
+CI checks:
 
-- Agent Skills frontmatter and install-name contract
+- strict portable Agent Skills frontmatter and install-name contract
 - required `name` and `description` metadata
 - SKILL.md progressive-disclosure line budget
 - current OpenAI `agents/openai.yaml` interface metadata shape
-- registry JSON Schema conformance
-- duplicate IDs
+- registry JSON Schema conformance and duplicate IDs
 - Pattern evidence pointing to real Source IDs
 - Skeleton recommendations pointing to real Pattern IDs
-- known adapter IDs
-- valid density/motion ranges
-- source verification metadata consistency
-- eval-result JSON Schema conformance
-- Eval → Case / Pattern / Skeleton references
+- known adapter IDs and valid density/motion ranges
+- source verification metadata consistency and stale-verification warnings
+- benchmark Fixture schema, Case references, and dependency-policy consistency
+- Eval Result schema and Fixture/Case/Pattern/Skeleton references
 - rubric component-sum consistency
-- desktop and mobile artifact references for runs marked `build_status: passed`
+- desktop/mobile artifact references for passed rendered runs
 
-The combined Agent Skill + Registry + Eval Result validation workflow has completed successfully. Zero observed benchmark results are allowed during development, but that state is explicitly excluded from delivery-readiness evidence.
+Source verification dates allow a one-day local-timezone/UTC skew so CI does not falsely reject a verification recorded just after local midnight; larger future-date errors still fail.
 
 ### Changed
 
@@ -57,7 +62,7 @@ The combined Agent Skill + Registry + Eval Result validation workflow has comple
 - Replaced `reverse-engineering.md` website/CSS fingerprint shopping with an **Observe → Evidence → Trait → Pattern → Provenance → Host adaptation → Verify** protocol.
 - Replaced `sources.md` library shopping list with a source-evidence guide backed by the structured registry.
 - Reworked `threeui.md` into a host-aware, provenance-safe WebGL evidence adapter with performance, fallback, accessibility, lifecycle, and tier/asset-boundary gates.
-- Updated README to document Composition Intelligence, Agent Skill validation, current OpenAI metadata, the delivery gate, full eval matrix, benchmark harness, observed-result protocol, and CI.
+- Updated README to document Composition Intelligence, Recipe/Physics layers, Agent Skill validation, delivery gates, eval matrix, benchmark harness, observed-result protocol, and CI.
 
 ### Provenance verification
 
@@ -75,14 +80,13 @@ Sources without sufficient authoritative evidence remain `verify-upstream` rathe
 
 ### Research policy
 
-A research pass should no longer grow the canonical source list merely because a site looks interesting. It should improve at least one durable asset: Source metadata, Pattern evidence, Skeleton evidence, provenance/risk guidance, or an Eval hypothesis.
+A research pass should no longer grow the canonical source list merely because a site looks interesting. It should improve at least one durable asset: Source metadata, Pattern evidence/recipe, Skeleton evidence, provenance/risk guidance, or an Eval hypothesis.
 
 ### Next
 
-- Build realistic host fixture contracts/apps for the first high-information benchmark batch: cases 01, 02, 04, and 09.
-- Execute the first real rendered benchmark outputs and capture build results, desktop/mobile screenshots, keyboard/reduced-motion notes, dependency diffs, and rubric scores.
+- Build realistic executable fixture apps for the first high-information benchmark batch, especially eval 01 and 02.
+- Execute real rendered benchmark outputs and capture build results, desktop/mobile screenshots, keyboard/reduced-motion notes, dependency diffs, and rubric scores.
 - Record comparative results with the structured Eval Result schema.
-- Add robust source-freshness/link checks without making transient network failures a hard build failure.
 - Continue canonical-URL/license verification for remaining `verify-upstream` source entries.
 - Add adapters only when real eval failures demonstrate a host-integration gap.
 
