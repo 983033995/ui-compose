@@ -1,0 +1,154 @@
+version: 0.3
+updated: 2026-08-29
+principle: "Patterns are reusable UI decisions independent of any single source library or brand."
+
+patterns:
+  - id: dense-filter-toolbar
+    surface: app-interior
+    jobs: [search, filter, sort, bulk-action]
+    density: [7, 10]
+    motion: [0, 2]
+    structure: [primary-search, adjacent-filters, active-filter-summary, result-count, contextual-actions]
+    states: [default, filtered, loading, disabled, bulk-selection]
+    adapters:
+      vue-element-plus: [el-input, el-select, el-button, el-tag]
+      react-tailwind: [host-input, host-select, host-button, host-badge]
+      generic-css: [host-input, host-select, host-button]
+    evidence: [reui, kibo, linear]
+    risks: [toolbar-overload, hidden-filter-state]
+
+  - id: master-detail-preview
+    surface: app-interior
+    jobs: [browse, inspect, triage, edit]
+    density: [6, 10]
+    motion: [0, 3]
+    structure: [collection-pane, focused-row, preview-pane, primary-actions]
+    states: [empty, focused, loading-detail, error-detail]
+    interaction: [keyboard-next-prev, escape-close, optional-space-preview]
+    adapters:
+      vue-element-plus: [el-table-or-list, el-drawer-or-split-pane]
+      react-tailwind: [host-list, host-sheet-or-split-pane]
+      generic-css: [host-list, host-panel]
+    evidence: [linear]
+    risks: [mobile-two-pane-overflow, focus-loss]
+
+  - id: view-options-control
+    surface: app-interior
+    jobs: [group, order, layout-switch, visibility]
+    density: [5, 9]
+    motion: [0, 2]
+    structure: [single-entry-control, grouped-options, persistent-user-preference]
+    states: [default, customized, saved]
+    evidence: [linear]
+    risks: [preference-sprawl, discoverability]
+
+  - id: keyboard-command-surface
+    surface: app-interior
+    jobs: [navigate, create, search, execute]
+    density: [5, 9]
+    motion: [0, 2]
+    structure: [query, ranked-results, shortcut-hints, optional-preview]
+    states: [empty-query, results, no-results, executing]
+    accessibility: [roving-focus-or-activedescendant, escape-close, visible-shortcuts]
+    evidence: [linear, raycast]
+    risks: [mouse-only-fallback, animated-keyboard-selection]
+
+  - id: ai-conversation-thread
+    surface: ai-native
+    jobs: [message, stream, inspect-sources, retry]
+    density: [4, 8]
+    motion: [0, 3]
+    structure: [thread-scroll-region, message-parts, inline-tool-state, composer]
+    states: [idle, submitting, streaming, stopped, failed, completed]
+    evidence: [ai-elements, beautiful-ui]
+    risks: [chat-bubble-default, scroll-jank, hidden-state]
+
+  - id: ai-tool-execution-card
+    surface: ai-native
+    jobs: [tool-call, inspect-input, inspect-output, retry]
+    density: [6, 10]
+    motion: [0, 2]
+    structure: [tool-identity, status, compact-input, compact-output, error]
+    states: [queued, running, success, failed, cancelled]
+    evidence: [ai-elements, beautiful-ui]
+    risks: [raw-json-dump, excessive-chrome]
+
+  - id: ai-activity-summary
+    surface: ai-native
+    jobs: [progress, execution-trace, reasoning-summary]
+    density: [5, 9]
+    motion: [0, 2]
+    structure: [status-line, elapsed-time, expandable-provider-exposed-steps]
+    states: [running, completed, failed]
+    evidence: [beautiful-ui, ai-elements]
+    risks: [hidden-chain-of-thought-implication, fake-progress]
+
+  - id: human-approval-gate
+    surface: ai-native
+    jobs: [approve, reject, choose, confirm]
+    density: [4, 8]
+    motion: [0, 2]
+    structure: [decision-context, options, consequence-summary, primary-action, secondary-action]
+    states: [awaiting, selected, submitting, approved, rejected]
+    evidence: [beautiful-ui, ai-elements]
+    risks: [ambiguous-consequence, destructive-default]
+
+  - id: persistent-composer
+    surface: ai-native
+    jobs: [prompt, attach, command, submit]
+    density: [4, 8]
+    motion: [0, 2]
+    structure: [growing-input, attachment-entry, command-entry, submit]
+    states: [idle, focused, composing, uploading, submitting, disabled]
+    evidence: [beautiful-ui, ai-elements]
+    risks: [giant-textarea, mobile-keyboard-overlap]
+
+  - id: sticky-contextual-actions
+    surface: app-interior
+    jobs: [bulk-action, save, destructive-action]
+    density: [6, 10]
+    motion: [0, 2]
+    structure: [selection-summary, primary-action, secondary-actions, dismiss]
+    states: [hidden, active, submitting, success, error]
+    evidence: [reui, kibo]
+    risks: [obscured-content, unclear-selection]
+
+  - id: settings-section-stack
+    surface: app-interior
+    jobs: [configure, inspect, update]
+    density: [4, 8]
+    motion: [0, 1]
+    structure: [section-title, explanation, controls, inline-validation, destructive-zone]
+    states: [clean, dirty, saving, saved, error]
+    evidence: [shadcn]
+    risks: [card-everything, weak-destructive-separation]
+
+  - id: editorial-world-switch
+    surface: campaign
+    jobs: [explore-product, switch-variant, compare-worlds]
+    density: [2, 6]
+    motion: [4, 8]
+    structure: [locked-chrome, active-world, selector, persistent-product-info]
+    states: [default, hover-preview, active, touch-active, reduced-motion]
+    evidence: [editorial-campaign]
+    risks: [brand-cloning, hover-only-interaction, effect-stacking]
+
+  - id: single-ambient-moment
+    surface: marketing
+    jobs: [hero-emphasis, brand-accent]
+    density: [1, 5]
+    motion: [2, 6]
+    structure: [content-first, one-ambient-layer, bounded-stage]
+    states: [default, reduced-motion]
+    evidence: [rare-ui, magic-ui, aceternity]
+    risks: [ai-slop, readability-loss, decorative-overload]
+
+  - id: single-webgl-stage
+    surface: marketing
+    jobs: [3d-hero, product-visualization]
+    density: [1, 4]
+    motion: [4, 8]
+    structure: [bounded-canvas, html-overlay, fallback-poster, reduced-motion-path]
+    states: [loading, ready, fallback, reduced-motion]
+    evidence: [threeui]
+    risks: [gpu-cost, accessibility, bundle-growth]
