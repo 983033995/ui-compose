@@ -8,9 +8,6 @@ description: >
   product explorers, redesigns, and frontend polish when the result must feel
   intentional rather than generic or "AI slop".
 license: MIT
-compatibility: >
-  Framework-agnostic core. Works with React, Vue, Svelte, Tailwind, UnoCSS,
-  CSS/SCSS, and existing design systems through adapter guidance.
 metadata:
   short-description: "Stack-aware UI composition engine for coding agents"
 ---
@@ -19,6 +16,9 @@ metadata:
 
 UI Compose is a **composition engine**, not a component library and not a
 license to install every popular UI kit.
+
+Works with React, Vue, Svelte, Tailwind, UnoCSS, CSS/SCSS, and existing design
+systems through adapter guidance. The core contract is framework-agnostic.
 
 The goal is to extract the *useful traits* of proven interfaces — information
 architecture, layout tracks, density, interaction models, motion physics,
@@ -35,20 +35,22 @@ Do not begin by choosing a library. Begin by understanding the host.
 
 Read references only when needed:
 
-- `references/goals.md` — goals, non-goals, and composition principles
 - `references/host-read.md` — framework/design-system detection protocol
-- `references/layout-steal.md` — canonical page skeletons and layout tracks
-- `references/sources.md` — human-readable source catalog
-- `references/sources/registry.yaml` — structured source-trait registry
-- `references/sources/provenance.md` — provenance and license boundaries
-- `references/reverse-engineering.md` — observed UI fingerprints and abstractions
-- `references/ai-primitives.md` — AI-native UI states and primitives
-- `references/motion-blocks.md` — motion recipes and zero-motion rules
-- `references/editorial-campaign.md` — editorial/product campaign register
-- `references/threeui.md` — 3D/WebGL composition register
-- `references/taste-dials.md` — Design Read and V/M/D dials
-- `references/adapters/` — stack-specific integration guidance
-- `evals/rubric.md` — quality rubric for benchmark/evaluation
+- `references/skeletons/registry.yaml` — page-level region relationships
+- `references/patterns/registry.yaml` — reusable product/UI decisions
+- `references/composition-selection.md` — host-aware skeleton/pattern selection
+- `references/adapters/` — stack-specific integration
+- `references/physics.md` — shared motion/type/radius defaults
+- `references/layout-steal.md` — human expansion of skeletons
+- `references/ai-primitives.md` — AI-native UI states and recipes
+- `references/motion-blocks.md` — distinctive motion recipes
+- `references/sources/registry.yaml` — evidence sources and provenance
+- `references/sources/provenance.md` — license boundaries
+- `references/goals.md` — goals, non-goals, principles
+- `evals/rubric.md` — quality rubric
+
+Do not inline the registries up front. Look up the chosen skeleton and the
+3–7 pattern IDs after Host Read and Design Read.
 
 ---
 
@@ -75,7 +77,7 @@ button/input/modal system merely because a reference library contains a good
 pattern.
 
 If no design-system skill is available, enforce the fallback quality gates in
-§7 yourself.
+§8 yourself.
 
 ---
 
@@ -106,16 +108,19 @@ Do not clone brand identity, copy, illustrations, or proprietary source.
 
 ## 2. Choose a skeleton before styling
 
-Use `references/layout-steal.md` to choose the page architecture first.
+Pick **one** skeleton from `references/skeletons/registry.yaml`. Use
+`references/layout-steal.md` only as the human expansion of that ID.
+
 Examples:
 
-- app shell + master/detail
-- dashboard + summary + data regions
-- settings + nav + sections
-- chat/agent workspace
-- landing tracks
-- editorial product explorer
-- single WebGL hero moment
+- `master-detail-workspace`
+- `data-workspace`
+- `settings-workspace`
+- `agent-chat-workspace`
+- `agent-task-workspace`
+- `marketing-proof-landing`
+- `editorial-product-explorer`
+- `immersive-hero`
 
 Steal **tracks and relationships**, not pixels:
 
@@ -134,20 +139,17 @@ ornament is added.
 
 ## 3. Compose traits, not libraries
 
-Pick roughly 3–7 useful **patterns/traits** from the source registry. Examples:
+Select roughly 3–7 **pattern IDs** from `references/patterns/registry.yaml`
+using `references/composition-selection.md`. Start from the skeleton's
+`recommended_patterns`, then add only what the job still lacks.
 
-- compact data toolbar
-- keyboard-first command surface
-- nested-radius card hierarchy
-- stream-tail treatment
-- approval gate
-- morphing-height disclosure
-- editorial SKU world switch
-- restrained ambient mark
-- one GPU scene behind HTML chrome
+Hard rejects beat any ranking hint: wrong surface, replacing the host
+primitive system, inaccessible primary interaction, brand-copy, or a
+mobile-breaking layout on a mobile-required task.
 
-Popular libraries are evidence and reference material, not default runtime
-dependencies.
+Popular libraries are evidence for a pattern, not default runtime
+dependencies. Consult `references/sources/registry.yaml` only after pattern
+IDs are chosen, and only to check provenance / integration mode.
 
 ### Dependency rule
 
@@ -161,9 +163,6 @@ Prefer this order:
 
 Do not mix competing primitive systems in one surface unless the repository
 already does so intentionally.
-
-Consult `references/sources/registry.yaml` for source type, jobs, framework,
-license/provenance, integration mode, and risk flags.
 
 ---
 
@@ -202,18 +201,24 @@ without a deliberate product reason:
 - glassmorphism on every panel
 - rainbow borders / neon glow without brand rationale
 - emoji used as product UI icons
-- arbitrary spacing values that bypass the host scale
+- ad-hoc spacing that bypasses the host scale (`p-[13px]`, `gap-[17px]`)
 - identical radius everywhere regardless of nesting
+- Inter-everywhere with no weight/size hierarchy
 - floating elements with no shared grid/gutter logic
 - lorem/placeholder boxes in a finished view
 - animation on every click or keyboard action
 - `transition: all`
+- em-dash in UI copy; numbered eyebrows (`001 · Capabilities`)
+- "Live" badges or shimmer on static text
+- purple/violet as the silent brand accent
 - fake dashboards/screenshots built from decorative rectangles
 - three equal marketing cards simply because the model needs a section
 - copied visual identity from a reference product
 
 Campaign/editorial surfaces can be more expressive, but must still use one
 coherent motif family rather than an effect sampler.
+
+Shared defaults for time, radius, type, and streaming: `references/physics.md`.
 
 ---
 
@@ -254,7 +259,8 @@ Do **not** imply that hidden chain-of-thought is available. UI labels such as
 reasoning, or tool/activity traces. Prefer names like **Activity**, **Progress**,
 **Execution trace**, or **Reasoning summary** when appropriate.
 
-See `references/ai-primitives.md`.
+See `references/ai-primitives.md`. Use the host-neutral recipes there; map
+colors and radii to host tokens.
 
 ---
 
@@ -304,8 +310,8 @@ Then compare the result against the chosen positive and negative references:
 
 - [ ] Host Read completed; no framework/library was assumed
 - [ ] Design Read + V/M/D direction declared
-- [ ] One skeleton chosen before styling
-- [ ] 3–7 traits/patterns selected; libraries treated as references, not defaults
+- [ ] One skeleton ID chosen from the skeleton registry before styling
+- [ ] 3–7 pattern IDs selected from the pattern registry; sources used as evidence only
 - [ ] Existing host component/token system preserved
 - [ ] No competing primitive kit added without a strong reason
 - [ ] Anti-slop hard fails removed

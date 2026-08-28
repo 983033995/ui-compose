@@ -29,32 +29,19 @@ Collect these from Host Read + Design Read:
 
 Default target: one skeleton + roughly 3–7 patterns.
 
-## Heuristic score
+## Hard rejects (authoritative)
 
-Do not imply false mathematical precision. Use the score only to rank close candidates.
-
-```text
-score =
-  + job_match * 5
-  + surface_match * 4
-  + host_compatibility * 4
-  + density_alignment * 2
-  + motion_alignment * 1
-  + state_coverage * 2
-  - dependency_cost * 4
-  - accessibility_risk * 4
-  - mobile_risk * 3
-  - slop_risk * 3
-  - brand_copy_risk * 5
-```
-
-Required gates override score:
+These override any ranking hint. Do not compute or report a numeric score.
 
 - wrong surface => reject
 - inaccessible primary interaction => reject
 - requires replacing the host primitive system without justification => reject
 - brand-copy strategy => reject
 - mobile-breaking layout for a mobile-required task => reject
+
+## Optional ranking hint
+
+If two remaining candidates are close, prefer the one with better job match, host fit, and lower dependency / a11y / slop / brand-copy risk. Do not invent arithmetic. Do not print a score in the decision log.
 
 ## Composition budget
 
