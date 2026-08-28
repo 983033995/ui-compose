@@ -72,6 +72,8 @@ Research follows:
 
 A research pass should improve at least one durable asset: Source metadata, Pattern evidence, Skeleton evidence, provenance/risk guidance, or an Eval hypothesis.
 
+The Source Registry records canonical URLs and verified licenses when authoritative evidence is available. Unverified entries remain explicitly marked rather than guessed.
+
 ## Core workflow
 
 ### 1. Host Read
@@ -151,9 +153,11 @@ ui-compose/
     source-registry.schema.json
     pattern-registry.schema.json
     skeleton-registry.schema.json
+    eval-result.schema.json
   scripts/
     validate_skill.py
     validate_registries.py
+    validate_evals.py
   evals/
     rubric.md
     cases/
@@ -167,6 +171,10 @@ ui-compose/
       07-editorial-product-explorer.md
       08-webgl-hero.md
       09-custom-design-system.md
+    harness/
+      README.md
+    results/
+      README.md
   .github/workflows/
     validate.yml
 ```
@@ -177,6 +185,7 @@ ui-compose/
 python -m pip install pyyaml jsonschema
 python scripts/validate_skill.py . --expected-install-name ui-compose
 python scripts/validate_registries.py
+python scripts/validate_evals.py
 ```
 
 CI currently checks:
@@ -191,6 +200,10 @@ CI currently checks:
 - adapter IDs
 - density/motion ranges
 - source verification metadata consistency
+- eval-result schema conformance
+- Eval → Case / Pattern / Skeleton references
+- rubric arithmetic
+- desktop/mobile artifact references for passed rendered runs
 
 These checks run on pushes and pull requests.
 
@@ -210,7 +223,7 @@ Some clients also support compatibility locations such as `.cursor/skills/`, `.c
 
 ## Evaluation
 
-The rubric is in [`evals/rubric.md`](evals/rubric.md), repeatable task contracts are in [`evals/cases/`](evals/cases/), and stable-release criteria are in [`DELIVERY.md`](DELIVERY.md).
+The rubric is in [`evals/rubric.md`](evals/rubric.md), repeatable task contracts are in [`evals/cases/`](evals/cases/), the execution protocol is in [`evals/harness/README.md`](evals/harness/README.md), observed run records are documented in [`evals/results/README.md`](evals/results/README.md), and stable-release criteria are in [`DELIVERY.md`](DELIVERY.md).
 
 The current nine-case matrix covers:
 
@@ -224,7 +237,9 @@ The current nine-case matrix covers:
 - restrained WebGL hero
 - unfamiliar custom/internal design system
 
-This covers both host diversity and product diversity. The largest remaining delivery gap is **real rendered benchmark evidence**: build results, desktop/mobile screenshots, keyboard/reduced-motion notes, dependency diffs, and comparative scores.
+The first empirical batch should prioritize cases 01, 02, 04 and 09 because together they test dense B2B composition, AI-native state modeling, React/Tailwind without shadcn-by-default, and unfamiliar internal design-system portability.
+
+No benchmark score is considered real until an observed result record exists. The largest remaining delivery gap is **real rendered benchmark evidence**: build results, desktop/mobile screenshots, keyboard/reduced-motion notes, dependency diffs, and comparative scores.
 
 ## Delivery readiness
 
