@@ -1,0 +1,48 @@
+name: Build Eval Fixtures
+
+on:
+  push:
+    paths:
+      - 'evals/harness/apps/**'
+      - '.github/workflows/build-eval-fixtures.yml'
+  pull_request:
+    paths:
+      - 'evals/harness/apps/**'
+      - '.github/workflows/build-eval-fixtures.yml'
+
+jobs:
+  vue-element-plus-orders:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: evals/harness/apps/vue-element-plus-orders-baseline
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Activate pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.15.4 --activate
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Check fixture contract
+        run: pnpm test
+
+      - name: Build fixture
+        run: pnpm build
+
+      - name: Upload generated lockfile
+        uses: actions/upload-artifact@v4
+        with:
+          name: vue-element-plus-orders-lockfile
+          path: evals/harness/apps/vue-element-plus-orders-baseline/pnpm-lock.yaml
+          if-no-files-found: error
