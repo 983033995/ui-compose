@@ -27,7 +27,7 @@ const status = ref<OrderStatus | ''>('')
 const dateRange = ref<string[]>([])
 const loading = ref(false)
 const error = ref(false)
-const selectedOrder = ref<OrderRecord | null>(orders[0])
+const selectedOrder = ref<OrderRecord | null>(null)
 const selectedRows = ref<OrderRecord[]>([])
 const bulkMessage = ref('')
 
