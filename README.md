@@ -12,17 +12,20 @@ Coding agents can generate valid frontend code and still produce generic UI: ran
 
 UI Compose replaces blank-canvas generation with a decision pipeline:
 
-**Host Read → Design Read → Skeleton → Pattern Set → Adapter → Verify**
+**Host Read → Design Read → Skeleton → Pattern Set → Recipe → Adapter → Verify**
 
 The result should remain **native to the host project**.
 
 ## Composition Intelligence
 
-UI Compose separates three kinds of knowledge:
+UI Compose separates four kinds of reusable knowledge plus page-level composition:
 
 1. **Source Registry** — where a useful decision was observed and what its provenance/license boundary is.
 2. **Pattern Registry** — reusable UI decisions independent of any one source library or brand.
-3. **Skeleton Registry** — page-level region relationships that organize patterns into a product workflow.
+3. **Pattern Recipes** — host-neutral implementation behavior for mature canonical patterns.
+4. **Adapters** — translation from a selected recipe into the host project's implementation vocabulary.
+
+**Skeleton Registry** organizes Patterns into page-level product workflows.
 
 A source can provide evidence for a Pattern without becoming a runtime dependency.
 
@@ -36,6 +39,8 @@ master-detail-preview
 view-options-control
 sticky-contextual-actions
   ↓
+host-neutral recipes
+  ↓
 Vue + Element Plus adapter
   ↓
 0 new UI primitive systems
@@ -45,34 +50,25 @@ Core references:
 
 - [`references/host-read.md`](references/host-read.md)
 - [`references/composition-selection.md`](references/composition-selection.md)
+- [`references/physics.md`](references/physics.md)
 - [`references/sources/registry.yaml`](references/sources/registry.yaml)
 - [`references/patterns/registry.yaml`](references/patterns/registry.yaml)
+- [`references/patterns/recipes.md`](references/patterns/recipes.md)
 - [`references/skeletons/registry.yaml`](references/skeletons/registry.yaml)
 - [`references/sources/provenance.md`](references/sources/provenance.md)
 - [`DELIVERY.md`](DELIVERY.md)
 
 ## External sources are evidence, not defaults
 
-Popular UI libraries, products and campaign sites are research sources. UI Compose may extract durable traits such as:
-
-- app-shell and master/detail relationships
-- dense data toolbars
-- keyboard-first command surfaces
-- view/display options
-- AI streaming/tool/approval states
-- editorial product-world switching
-- restrained ambient motion
-- single-scene WebGL composition
+Popular UI libraries, products and campaign sites are research sources. UI Compose may extract durable traits such as app-shell/master-detail relationships, dense data toolbars, keyboard-first command surfaces, view/display options, AI streaming/tool/approval states, editorial product-world switching, restrained ambient motion, and single-scene WebGL composition.
 
 It should not blindly install, vendor, or clone source libraries, products, brands, copy, assets, or proprietary identity.
 
 Research follows:
 
-**Observe → Record Evidence → Extract Trait → Map to Pattern → Check Provenance → Adapt to Host → Verify**
+**Observe → Record Evidence → Extract Trait → Map to Pattern → Write Recipe → Check Provenance → Adapt to Host → Verify**
 
-A research pass should improve at least one durable asset: Source metadata, Pattern evidence, Skeleton evidence, provenance/risk guidance, or an Eval hypothesis.
-
-The Source Registry records canonical URLs and verified licenses when authoritative evidence is available. Unverified entries remain explicitly marked rather than guessed.
+A research pass should improve at least one durable asset: Source metadata, Pattern evidence/recipe, Skeleton evidence, provenance/risk guidance, or an Eval hypothesis.
 
 ## Core workflow
 
@@ -92,9 +88,13 @@ Choose page architecture before decorative styling.
 
 ### 4. Pattern Set
 
-Select the smallest coherent set, usually 3–7 patterns, that fits the product job and host constraints.
+Select the **smallest coherent compatible set** that covers the product jobs and required states. Complex product surfaces often use 3–7 patterns; narrow or specialized surfaces may legitimately use only 1–2. Never pad a composition to satisfy a quota.
 
-### 5. Adapter
+### 5. Recipe
+
+For mature canonical patterns, use the host-neutral behavior contracts in [`references/patterns/recipes.md`](references/patterns/recipes.md). Shared fallback motion/type/radius guidance lives in [`references/physics.md`](references/physics.md). Host tokens and established conventions always win over fallback values.
+
+### 6. Adapter
 
 Current baseline adapters:
 
@@ -103,22 +103,15 @@ Current baseline adapters:
 - Vue + UnoCSS
 - Generic CSS / existing design system
 
-### 6. Verify
+### 7. Verify
 
 Inspect desktop/mobile, keyboard/focus, loading/empty/error states, reduced motion, overflow, dependency changes, and runtime behavior.
 
 ## AI-native UI
 
-AI products are a first-class category. UI Compose covers:
+AI products are a first-class category. UI Compose covers streaming response, activity/progress summary, tool execution lifecycle, approval gates, source/context inspection, persistent composer, retry/error/cancel, and task lifecycle.
 
-- streaming response
-- activity/progress summary
-- tool execution lifecycle
-- approval gates
-- source/context inspection
-- persistent composer
-- retry/error/cancel
-- task lifecycle
+`references/ai-primitives.md` includes host-neutral recipes for active streaming indicators, compact tool rows, approval behavior, and composer behavior. Completed generation must remove active streaming indicators such as the caret; a finished answer must not keep looking active.
 
 UI must expose only provider-supported activity, summarized reasoning, or execution traces. It must not imply access to hidden chain-of-thought.
 
@@ -134,6 +127,7 @@ ui-compose/
   references/
     host-read.md
     composition-selection.md
+    physics.md
     reverse-engineering.md
     layout-steal.md
     ai-primitives.md
@@ -147,6 +141,7 @@ ui-compose/
       provenance.md
     patterns/
       registry.yaml
+      recipes.md
     skeletons/
       registry.yaml
   schemas/
@@ -194,26 +189,9 @@ python scripts/validate_registries.py
 python scripts/validate_evals.py
 ```
 
-CI currently checks:
+CI currently checks Agent Skills metadata, OpenAI UI metadata, progressive-disclosure budget, registry schema/cross-references, source verification metadata/freshness, Fixture contracts, Eval Result references, rubric arithmetic, and desktop/mobile artifact requirements for passed rendered runs.
 
-- Agent Skills frontmatter/name/description contract
-- current OpenAI `agents/openai.yaml` interface metadata shape
-- progressive-disclosure line budget
-- registry JSON Schema conformance
-- duplicate IDs
-- Pattern → Source evidence references
-- Skeleton → Pattern references
-- adapter IDs
-- density/motion ranges
-- source verification metadata consistency
-- benchmark Fixture schema conformance
-- Fixture → Case references and dependency-policy consistency
-- eval-result schema conformance
-- Eval Result → Fixture / Case / Pattern / Skeleton references
-- rubric arithmetic
-- desktop/mobile artifact references for passed rendered runs
-
-These checks run on pushes and pull requests.
+The Skill frontmatter intentionally uses a strict portable subset. Framework compatibility guidance lives in the Markdown body instead of a top-level `compatibility` field so stricter packagers do not reject the skill.
 
 ## Install
 
@@ -233,23 +211,13 @@ Some clients also support compatibility locations such as `.cursor/skills/`, `.c
 
 The rubric is in [`evals/rubric.md`](evals/rubric.md), repeatable task contracts are in [`evals/cases/`](evals/cases/), the execution protocol is in [`evals/harness/README.md`](evals/harness/README.md), observed run records are documented in [`evals/results/README.md`](evals/results/README.md), and stable-release criteria are in [`DELIVERY.md`](DELIVERY.md).
 
-The current nine-case matrix covers:
+The current nine-case matrix covers Vue 3 + Element Plus B2B orders, AI agent chat + tools + approval, settings/form workflow, React + Tailwind/local-primitives data workspace, Vue + UnoCSS CRM, SaaS marketing landing, editorial product explorer, restrained WebGL hero, and an unfamiliar custom/internal design system.
 
-- Vue 3 + Element Plus B2B orders
-- AI agent chat + tools + approval
-- settings/form workflow
-- React + Tailwind/local-primitives data workspace
-- Vue + UnoCSS CRM
-- SaaS marketing landing
-- editorial product explorer
-- restrained WebGL hero
-- unfamiliar custom/internal design system
-
-The first empirical batch prioritizes cases 01, 02, 04 and 09. These now have machine-validated Fixture Contracts that pin the host framework/primitive system, existing dependencies, forbidden default dependencies, required product states, accessibility contract, mobile contract, representative files, and build commands.
+The first empirical batch prioritizes cases 01, 02, 04 and 09. These have machine-validated Fixture Contracts that pin the host framework/primitive system, existing dependencies, forbidden default dependencies, required product states, accessibility contract, mobile contract, representative files, and build commands.
 
 Fixture Contracts are not benchmark results. They define the clean host baseline from which every comparison mode should start. No benchmark score is considered real until an observed result record exists.
 
-The largest remaining delivery gap is **real executable fixtures and rendered benchmark evidence**: buildable fixture apps, generated comparison runs, desktop/mobile screenshots, keyboard/reduced-motion notes, dependency diffs, and comparative scores.
+The largest remaining delivery gap is **real executable fixtures and rendered benchmark evidence**: buildable fixture apps, generated comparison runs, desktop/mobile screenshots, keyboard/reduced-motion notes, dependency diffs, and comparative scores. Eval 01 and 02 remain the first release-critical runs.
 
 ## Delivery readiness
 
@@ -259,14 +227,7 @@ A build/runtime failure, primary accessibility failure, provenance violation, or
 
 ## Non-goals
 
-UI Compose is not:
-
-- an npm component library
-- a replacement design system
-- a clone of popular product brands
-- a bundle of fashionable effects
-- permission to mix multiple primitive kits
-- a reason to replace accessible host controls with custom markup
+UI Compose is not an npm component library, a replacement design system, a clone of popular product brands, a bundle of fashionable effects, permission to mix multiple primitive kits, or a reason to replace accessible host controls with custom markup.
 
 ## Source policy
 
