@@ -2,19 +2,19 @@
 
 **UI Compose is a stack-aware UI composition engine for coding agents.**
 
-It does not exist to install or copy popular UI libraries. It studies the useful parts of proven interfaces — layout systems, density, interaction models, motion physics, AI-native states, and product-specific composition patterns — then re-expresses those traits using the host project's own framework, components, tokens, and conventions.
+It does not exist to install or copy popular UI libraries. It studies useful decisions from proven interfaces — layout systems, density, interaction models, motion physics, AI-native states, and product-specific composition patterns — then re-expresses those traits using the host project's own framework, components, tokens, and conventions.
 
 > Taste decides the direction. UI Compose decides how to build it.
 
 ## Why this exists
 
-Coding agents can generate valid frontend code and still produce generic UI: random spacing, disconnected cards, fashionable effects with no product logic, unnecessary dependencies, or interfaces that ignore the host design system.
+Coding agents can generate valid frontend code and still produce generic UI: random spacing, disconnected cards, fashionable effects with no product logic, unnecessary dependencies, weak product states, or interfaces that ignore the host design system.
 
 UI Compose replaces blank-canvas generation with a decision pipeline:
 
 **Host Read → Design Read → Skeleton → Pattern Set → Adapter → Verify**
 
-The key difference from a component library is that the output should remain **native to the host project**.
+The result should remain **native to the host project**.
 
 ## Composition Intelligence
 
@@ -24,9 +24,7 @@ UI Compose separates three kinds of knowledge:
 2. **Pattern Registry** — reusable UI decisions independent of any one source library or brand.
 3. **Skeleton Registry** — page-level region relationships that organize patterns into a product workflow.
 
-Selection is intentionally host-aware. A source can provide evidence for a pattern without becoming a runtime dependency.
-
-Example:
+A source can provide evidence for a Pattern without becoming a runtime dependency.
 
 ```text
 Vue 3 + Element Plus + B2B orders + high density + low motion
@@ -43,64 +41,60 @@ Vue + Element Plus adapter
 0 new UI primitive systems
 ```
 
-See:
+Core references:
 
+- [`references/host-read.md`](references/host-read.md)
+- [`references/composition-selection.md`](references/composition-selection.md)
 - [`references/sources/registry.yaml`](references/sources/registry.yaml)
 - [`references/patterns/registry.yaml`](references/patterns/registry.yaml)
 - [`references/skeletons/registry.yaml`](references/skeletons/registry.yaml)
-- [`references/composition-selection.md`](references/composition-selection.md)
 - [`references/sources/provenance.md`](references/sources/provenance.md)
+- [`DELIVERY.md`](DELIVERY.md)
 
-## What UI Compose learns from external libraries and products
+## External sources are evidence, not defaults
 
-Popular UI projects and mature products are treated as research sources, not defaults.
-
-UI Compose may extract traits such as:
+Popular UI libraries, products and campaign sites are research sources. UI Compose may extract durable traits such as:
 
 - app-shell and master/detail relationships
 - dense data toolbars
 - keyboard-first command surfaces
 - view/display options
-- nested radius hierarchy
-- stream/progress/tool/approval states for AI products
-- menu/panel motion physics
+- AI streaming/tool/approval states
 - editorial product-world switching
-- restrained ambient marks
+- restrained ambient motion
 - single-scene WebGL composition
 
-It should not blindly install, vendor, or clone the source library or product identity.
+It should not blindly install, vendor, or clone source libraries, products, brands, copy, assets, or proprietary identity.
+
+Research follows:
+
+**Observe → Record Evidence → Extract Trait → Map to Pattern → Check Provenance → Adapt to Host → Verify**
+
+A research pass should improve at least one durable asset: Source metadata, Pattern evidence, Skeleton evidence, provenance/risk guidance, or an Eval hypothesis.
 
 ## Core workflow
 
 ### 1. Host Read
 
-Before design decisions, detect:
+Detect framework/runtime, styling, primitive/component system, tokens, motion stack, representative product patterns, and accessibility/responsive/runtime constraints.
 
-- framework/runtime
-- styling system
-- active component/primitive system
-- existing tokens/design system
-- motion stack
-- representative product patterns
-- accessibility/responsive/runtime constraints
-
-Never assume React, Tailwind, Radix, or a particular file layout.
+Never assume React, Tailwind, Radix, shadcn, or a particular file layout.
 
 ### 2. Design Read
 
-Interpret the surface, audience, product register, and visual direction. Use V/M/D (variance / motion / density) as directional controls rather than universal presets.
+Interpret surface, audience, product register and visual direction. Optional variance/motion/density dials act as filters, not universal presets.
 
 ### 3. Skeleton
 
-Choose the page architecture before styling. Layout relationships and information hierarchy do more to prevent generic AI UI than another effect library.
+Choose page architecture before decorative styling.
 
 ### 4. Pattern Set
 
-Select roughly 3–7 useful traits/patterns. Prefer translating traits into host-native code over importing a library.
+Select the smallest coherent set, usually 3–7 patterns, that fits the product job and host constraints.
 
 ### 5. Adapter
 
-Apply the closest stack adapter. Current baseline:
+Current baseline adapters:
 
 - React + Tailwind
 - Vue + Element Plus
@@ -109,21 +103,22 @@ Apply the closest stack adapter. Current baseline:
 
 ### 6. Verify
 
-Render and inspect desktop/mobile, keyboard/focus states, loading/empty/error states, reduced motion, overflow, and runtime errors.
+Inspect desktop/mobile, keyboard/focus, loading/empty/error states, reduced motion, overflow, dependency changes, and runtime behavior.
 
 ## AI-native UI
 
-UI Compose treats AI products as a first-class category. It provides composition guidance for:
+AI products are a first-class category. UI Compose covers:
 
 - streaming response
 - activity/progress summary
-- tool execution state
+- tool execution lifecycle
 - approval gates
-- composer/context
+- source/context inspection
+- persistent composer
 - retry/error/cancel
 - task lifecycle
 
-It intentionally avoids implying that hidden chain-of-thought is available. UI should expose provider-supported activity, summarized reasoning, or execution traces only.
+UI must expose only provider-supported activity, summarized reasoning, or execution traces. It must not imply access to hidden chain-of-thought.
 
 ## Project structure
 
@@ -131,9 +126,13 @@ It intentionally avoids implying that hidden chain-of-thought is available. UI s
 ui-compose/
   SKILL.md
   README.md
+  DELIVERY.md
+  agents/
+    openai.yaml
   references/
     host-read.md
     composition-selection.md
+    reverse-engineering.md
     layout-steal.md
     ai-primitives.md
     motion-blocks.md
@@ -141,10 +140,6 @@ ui-compose/
     threeui.md
     taste-dials.md
     adapters/
-      react-tailwind.md
-      vue-element-plus.md
-      vue-unocss.md
-      generic-css.md
     sources/
       registry.yaml
       provenance.md
@@ -157,6 +152,7 @@ ui-compose/
     pattern-registry.schema.json
     skeleton-registry.schema.json
   scripts/
+    validate_skill.py
     validate_registries.py
   evals/
     rubric.md
@@ -165,62 +161,76 @@ ui-compose/
       01-vue-element-plus-orders.md
       02-agent-chat.md
       03-settings-workspace.md
+      04-react-tailwind-data-workspace.md
+      05-vue-unocss-crm.md
+      06-saas-marketing-landing.md
+      07-editorial-product-explorer.md
+      08-webgl-hero.md
+      09-custom-design-system.md
   .github/workflows/
     validate.yml
 ```
 
 ## Validation
 
-Registry structure and cross-references are machine-checked.
-
 ```bash
 python -m pip install pyyaml jsonschema
+python scripts/validate_skill.py . --expected-install-name ui-compose
 python scripts/validate_registries.py
 ```
 
-Validation checks include:
+CI currently checks:
 
-- JSON Schema conformance
+- Agent Skills frontmatter/name/description contract
+- current OpenAI `agents/openai.yaml` interface metadata shape
+- progressive-disclosure line budget
+- registry JSON Schema conformance
 - duplicate IDs
-- Pattern evidence pointing to real Source IDs
-- Skeleton recommendations pointing to real Pattern IDs
-- known adapter IDs
-- valid density/motion ranges
+- Pattern → Source evidence references
+- Skeleton → Pattern references
+- adapter IDs
+- density/motion ranges
 - source verification metadata consistency
 
-The same validation runs in GitHub Actions.
+These checks run on pushes and pull requests.
 
 ## Install
 
-Use the Agent Skills convention supported by your coding agent. For portable repo-level usage, prefer a folder named after the skill, for example:
+Use the Agent Skills convention supported by your coding agent. For portable repo-level usage, prefer a folder named after the skill:
 
 ```text
 .agents/skills/ui-compose/
   SKILL.md
   references/
-  evals/
+  scripts/
+  agents/
 ```
 
-Some clients also support their own compatibility locations such as `.cursor/skills/`, `.claude/skills/`, or `$CODEX_HOME/skills` for user-level installation. Keep the folder name aligned with the `name: ui-compose` frontmatter.
+Some clients also support compatibility locations such as `.cursor/skills/`, `.claude/skills/`, or `$CODEX_HOME/skills`. Keep the install folder aligned with `name: ui-compose`.
 
 ## Evaluation
 
-The project will not claim quality improvements based only on the prompt text. The scoring model is defined in [`evals/rubric.md`](evals/rubric.md), while repeatable task contracts live in [`evals/cases/`](evals/cases/).
+The rubric is in [`evals/rubric.md`](evals/rubric.md), repeatable task contracts are in [`evals/cases/`](evals/cases/), and stable-release criteria are in [`DELIVERY.md`](DELIVERY.md).
 
-Current initial cases include:
+The current nine-case matrix covers:
 
-- Vue 3 + Element Plus B2B order workspace
+- Vue 3 + Element Plus B2B orders
 - AI agent chat + tools + approval
-- settings workspace
-
-Planned coverage also includes:
-
-- React/Tailwind data workspace
-- Vue/UnoCSS CRM
-- SaaS landing page
+- settings/form workflow
+- React + Tailwind/local-primitives data workspace
+- Vue + UnoCSS CRM
+- SaaS marketing landing
 - editorial product explorer
 - restrained WebGL hero
-- custom internal design system
+- unfamiliar custom/internal design system
+
+This covers both host diversity and product diversity. The largest remaining delivery gap is **real rendered benchmark evidence**: build results, desktop/mobile screenshots, keyboard/reduced-motion notes, dependency diffs, and comparative scores.
+
+## Delivery readiness
+
+A stable release is not based on documentation volume. [`DELIVERY.md`](DELIVERY.md) defines a 100-point project-readiness gate across skill architecture, registry integrity, provenance, host/product diversity, rendered eval evidence, CI, and maintenance.
+
+A build/runtime failure, primary accessibility failure, provenance violation, or unnecessary replacement of the host primitive system blocks delivery-ready status regardless of numeric score.
 
 ## Non-goals
 
