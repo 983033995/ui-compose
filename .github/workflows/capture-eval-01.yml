@@ -1,0 +1,83 @@
+name: Capture Eval 01 Evidence
+
+on:
+  push:
+    branches:
+      - eval/01-model-only
+      - eval/01-ui-compose
+    paths:
+      - 'evals/harness/apps/vue-element-plus-orders-baseline/**'
+      - 'evals/harness/scripts/capture-eval-01.cjs'
+      - '.github/workflows/capture-eval-01.yml'
+  workflow_dispatch:
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: evals/harness/apps/vue-element-plus-orders-baseline
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Activate pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.15.4 --activate
+
+      - name: Install locked host dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build fixture
+        run: pnpm build
+
+      - name: Install pinned browser harness outside host fixture
+        shell: bash
+        run: |
+          mkdir -p /tmp/eval-browser
+          cd /tmp/eval-browser
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+          cp "$GITHUB_WORKSPACE/evals/harness/scripts/capture-eval-01.cjs" ./capture-eval-01.cjs
+
+      - name: Start preview server
+        shell: bash
+        run: |
+          pnpm exec vite preview --host 127.0.0.1 --port 4173 > /tmp/eval01-vite.log 2>&1 &
+          echo $! > /tmp/eval01-vite.pid
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4173 >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/eval01-vite.log
+          exit 1
+
+      - name: Capture desktop and mobile evidence
+        shell: bash
+        run: |
+          rm -rf "$GITHUB_WORKSPACE/evals/harness/artifacts/eval01-current"
+          mkdir -p "$GITHUB_WORKSPACE/evals/harness/artifacts/eval01-current"
+          cd /tmp/eval-browser
+          EVAL_URL=http://127.0.0.1:4173 \
+          ARTIFACT_DIR="$GITHUB_WORKSPACE/evals/harness/artifacts/eval01-current" \
+          GITHUB_REF_NAME="$GITHUB_REF_NAME" \
+          GITHUB_SHA="$GITHUB_SHA" \
+          node capture-eval-01.cjs
+
+      - name: Upload rendered evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-01-rendered-evidence
+          path: evals/harness/artifacts/eval01-current
+          if-no-files-found: warn
