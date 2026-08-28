@@ -1,0 +1,72 @@
+{
+  "branch": "eval/01-ui-compose",
+  "commit": "a8e4b341f36662c8f86c4e5306654e3b2cdd4f73",
+  "capturedAt": "2026-08-28T19:08:02.140Z",
+  "evidenceLevel": "rendered-ci",
+  "desktop": {
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "initialTableVisible": true,
+    "initialBodyOverflow": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "overflow": false
+    },
+    "focusState": {
+      "tag": "button",
+      "text": "Export",
+      "outlineStyle": "solid",
+      "outlineWidth": "2px",
+      "boxShadow": "none"
+    },
+    "detailMode": "inline-preview",
+    "dialogVisible": false,
+    "inlineDetailVisible": true,
+    "tableVisibleAfterInspect": true,
+    "mobileBackVisible": false,
+    "finalBodyOverflow": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "overflow": false
+    },
+    "consoleErrors": [],
+    "pageErrors": []
+  },
+  "mobile": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "initialTableVisible": true,
+    "initialBodyOverflow": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "overflow": false
+    },
+    "focusState": {
+      "tag": "button",
+      "text": "Export",
+      "outlineStyle": "solid",
+      "outlineWidth": "2px",
+      "boxShadow": "none"
+    },
+    "detailMode": "inline-preview",
+    "dialogVisible": false,
+    "inlineDetailVisible": true,
+    "tableVisibleAfterInspect": false,
+    "mobileBackVisible": true,
+    "finalBodyOverflow": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "overflow": false
+    },
+    "consoleErrors": [],
+    "pageErrors": []
+  },
+  "reducedMotion": {
+    "emulationMatches": true
+  },
+  "hardFailures": []
+}
