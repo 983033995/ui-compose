@@ -1,6 +1,6 @@
 # Composition selection
 
-UI Compose should choose a small coherent set of patterns from host constraints and task intent. Do not treat selection as a library popularity contest.
+UI Compose should choose the smallest coherent set of patterns from host constraints and task intent. Do not treat selection as a library popularity contest.
 
 ## Inputs
 
@@ -22,46 +22,51 @@ Collect these from Host Read + Design Read:
 1. **Filter skeletons by surface + jobs.**
 2. **Pick one primary skeleton.** Prefer the simplest skeleton that satisfies the task.
 3. **Load recommended patterns** from that skeleton.
-4. **Add at most the few extra patterns** needed for missing jobs or states.
+4. **Add only the extra patterns** needed for missing jobs or required states.
 5. **Reject patterns** that require a competing primitive system, violate host constraints, or primarily copy source identity.
-6. **Adapt the selected set** to the host stack.
-7. **Verify rendered behavior** before adding decorative patterns.
+6. **Load host-neutral recipes** for the selected canonical patterns from `patterns/recipes.md` when available.
+7. **Adapt the selected set** to the host stack.
+8. **Verify rendered behavior** before adding decorative patterns.
 
-Default target: one skeleton + roughly 3–7 patterns.
+Target the **smallest sufficient set**. Complex product surfaces often land around 3–7 patterns, but specialized surfaces may need only 1–2. Never pad a composition with irrelevant patterns to satisfy a numeric quota.
 
-## Heuristic score
+## Hard rejects (authoritative)
 
-Do not imply false mathematical precision. Use the score only to rank close candidates.
-
-```text
-score =
-  + job_match * 5
-  + surface_match * 4
-  + host_compatibility * 4
-  + density_alignment * 2
-  + motion_alignment * 1
-  + state_coverage * 2
-  - dependency_cost * 4
-  - accessibility_risk * 4
-  - mobile_risk * 3
-  - slop_risk * 3
-  - brand_copy_risk * 5
-```
-
-Required gates override score:
+These override any ranking hint:
 
 - wrong surface => reject
 - inaccessible primary interaction => reject
 - requires replacing the host primitive system without justification => reject
 - brand-copy strategy => reject
+- unjustified dependency with no substantial behavioral need => reject
 - mobile-breaking layout for a mobile-required task => reject
+
+## Ranking hint (optional)
+
+When several candidates all pass the hard gates, rank them qualitatively rather than pretending to compute precise scores.
+
+Useful dimensions:
+
+- job match
+- surface match
+- host compatibility
+- density alignment
+- motion alignment
+- state coverage
+- dependency cost
+- accessibility risk
+- mobile risk
+- slop risk
+- brand-copy risk
+
+Use labels such as **strong match / acceptable / weak match / reject**. Do not report a synthetic numeric confidence score unless a real eval system computes it.
 
 ## Composition budget
 
 More patterns do not mean a better design.
 
-- 1 skeleton
-- 3–7 functional patterns
+- 1 primary skeleton
+- smallest sufficient functional pattern set
 - 0–1 ambient/decorative pattern family
 - 0 competing primitive kits by default
 - 0 new motion dependencies for simple opacity/transform transitions
@@ -115,16 +120,15 @@ patterns:
   - ai-activity-summary
   - ai-tool-execution-card
   - human-approval-gate
-  - sticky-contextual-actions
 ```
 
 Never fabricate hidden reasoning. Activity or reasoning UI must show only provider-exposed summaries, tool events, or product-owned progress states.
 
 ## Evidence vs implementation
 
-Pattern evidence may come from Linear, Raycast, AI Elements, ReUI, Kibo, or other products. Evidence means the product demonstrates a useful interaction or structural decision. It does not mean UI Compose should clone markup, CSS, assets, copy, or brand identity.
+Pattern evidence may come from Linear, Raycast, AI Elements, ReUI, Kibo, or other products. Evidence means a product demonstrates a useful interaction or structural decision. It does not mean UI Compose should clone markup, CSS, assets, copy, or brand identity.
 
-A useful observed example is Linear's Peek model: focused list items can be previewed without fully navigating away, while keyboard movement updates the preview. Treat that as evidence for the `master-detail-preview` interaction, not as a mandate to reproduce Linear's exact UI.
+A useful observed example is Linear's Peek model: focused list items can be previewed without fully navigating away, while keyboard movement updates the preview. Treat that as evidence for `master-detail-preview`, not as a mandate to reproduce Linear's exact UI.
 
 ## Decision log
 
