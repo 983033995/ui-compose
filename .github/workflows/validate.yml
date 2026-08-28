@@ -30,3 +30,6 @@ jobs:
 
       - name: Validate registries
         run: python scripts/validate_registries.py
+
+      - name: Validate eval results
+        run: python scripts/validate_evals.py
