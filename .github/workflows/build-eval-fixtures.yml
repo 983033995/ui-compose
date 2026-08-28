@@ -10,6 +10,9 @@ on:
       - 'evals/harness/apps/**'
       - '.github/workflows/build-eval-fixtures.yml'
 
+permissions:
+  contents: write
+
 jobs:
   vue-element-plus-orders:
     runs-on: ubuntu-latest
@@ -18,8 +21,10 @@ jobs:
         working-directory: evals/harness/apps/vue-element-plus-orders-baseline
 
     steps:
-      - name: Checkout
+      - name: Checkout fixture branch
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -31,7 +36,7 @@ jobs:
           corepack enable
           corepack prepare pnpm@9.15.4 --activate
 
-      - name: Install dependencies
+      - name: Install dependencies and generate lockfile
         run: pnpm install --no-frozen-lockfile
 
       - name: Check fixture contract
@@ -40,9 +45,16 @@ jobs:
       - name: Build fixture
         run: pnpm build
 
-      - name: Upload generated lockfile
-        uses: actions/upload-artifact@v4
-        with:
-          name: vue-element-plus-orders-lockfile
-          path: evals/harness/apps/vue-element-plus-orders-baseline/pnpm-lock.yaml
-          if-no-files-found: error
+      - name: Commit generated lockfile once
+        env:
+          TARGET_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
+        run: |
+          git add pnpm-lock.yaml
+          if git diff --cached --quiet; then
+            echo "Lockfile already committed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: lock eval 01 fixture dependencies"
+          git push origin "HEAD:${TARGET_BRANCH}"
