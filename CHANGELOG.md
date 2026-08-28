@@ -7,11 +7,14 @@
 - `references/patterns/registry.yaml` for reusable product/UI decisions independent of source libraries.
 - `references/skeletons/registry.yaml` for page-level composition structures.
 - `references/composition-selection.md` for host-aware skeleton/pattern selection and risk filtering.
-- JSON Schemas for Source, Pattern, and Skeleton registries.
+- JSON Schemas for Source, Pattern, Skeleton, and observed Eval Result records.
 - `scripts/validate_registries.py` for schema and cross-reference validation.
 - `scripts/validate_skill.py` for Agent Skills frontmatter/name/description checks, progressive-disclosure budget, and OpenAI UI metadata validation.
-- GitHub Actions workflow to run skill + registry validation on pushes and pull requests.
+- `scripts/validate_evals.py` for observed benchmark record validation, case/pattern/skeleton references, rubric arithmetic, and rendered-artifact requirements.
+- GitHub Actions workflow to run skill + registry + eval-result validation on pushes and pull requests.
 - `DELIVERY.md` defining stable-release gates, hard blockers, and a 100-point project-readiness model.
+- `evals/harness/README.md` defining a reproducible rendered-benchmark execution and capture protocol.
+- `evals/results/README.md` defining how observed benchmark evidence, screenshots, build status, dependency diffs, and scores are stored without fabricating results.
 - Repeatable eval case format plus a nine-case host/product diversity matrix:
   - Vue 3 + Element Plus order management
   - AI agent chat/tool/approval workflow
@@ -39,8 +42,12 @@ CI now checks:
 - known adapter IDs
 - valid density/motion ranges
 - source verification metadata consistency
+- eval-result JSON Schema conformance
+- Eval → Case / Pattern / Skeleton references
+- rubric component-sum consistency
+- desktop and mobile artifact references for runs marked `build_status: passed`
 
-The combined Agent Skill + Registry validation workflow has completed successfully.
+The combined Agent Skill + Registry + Eval Result validation workflow has completed successfully. Zero observed benchmark results are allowed during development, but that state is explicitly excluded from delivery-readiness evidence.
 
 ### Changed
 
@@ -49,8 +56,22 @@ The combined Agent Skill + Registry validation workflow has completed successful
 - Reworked `taste-dials.md` into an optional Design Direction input layer instead of a copied external-skill workflow.
 - Replaced `reverse-engineering.md` website/CSS fingerprint shopping with an **Observe → Evidence → Trait → Pattern → Provenance → Host adaptation → Verify** protocol.
 - Replaced `sources.md` library shopping list with a source-evidence guide backed by the structured registry.
-- Reworked `threeui.md` into a host-aware, provenance-safe WebGL evidence adapter with performance, fallback, accessibility, and lifecycle gates.
-- Updated README to document Composition Intelligence, Agent Skill validation, current OpenAI metadata, the delivery gate, CI, and the full eval matrix.
+- Reworked `threeui.md` into a host-aware, provenance-safe WebGL evidence adapter with performance, fallback, accessibility, lifecycle, and tier/asset-boundary gates.
+- Updated README to document Composition Intelligence, Agent Skill validation, current OpenAI metadata, the delivery gate, full eval matrix, benchmark harness, observed-result protocol, and CI.
+
+### Provenance verification
+
+Verified and recorded canonical source/license metadata where authoritative evidence was available:
+
+- shadcn/ui — MIT
+- ReUI free/public catalog — MIT, with paid-catalog boundary recorded
+- Kibo UI — MIT
+- Vercel AI Elements — Apache-2.0
+- Magic UI — MIT
+- ThreeUI Community code and ThreeUI-authored Community assets — MIT, while external assets/fonts/Pro/Beta boundaries remain explicit
+- taste-skill — MIT
+
+Sources without sufficient authoritative evidence remain `verify-upstream` rather than being guessed into a copy-safe state.
 
 ### Research policy
 
@@ -58,11 +79,12 @@ A research pass should no longer grow the canonical source list merely because a
 
 ### Next
 
-- Run the first real rendered benchmark outputs and capture build results, desktop/mobile screenshots, keyboard/reduced-motion notes, dependency diffs, and rubric scores.
-- Add structured eval-result records and validation so benchmark claims remain reproducible.
-- Add link/source-freshness checks without making transient network failures a hard build failure.
-- Continue canonical-URL/license verification for `verify-upstream` source entries.
-- Add adapters only when eval failures demonstrate a real host-integration gap.
+- Build realistic host fixture contracts/apps for the first high-information benchmark batch: cases 01, 02, 04, and 09.
+- Execute the first real rendered benchmark outputs and capture build results, desktop/mobile screenshots, keyboard/reduced-motion notes, dependency diffs, and rubric scores.
+- Record comparative results with the structured Eval Result schema.
+- Add robust source-freshness/link checks without making transient network failures a hard build failure.
+- Continue canonical-URL/license verification for remaining `verify-upstream` source entries.
+- Add adapters only when real eval failures demonstrate a host-integration gap.
 
 ## 0.2.0 — UI Compose architecture
 
