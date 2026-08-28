@@ -1,0 +1,85 @@
+version: 0.3
+updated: 2026-08-29
+principle: "Choose page architecture before decorative styling. Skeletons encode durable region relationships, not brand pixels."
+
+skeletons:
+  - id: master-detail-workspace
+    surface: app-interior
+    jobs: [orders, customers, tickets, files, issues]
+    regions: [topbar, collection-toolbar, collection-pane, detail-pane]
+    desktop: split-pane
+    mobile: list-then-detail-route-or-sheet
+    recommended_patterns: [dense-filter-toolbar, master-detail-preview, sticky-contextual-actions]
+    risks: [two-pane-mobile-overflow]
+
+  - id: data-workspace
+    surface: app-interior
+    jobs: [dashboard, operations, reporting, inventory]
+    regions: [app-nav, page-header, controls, summary, primary-data-region, secondary-data-region]
+    desktop: fluid-data-grid
+    mobile: priority-stack
+    recommended_patterns: [dense-filter-toolbar, view-options-control, sticky-contextual-actions]
+    risks: [fake-kpi-cards, chart-overload]
+
+  - id: settings-workspace
+    surface: app-interior
+    jobs: [account-settings, workspace-settings, billing, permissions]
+    regions: [settings-nav, page-header, section-stack, destructive-zone]
+    desktop: nav-plus-reading-column
+    mobile: route-or-select-then-section
+    recommended_patterns: [settings-section-stack]
+    risks: [card-everything, destructive-action-ambiguity]
+
+  - id: command-workspace
+    surface: app-interior
+    jobs: [search, navigation, create, execute]
+    regions: [trigger-context, command-surface, optional-preview]
+    desktop: centered-overlay-or-inline-surface
+    mobile: full-width-sheet-or-route
+    recommended_patterns: [keyboard-command-surface, master-detail-preview]
+    risks: [keyboard-only-feature, focus-trap-errors]
+
+  - id: agent-chat-workspace
+    surface: ai-native
+    jobs: [chat, research, tool-use, coding-assistant]
+    regions: [thread-header, conversation-scroll, activity-region, composer]
+    desktop: centered-thread-or-split-context
+    mobile: single-column-with-sticky-composer
+    recommended_patterns: [ai-conversation-thread, ai-tool-execution-card, ai-activity-summary, persistent-composer, human-approval-gate]
+    risks: [chat-bubble-default, composer-keyboard-overlap]
+
+  - id: agent-task-workspace
+    surface: ai-native
+    jobs: [long-running-task, workflow, automation, batch-operation]
+    regions: [task-header, progress-summary, execution-list, artifacts-or-output, approval-region]
+    desktop: task-plus-output
+    mobile: task-stack
+    recommended_patterns: [ai-activity-summary, ai-tool-execution-card, human-approval-gate, sticky-contextual-actions]
+    risks: [fake-progress, hidden-errors]
+
+  - id: marketing-proof-landing
+    surface: marketing
+    jobs: [saas-landing, product-launch, developer-tool]
+    regions: [header, hero, primary-proof, feature-sequence, trust, final-cta]
+    desktop: bounded-reading-tracks
+    mobile: single-priority-column
+    recommended_patterns: [single-ambient-moment]
+    risks: [three-equal-card-default, decorative-dashboard-mockup]
+
+  - id: editorial-product-explorer
+    surface: campaign
+    jobs: [dtc, lookbook, product-explorer, launch-campaign]
+    regions: [locked-chrome, product-stage, selector-rail, product-meta, primary-action]
+    desktop: stage-plus-selector
+    mobile: stage-over-selector
+    recommended_patterns: [editorial-world-switch]
+    risks: [hover-only-state, brand-cloning]
+
+  - id: immersive-hero
+    surface: marketing
+    jobs: [3d-hero, premium-product, visual-demo]
+    regions: [bounded-stage, webgl-or-media, html-copy, cta, fallback]
+    desktop: full-bleed-stage-with-content-grid
+    mobile: poster-or-lightweight-scene
+    recommended_patterns: [single-webgl-stage]
+    risks: [gpu-cost, content-readability, mobile-performance]
