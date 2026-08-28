@@ -1,95 +1,171 @@
-# ui-lego
+# UI Compose
 
-An agent skill for composing frontend from proven UI blocks so
-AI-generated interfaces don't look like slop.
+**UI Compose is a stack-aware UI composition engine for coding agents.**
 
-Coding agents can write CSS and still ship random spacing, invented
-buttons, gradient-blob heroes, and motion on every click. This skill
-replaces "design it from a blank canvas" with a closed method:
+It does not exist to install or copy popular UI libraries. It studies the useful parts of proven interfaces — layout systems, density, interaction models, motion physics, AI-native states, and product-specific composition patterns — then re-expresses those traits using the host project's own framework, components, tokens, and conventions.
 
-**Design Read → knobs → positive reference → negative (slop) reference →
-steal a skeleton → pick 3–7 blocks → map onto one token set → restrain
-motion.**
+> Taste decides the direction. UI Compose decides how to build it.
 
-## Goals
+## Why this exists
 
-Full contract: [`references/goals.md`](references/goals.md)
+Coding agents can generate valid frontend code and still produce generic UI: random spacing, disconnected cards, fashionable effects with no product logic, unnecessary dependencies, or interfaces that ignore the host design system.
 
-- One visual system per app (tokens, radius, type, density)
-- Layout stolen from a real skeleton, not invented cell-by-cell
-- Copy-own primitives (shadcn-class) instead of generating a button
-- AI-product chrome (stream, think, tools, approve, composer) is real
-- Motion has a purpose, a frequency test, and duration ≤ 300ms
-- Kit-monogamy: never mix two button/input systems
+UI Compose replaces blank-canvas generation with a decision pipeline:
 
-Non-goals: not an npm component library, not a Linear/Stripe clone,
-not permission to dump Magic UI on every surface.
+**Host Read → Design Read → Skeleton → Pattern Set → Adapter → Verify**
+
+The key difference from a component library is that the output should remain **native to the host project**.
+
+## What UI Compose learns from external libraries
+
+Popular UI projects are treated as research sources, not defaults.
+
+UI Compose may extract traits such as:
+
+- app-shell and master/detail relationships
+- dense data toolbars
+- nested radius hierarchy
+- stream/progress/tool/approval states for AI products
+- menu/panel motion physics
+- editorial product-world switching
+- restrained ambient marks
+- single-scene WebGL composition
+
+It should not blindly install, vendor, or clone the source library.
+
+See:
+
+- [`references/sources/registry.yaml`](references/sources/registry.yaml) — structured source/trait registry
+- [`references/sources/provenance.md`](references/sources/provenance.md) — source and license boundaries
+
+## Core workflow
+
+### 1. Host Read
+
+Before design decisions, detect:
+
+- framework/runtime
+- styling system
+- active component/primitive system
+- existing tokens/design system
+- motion stack
+- representative product patterns
+- accessibility/responsive/runtime constraints
+
+Never assume React, Tailwind, Radix, or a particular file layout.
+
+### 2. Design Read
+
+Interpret the surface, audience, product register, and visual direction. Use V/M/D (variance / motion / density) as directional controls rather than universal presets.
+
+### 3. Skeleton
+
+Choose the page architecture before styling. Layout relationships and information hierarchy do more to prevent generic AI UI than another effect library.
+
+### 4. Pattern Set
+
+Select roughly 3–7 useful traits/patterns. Prefer translating traits into host-native code over importing a library.
+
+### 5. Adapter
+
+Apply the closest stack adapter. Current baseline:
+
+- React + Tailwind
+- Vue + Element Plus
+- Vue + UnoCSS
+- Generic CSS / existing design system
+
+### 6. Verify
+
+Render and inspect desktop/mobile, keyboard/focus states, loading/empty/error states, reduced motion, overflow, and runtime errors.
+
+## AI-native UI
+
+UI Compose treats AI products as a first-class category. It provides composition guidance for:
+
+- streaming response
+- activity/progress summary
+- tool execution state
+- approval gates
+- composer/context
+- retry/error/cancel
+- task lifecycle
+
+It intentionally avoids implying that hidden chain-of-thought is available. UI should expose provider-supported activity, summarized reasoning, or execution traces only.
+
+## Project structure
+
+```text
+ui-compose/
+  SKILL.md
+  README.md
+  references/
+    host-read.md
+    layout-steal.md
+    ai-primitives.md
+    motion-blocks.md
+    editorial-campaign.md
+    threeui.md
+    taste-dials.md
+    adapters/
+      react-tailwind.md
+      vue-element-plus.md
+      vue-unocss.md
+      generic-css.md
+    sources/
+      registry.yaml
+      provenance.md
+  evals/
+    rubric.md
+```
+
+The repository is still early. The goal of v0.2 is to establish the architecture before expanding the source catalog further.
 
 ## Install
 
-Drop the folder into the host agent's skills directory.
+Use the Agent Skills convention supported by your coding agent. For portable repo-level usage, prefer a folder named after the skill, for example:
 
-| Agent | Path |
-| --- | --- |
-| Claude Code / Codex-style | `.claude/skills/ui-lego/` (keep `SKILL.md` + `references/`) |
-| Cursor | `.cursor/skills/ui-lego/` or project rules that point at `SKILL.md` |
-| Grok Build | `.grok/skills/ui-lego/` |
+```text
+.agents/skills/ui-compose/
+  SKILL.md
+  references/
+  evals/
+```
 
-The skill is `SKILL.md`. Depth is loaded on demand from `references/`.
+Some clients also support their own compatibility locations such as `.cursor/skills/`, `.claude/skills/`, or `$CODEX_HOME/skills` for user-level installation. Keep the folder name aligned with the `name: ui-compose` frontmatter.
 
-## What's inside
+## Evaluation
 
-| File | What it is |
-| --- | --- |
-| [`SKILL.md`](SKILL.md) | Workflow, source picker, anti-slop tells, checklists |
-| [`references/goals.md`](references/goals.md) | Primary / secondary / non-goals, agent contract |
-| [`references/sources.md`](references/sources.md) | Library shopping list (when to use which) |
-| [`references/reverse-engineering.md`](references/reverse-engineering.md) | CSS fingerprints from the live sites, steal/skip, decision tree |
-| [`references/layout-steal.md`](references/layout-steal.md) | Canonical skeletons (app shell, dashboard, chat, marketing) |
-| [`references/ai-primitives.md`](references/ai-primitives.md) | Implementable streaming / thinking / tools / composer |
-| [`references/motion-blocks.md`](references/motion-blocks.md) | Tilt, morphing panel, toast stack, when to ship zero motion |
-| [`references/editorial-campaign.md`](references/editorial-campaign.md) | Y2K × editorial DTC landings (SOLESHIFT° / SWIRL°) |
-| [`references/threeui.md`](references/threeui.md) | 3D / WebGL Lego — ThreeUI catalog, mount, disposal |
-| [`references/taste-dials.md`](references/taste-dials.md) | Design Read, V/M/D knobs, extra tells (taste-skill) |
+The project will not claim quality improvements based only on the prompt text. The benchmark plan is defined in [`evals/rubric.md`](evals/rubric.md).
 
-## Method (short)
+Initial evaluation targets include:
 
-1. One-line Design Read. Set VARIANCE / MOTION / DENSITY.
-2. Name a real product feel. Do not say "make it modern".
-3. Ban the slop tells (aurora hero, emoji icons, `transition: all`,
-   `p-[13px]`, purple as default accent, em-dash in UI copy).
-4. Steal layout tracks first. Color later.
-5. Pick 3–7 blocks from `sources.md`. One primitive kit.
-6. If the product talks to a model, implement the AI-native minimum set.
-7. Keyboard and high-frequency UI: no animation. Everything else ≤ 300ms.
+- B2B dashboard
+- settings/CRUD workspace
+- AI agent chat + tools + approval
+- SaaS landing
+- editorial product explorer
+- WebGL hero
+- React/Tailwind host
+- Vue/Element Plus host
+- Vue/UnoCSS host
+- existing internal design system
 
-## Reverse-engineering
+## Non-goals
 
-Libraries were not summarized from their homepages. HTML/CSS was fetched
-and tokens, radii, easings, and keyframes recorded. Recurring physics:
+UI Compose is not:
 
-- Ease `cubic-bezier(.23, 1, .32, 1)` (or `.22, 1, .36, 1`)
-- Open 180–220ms, close ~150ms, enter scale 0.95–0.985 — never `scale(0)`
-- Streaming caret 2px × 1em; in-flight tail ~1.6px blur + mask
-- Hairline rings `0 0 0 1px`; interior type 13–14px, tracking -0.01em
-- Nested radii chip 6 / control 8 / card 10 / window 14
+- an npm component library
+- a replacement design system
+- a clone of popular product brands
+- a bundle of fashionable effects
+- permission to mix multiple primitive kits
+- a reason to replace accessible host controls with custom markup
 
-Per-site steal/skip: [`references/reverse-engineering.md`](references/reverse-engineering.md)
+## Source policy
 
-Catalog includes Beautiful UI, AICSS, AI Elements, Cult UI, LiveKit
-Agents UI, shadcn, ReUI, Kibo, coss, beUI, Rare UI, transitions.dev,
-Magic UI, Aceternity, Originkit, Canvas UI, Skiper, orbs, border-beam,
-swagui, ThreeUI (Meng To), SOLESHIFT°/SWIRL° campaign register,
-taste-skill (LexnLin) dials, and the "you don't need animations" rule.
-
-## Pairing
-
-If the host repo has a design-system skill (`design-ui` or similar),
-that skill owns tokens, type, and a11y. This skill owns composition:
-which block, which skeleton, which AI primitive. Map stolen blocks onto
-the host tokens. Do not invent a second palette.
+External projects remain their authors' work. UI Compose records original methodology, abstractions, and independently reimplementable observations. Upstream source code/assets/trademarks retain their original licenses and rights.
 
 ## License
 
-MIT. The referenced sites remain their authors' work; this repo records
-a method and reimplementation notes, not a copy of their components.
+MIT for original material in this repository. Third-party material is not relicensed by this project.
