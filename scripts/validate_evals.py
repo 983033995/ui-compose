@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Validate UI Compose eval result records.
+"""Validate UI Compose eval fixtures and observed result records.
 
-Result files are optional during early development. When JSON results exist under
-`evals/results/`, each record must match the schema, refer to a real eval case,
-use real Pattern/Skeleton IDs when provided, and contain an internally consistent
-rubric total.
+Fixture contracts describe the host environment for repeatable benchmark cases.
+Observed result files are optional during early development. When JSON results
+exist under `evals/results/`, each record must match the schema, refer to a real
+eval case, use real Pattern/Skeleton IDs when provided, and contain an internally
+consistent rubric total.
 """
 from __future__ import annotations
 
@@ -18,7 +19,9 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS_DIR = ROOT / "evals" / "results"
-SCHEMA_PATH = ROOT / "schemas" / "eval-result.schema.json"
+FIXTURES_DIR = ROOT / "evals" / "harness" / "fixtures"
+RESULT_SCHEMA_PATH = ROOT / "schemas" / "eval-result.schema.json"
+FIXTURE_SCHEMA_PATH = ROOT / "schemas" / "eval-fixture.schema.json"
 PATTERN_REGISTRY = ROOT / "references" / "patterns" / "registry.yaml"
 SKELETON_REGISTRY = ROOT / "references" / "skeletons" / "registry.yaml"
 CASES_DIR = ROOT / "evals" / "cases"
@@ -43,9 +46,19 @@ def real_case_ids() -> set[str]:
     return ids
 
 
+def schema_errors(validator, value, rel: Path) -> list[str]:
+    errors = []
+    for error in sorted(validator.iter_errors(value), key=lambda e: list(e.path)):
+        location = ".".join(str(part) for part in error.absolute_path) or "<root>"
+        errors.append(f"[{rel}] {location}: {error.message}")
+    return errors
+
+
 def main() -> int:
-    schema = load_json(SCHEMA_PATH)
-    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    result_schema = load_json(RESULT_SCHEMA_PATH)
+    fixture_schema = load_json(FIXTURE_SCHEMA_PATH)
+    result_validator = Draft202012Validator(result_schema, format_checker=FormatChecker())
+    fixture_validator = Draft202012Validator(fixture_schema, format_checker=FormatChecker())
 
     patterns = load_yaml(PATTERN_REGISTRY)["patterns"]
     skeletons = load_yaml(SKELETON_REGISTRY)["skeletons"]
@@ -56,8 +69,42 @@ def main() -> int:
     result_files = sorted(
         path for path in RESULTS_DIR.rglob("*.json") if path.is_file()
     ) if RESULTS_DIR.exists() else []
+    fixture_files = sorted(FIXTURES_DIR.glob("*.yaml")) if FIXTURES_DIR.exists() else []
 
     errors: list[str] = []
+    fixture_ids: set[str] = set()
+    fixture_case_coverage: set[str] = set()
+
+    for path in fixture_files:
+        rel = path.relative_to(ROOT)
+        try:
+            fixture = load_yaml(path)
+        except (yaml.YAMLError, OSError) as exc:
+            errors.append(f"[{rel}] invalid YAML: {exc}")
+            continue
+
+        errors.extend(schema_errors(fixture_validator, fixture, rel))
+        if not isinstance(fixture, dict):
+            continue
+
+        fixture_id = fixture.get("id")
+        if fixture_id:
+            if fixture_id in fixture_ids:
+                errors.append(f"[{rel}] duplicate fixture id: {fixture_id}")
+            fixture_ids.add(fixture_id)
+
+        for case_id in fixture.get("case_ids", []):
+            if case_id not in case_ids:
+                errors.append(f"[{rel}] references missing eval case: {case_id}")
+            fixture_case_coverage.add(case_id)
+
+        deps = set(fixture.get("dependencies", []))
+        forbidden = set(fixture.get("forbidden_default_dependencies", []))
+        overlap = sorted(deps & forbidden)
+        if overlap:
+            errors.append(
+                f"[{rel}] dependencies also listed as forbidden defaults: {overlap}"
+            )
 
     for path in result_files:
         rel = path.relative_to(ROOT)
@@ -67,13 +114,15 @@ def main() -> int:
             errors.append(f"[{rel}] invalid JSON: {exc}")
             continue
 
-        for error in sorted(validator.iter_errors(result), key=lambda e: list(e.path)):
-            location = ".".join(str(part) for part in error.absolute_path) or "<root>"
-            errors.append(f"[{rel}] {location}: {error.message}")
+        errors.extend(schema_errors(result_validator, result, rel))
 
         case_id = result.get("case_id")
         if case_id and case_id not in case_ids:
             errors.append(f"[{rel}] references missing eval case: {case_id}")
+
+        host_fixture_ref = result.get("host_fixture_ref")
+        if host_fixture_ref and host_fixture_ref not in fixture_ids:
+            errors.append(f"[{rel}] references missing fixture: {host_fixture_ref}")
 
         skeleton_id = result.get("selected_skeleton")
         if skeleton_id and skeleton_id not in skeleton_ids:
@@ -117,7 +166,13 @@ def main() -> int:
             print(f"  - {error}")
         return 1
 
-    print(f"Eval validation passed: {len(result_files)} observed result record(s).")
+    print(
+        f"Eval validation passed: {len(fixture_files)} fixture contract(s), "
+        f"{len(result_files)} observed result record(s)."
+    )
+    if fixture_files:
+        covered = ", ".join(sorted(fixture_case_coverage))
+        print(f"Fixture-covered cases: {covered}")
     if not result_files:
         print("No benchmark result JSON exists yet; delivery readiness must not count rendered evidence.")
     return 0
