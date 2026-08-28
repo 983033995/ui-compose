@@ -1,0 +1,51 @@
+id: react-tailwind-data-workspace
+case_ids:
+  - 04-react-tailwind-data-workspace
+framework: React 19 + Vite + TypeScript
+runtime: browser SPA
+styling: Tailwind + existing CSS variables
+primitive_system: existing local React primitives for Button Input Select Popover and Table
+tokens: existing Tailwind theme aliases + CSS variables for color radius spacing and type
+motion: CSS transitions only unless the host already provides a motion primitive
+package_manager: pnpm
+dependencies:
+  - react
+  - react-dom
+  - tailwindcss
+  - typescript
+  - vite
+forbidden_default_dependencies:
+  - shadcn
+  - radix-ui
+  - antd
+  - framer-motion
+commands:
+  install: pnpm install --frozen-lockfile
+  build: pnpm build
+  test: pnpm test
+  dev: pnpm dev
+representative_files:
+  - package.json
+  - src/styles/tokens.css
+  - src/components/Button.tsx
+  - src/components/Select.tsx
+  - src/components/Table.tsx
+  - src/views/DataWorkspaceBaseline.tsx
+required_states:
+  - loading
+  - empty
+  - error
+  - filtered
+  - grouped
+  - selected
+  - bulk-selection
+accessibility_contract:
+  - Existing local primitives remain the primary accessible control layer.
+  - Column visibility sorting grouping and selection controls expose current state to keyboard and assistive technology users.
+  - Table semantics are preserved when tabular data is presented.
+mobile_contract:
+  - Around 390px, controls reflow intentionally instead of producing toolbar overflow.
+  - Data remains actionable without forcing the full desktop column set into the viewport.
+  - Bulk actions remain reachable and scoped to the current selection.
+snapshot_ref: null
+notes: The benchmark specifically tests that React + Tailwind does not imply shadcn or Radix. UI Compose should use the existing local primitive system and theme vocabulary unless a genuinely missing behavior justifies a dependency.
