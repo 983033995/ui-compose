@@ -16,14 +16,51 @@ UI Compose replaces blank-canvas generation with a decision pipeline:
 
 The key difference from a component library is that the output should remain **native to the host project**.
 
-## What UI Compose learns from external libraries
+## Composition Intelligence
 
-Popular UI projects are treated as research sources, not defaults.
+UI Compose separates three kinds of knowledge:
+
+1. **Source Registry** — where a useful decision was observed and what its provenance/license boundary is.
+2. **Pattern Registry** — reusable UI decisions independent of any one source library or brand.
+3. **Skeleton Registry** — page-level region relationships that organize patterns into a product workflow.
+
+Selection is intentionally host-aware. A source can provide evidence for a pattern without becoming a runtime dependency.
+
+Example:
+
+```text
+Vue 3 + Element Plus + B2B orders + high density + low motion
+  ↓
+master-detail-workspace
+  ↓
+dense-filter-toolbar
+master-detail-preview
+view-options-control
+sticky-contextual-actions
+  ↓
+Vue + Element Plus adapter
+  ↓
+0 new UI primitive systems
+```
+
+See:
+
+- [`references/sources/registry.yaml`](references/sources/registry.yaml)
+- [`references/patterns/registry.yaml`](references/patterns/registry.yaml)
+- [`references/skeletons/registry.yaml`](references/skeletons/registry.yaml)
+- [`references/composition-selection.md`](references/composition-selection.md)
+- [`references/sources/provenance.md`](references/sources/provenance.md)
+
+## What UI Compose learns from external libraries and products
+
+Popular UI projects and mature products are treated as research sources, not defaults.
 
 UI Compose may extract traits such as:
 
 - app-shell and master/detail relationships
 - dense data toolbars
+- keyboard-first command surfaces
+- view/display options
 - nested radius hierarchy
 - stream/progress/tool/approval states for AI products
 - menu/panel motion physics
@@ -31,12 +68,7 @@ UI Compose may extract traits such as:
 - restrained ambient marks
 - single-scene WebGL composition
 
-It should not blindly install, vendor, or clone the source library.
-
-See:
-
-- [`references/sources/registry.yaml`](references/sources/registry.yaml) — structured source/trait registry
-- [`references/sources/provenance.md`](references/sources/provenance.md) — source and license boundaries
+It should not blindly install, vendor, or clone the source library or product identity.
 
 ## Core workflow
 
@@ -101,6 +133,7 @@ ui-compose/
   README.md
   references/
     host-read.md
+    composition-selection.md
     layout-steal.md
     ai-primitives.md
     motion-blocks.md
@@ -115,11 +148,47 @@ ui-compose/
     sources/
       registry.yaml
       provenance.md
+    patterns/
+      registry.yaml
+    skeletons/
+      registry.yaml
+  schemas/
+    source-registry.schema.json
+    pattern-registry.schema.json
+    skeleton-registry.schema.json
+  scripts/
+    validate_registries.py
   evals/
     rubric.md
+    cases/
+      README.md
+      01-vue-element-plus-orders.md
+      02-agent-chat.md
+      03-settings-workspace.md
+  .github/workflows/
+    validate.yml
 ```
 
-The repository is still early. The goal of v0.2 is to establish the architecture before expanding the source catalog further.
+## Validation
+
+Registry structure and cross-references are machine-checked.
+
+```bash
+python -m pip install pyyaml jsonschema
+python scripts/validate_registries.py
+```
+
+Validation checks include:
+
+- JSON Schema conformance
+- duplicate IDs
+- Pattern evidence pointing to real Source IDs
+- Skeleton recommendations pointing to real Pattern IDs
+- known adapter IDs
+- valid density/motion ranges
+- source verification metadata consistency
+
+The same validation runs in GitHub Actions.
 
 ## Install
 
@@ -136,20 +205,22 @@ Some clients also support their own compatibility locations such as `.cursor/ski
 
 ## Evaluation
 
-The project will not claim quality improvements based only on the prompt text. The benchmark plan is defined in [`evals/rubric.md`](evals/rubric.md).
+The project will not claim quality improvements based only on the prompt text. The scoring model is defined in [`evals/rubric.md`](evals/rubric.md), while repeatable task contracts live in [`evals/cases/`](evals/cases/).
 
-Initial evaluation targets include:
+Current initial cases include:
 
-- B2B dashboard
-- settings/CRUD workspace
+- Vue 3 + Element Plus B2B order workspace
 - AI agent chat + tools + approval
-- SaaS landing
+- settings workspace
+
+Planned coverage also includes:
+
+- React/Tailwind data workspace
+- Vue/UnoCSS CRM
+- SaaS landing page
 - editorial product explorer
-- WebGL hero
-- React/Tailwind host
-- Vue/Element Plus host
-- Vue/UnoCSS host
-- existing internal design system
+- restrained WebGL hero
+- custom internal design system
 
 ## Non-goals
 
