@@ -1,108 +1,104 @@
-# Source catalog
+# Source evidence guide
 
-Pick one kit for primitives. Compose special blocks on top. Never mix two
-button/input systems in the same app.
+UI Compose does not maintain a shopping list of UI libraries to install. External products, component libraries, motion catalogs, design methods and campaign sites are **evidence sources** for reusable composition decisions.
 
-CSS fingerprints, steal/skip, and the decision tree live in
-`reverse-engineering.md`. This file is the shopping list.
+The machine-readable source of truth is:
 
-Prefer **copy-own** source (shadcn CLI / paste) over new npm UI kits.
+- [`sources/registry.yaml`](sources/registry.yaml) — source identity, role, framework, traits, integration mode, license/provenance status and risks
+- [`sources/provenance.md`](sources/provenance.md) — what can be observed, reimplemented, copied or only used as inspiration
+- [`patterns/registry.yaml`](patterns/registry.yaml) — reusable decisions extracted from one or more sources
+- [`skeletons/registry.yaml`](skeletons/registry.yaml) — page-level composition structures
+- [`reverse-engineering.md`](reverse-engineering.md) — research protocol
 
-## Primitive kits (pick one)
+## Source roles
 
-| Kit | Use when | How |
-| --- | --- | --- |
-| [shadcn/ui](https://ui.shadcn.com/) | Default | Copy into `src/components/ui`; restyle via tokens. 2026 chat layout: Message, Bubble, Attachment, MessageScroller |
-| [coss ui](https://coss.com/ui) | You want Base UI, not Radix | Same copy-own model. **Do not** add it next to shadcn |
-| [ReUI](https://reui.io/components) | Dashboards, data grids, filters, kanban, steppers, upload | Compositions *on* shadcn — steal structure, not theme |
-| [Kibo UI](https://www.kibo-ui.com/) | Gantt, Kanban, Editor on shadcn | Pick **either** ReUI or Kibo for data views, not both |
+A source may contribute evidence in one or more roles:
 
-**Reach for shadcn first** for: Button, Input, Textarea, Label, Dialog,
-AlertDialog, Sheet, DropdownMenu, Popover, Select, Tabs, Badge, Card,
-Separator, Skeleton, Tooltip, Toggle, Switch, Checkbox, Radio, Table.
-
-## AI-native chrome (pick one family)
-
-| Source | Use when | Notes |
-| --- | --- | --- |
-| [Beautiful UI](https://www.beautifului.dev/) | Default for text agents | No package. Reimplement `ai-primitives.md` |
-| [AICSS](https://www.aicss.dev/) | Need Vue/Svelte, or orb-as-status | React/Vue/Svelte. Orbs are a state machine, not decoration |
-| [AI Elements](https://elements.ai-sdk.dev/) | App already uses Vercel AI SDK | shadcn registry. Don't also vendor Beautiful UI |
-| [Cult UI](https://www.cult-ui.com/) | Want a thought-chain / HITL block | Steal one agent block's structure |
-| LiveKit Agents UI | Product is actually voice | Session, transcript, visualizer, I/O |
-
-Minimum set for any agent view: streaming text, thinking trace, tool
-chips, composer, approval card. See `ai-primitives.md`.
-
-## Motion / delight (one or two, not a carnival)
-
-| Source | Steal | Skip |
-| --- | --- | --- |
-| [transitions.dev](https://transitions.dev/) | Verb → recipe map | Stacking three recipes on one click |
-| [beUI](https://beui.dev/) | Tilt, morphing-height panel, toast stack, dock, island, sheet | Metallic / bloom on CRUD |
-| [Rare UI](https://rareui.com/components) | One ambient: fluid-orb, grid-reveal, step-player | Gravity letters on every view. CLI: `npx shadcn@latest add swamimalode07/rare-ui/{name}` |
-| [Orbs](https://orbs.jakubantalik.com/) | Named thinking states (idle/think/tool) | Custom WebGL when CSS dots suffice |
-| [Border Beam](https://beam.jakubantalik.com/) | One CTA/selected card; 200ms / 8px / 3px-blur page recipe | Rainbow beam on every tile |
-| [Magic UI](https://magicui.design/) | At most one (marquee *or* shine) | Retro-grid + particles + shine together = slop |
-| [Aceternity](https://ui.aceternity.com/) | Bento **structure**; one text-reveal | Globe + glare + generate-text on an app shell |
-| [Originkit](https://www.originkit.dev/) | One free animated piece | Theming the app around it |
-| [Canvas UI](https://canvasui.dev/) | Hero / generative mark over live HTML | Product chrome inside a canvas |
-| [Skiper UI](https://skiper-ui.com/) | One uncommon interaction (island, trail) | Cursor trails on data-entry |
-| [ThreeUI](https://threeui.com) | One real 3D/WebGL moment (hero, shader field, liquid-metal CTA). Community MIT: `@designcodeio/threeui` / [MengTo/threeui](https://github.com/MengTo/threeui) | Inventing GLSL. Stacking with Magic UI. GPU inside chat/CRUD. See `threeui.md` |
-| [You Don't Need Animations](https://emilkowal.ski/ui/you-dont-need-animations) | When to ship **zero** motion | — |
-
-Rare UI names: `fluidorb`, `gridreveal`, `gravityletters`,
-`bouncesidebar`, `proximitysidebar`, `stepplayer`,
-`scrollprogressindicator`, `notificationbell`, `otpinput`, `codeblock`,
-`durationpicker`, `foldercomponent`, `githubactivity`, `emojireaction`.
-
-beUI names: File Tree, Morphing Modal, Animated Toast Stack, Action Swap,
-Dock, Dynamic Island, Command Palette, Tilt Card, Bottom Sheet, Number
-Animation.
-
-CSS-first ports: `motion-blocks.md`. Add `motion` only if already
-installed.
-
-## Tokens, layout, audit
-
-| Source | Steal |
+| Role | Useful evidence |
 | --- | --- |
-| Sibling `design-ui` skill (if present) | Token block for the host app |
-| [swagui](https://swagui.rohoswagger.com) | Fixed identity (radius/type/shadow/ease). Color-only presets. `color-mix` surfaces. Two densities |
-| [Design System Checklist](https://www.designsystemchecklist.com/) | Coverage audit, not a look |
-| shadcn blocks / [shadcnblocks](https://www.shadcnblocks.com/) / Tailark / 21st.dev | Page **tracks** (hero, pricing, app shell). Delete their theme |
+| Product interface | workflow, density, hierarchy, keyboard model, state visibility |
+| Component/composition library | compound structure, accessible behavior, reusable product patterns |
+| AI-native UI | streaming, tool lifecycle, approvals, source/context inspection, composer states |
+| Motion/effect catalog | interaction verbs, duration/easing relationships, spatial causality, reduced-motion strategy |
+| Marketing/editorial site | tracks, section rhythm, motif discipline, expressive transitions |
+| Design methodology | design-read process, constraints, evaluation heuristics |
+| 3D/WebGL catalog | scene roles, progressive enhancement, performance/disposal practices |
 
-Beautiful UI's own chrome is a strong product-docs shell: `max-w-[960px]`,
-dashed hairline, sticky 288px aside. See `layout-steal.md`.
+## Selection rule
 
-## Workflow sources (why this skill exists)
+Do not select a source first and then force its components into the project.
 
-These posts independently converged on the same method. Follow the method,
-not the links as a cargo cult.
+Use this order:
 
-- Peng (@pengsonal): send the agent the resource → inspect → pick →
-  integrate and customize. "Like Lego."
-- Machina (@EXM7777): collect modules, fetch the full list, integrate
-  into a foundation.
-- Rexan Wong: AI fills details but cannot invent structure. Paste a
-  professional layout, then design into it.
-- Greg / SIP: screenshot admired sites → extract a design system → every
-  future component references that file.
-- Saadat: `design.md` + a reusable component library.
-- Ole Lehmann: positive reference + negative (slop) reference + extra
-  thinking on design work.
-- Tran Mau Tri Tam / Nero: additional agent-ready kits (AICSS, orbs,
-  beam, canvas, originkit).
-- Keisuke: micro-interaction registries (copy-own, not a closed API).
-- Shams (@ShamsAmin56): Y2K × editorial campaign landings (SOLESHIFT°,
-  SWIRL°) — locked chrome, SKU-owned worlds, hover swaps the stage.
-  See `editorial-campaign.md`.
-- Meng To (@MengTo): ThreeUI — copy-ready Three.js scenes, 100–200 KB
-  procedural, "give the prompt to your agent". Same Lego method for GPU.
-  See `threeui.md`.
-- LexnLin / @shao__meng: [taste-skill](https://github.com/leonxlnx/taste-skill)
-  — Design Read first, three knobs (variance / motion / density), AI-tell
-  catalog, redesign audit. Complements this skill; does not replace the
-  block catalog. See `taste-dials.md`.
-- Comment on Peng's post: models hallucinate spacing tokens.
-  **Design systems > vibe coding.**
+```text
+Product job
+→ Host Read
+→ Skeleton
+→ Pattern needs
+→ Source evidence when useful
+→ Host-native implementation
+```
+
+A source can support a Pattern without becoming a runtime dependency.
+
+## Dependency discipline
+
+When a useful source suggests an implementation, choose in this order:
+
+1. existing host component
+2. existing host utility or primitive
+3. small host-native reimplementation of the observed trait
+4. copy-own upstream source only when license and architecture justify it
+5. new dependency only when meaningful behavior cannot reasonably be reproduced with the host stack
+
+There is no universal default primitive kit. If the host already uses Element Plus, Ant Design, a local design system, Base UI, Radix, native HTML controls, or another established system, that system remains the implementation vocabulary unless the task explicitly calls for migration.
+
+## Evidence quality
+
+Good evidence describes durable decisions:
+
+- preserve list context while inspecting detail
+- expose active filter state near the data it affects
+- group ordering/visibility controls behind one display-options surface
+- make tool execution state inspectable without showing raw payloads by default
+- keep a persistent composer reachable while the mobile keyboard is open
+- use one ambient visual moment rather than decorating every surface
+
+Weak evidence is mostly visual fingerprinting:
+
+- exact shadow values
+- a brand's font pair
+- a proprietary illustration style
+- copied marketing copy
+- a distinctive gradient or logo treatment
+
+Those details should not become canonical Patterns.
+
+## Adding a new source
+
+Before adding a source to the registry, answer:
+
+1. What product decision does it teach?
+2. Does that decision already exist as a Pattern?
+3. Does it add independent evidence or merely duplicate another source?
+4. What is the provenance/license mode?
+5. Is runtime dependency actually justified?
+6. What risks should an agent know about?
+
+If the only reason is “the site looks cool,” keep researching until a reusable decision can be stated.
+
+## AI-specific rule
+
+AI sources may expose activity, progress, summarized reasoning, tool execution, approval and source/context state. UI Compose must never claim that hidden chain-of-thought is available or fabricate execution steps that the provider did not expose.
+
+## Research output
+
+Every meaningful source-research pass should improve at least one durable asset:
+
+- Source Registry metadata
+- Pattern evidence
+- Skeleton evidence
+- risk/provenance guidance
+- Eval case or failure hypothesis
+
+Otherwise the research should not increase the canonical knowledge base.
