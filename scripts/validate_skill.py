@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Validate UI Compose against the portable Agent Skills contract and OpenAI UI metadata.
+"""Validate UI Compose against a portable Agent Skills contract and OpenAI UI metadata.
 
-This is a small repository-owned checker so CI does not depend on the demo-only
-`skills-ref` package. It intentionally checks only stable specification rules we
-rely on. The open Agent Skills `skills-ref validate` command can still be used
-as an external compatibility check.
+This repository-owned checker intentionally follows the strict common subset we
+ship to current coding-agent packagers. Compatibility guidance belongs in the
+Markdown body rather than an extra top-level frontmatter key so stricter
+packagers do not reject the skill.
 """
 from __future__ import annotations
 
@@ -20,7 +20,6 @@ ALLOWED_FRONTMATTER = {
     "name",
     "description",
     "license",
-    "compatibility",
     "metadata",
     "allowed-tools",
 }
@@ -75,12 +74,6 @@ def validate_skill(root: Path, expected_install_name: str | None) -> list[str]:
         errors.append("frontmatter `description` is required and must be non-empty")
     elif len(description) > 1024:
         errors.append("frontmatter `description` must be <= 1024 characters")
-
-    compatibility = metadata.get("compatibility")
-    if compatibility is not None and (
-        not isinstance(compatibility, str) or len(compatibility) > 500
-    ):
-        errors.append("frontmatter `compatibility` must be a string <= 500 characters")
 
     if not body.strip():
         errors.append("SKILL.md must contain Markdown instructions after frontmatter")
