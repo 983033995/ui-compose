@@ -1,0 +1,12 @@
+name: UI Compose
+description: Stack-aware UI composition engine for coding agents.
+long_description: >
+  Detects the host frontend stack and design system, chooses proven layout and
+  interaction patterns, adapts them to the host implementation vocabulary, and
+  verifies the result without defaulting to third-party UI dependencies.
+tags:
+  - frontend
+  - ui
+  - design-system
+  - composition
+  - agent-skill
