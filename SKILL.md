@@ -12,7 +12,7 @@ description: >
   "polish", "landing", "dashboard", "chat UI", "agent UI",
   "component library", "make it look good", "design system", "Y2K",
   "lookbook", "campaign", "product explorer", "three.js", "WebGL",
-  "shader", "3D hero".
+  "shader", "3D hero", "taste", "redesign", "portfolio", "anti-slop".
 metadata:
   short-description: "Lego frontend: steal structure, compose proven blocks, anti-slop AI-native UI"
 user-invocable: false
@@ -38,6 +38,7 @@ does not look vibe-coded.
 - `references/motion-blocks.md` — distinctive motion blocks (beUI / Rare UI / Emil)
 - `references/editorial-campaign.md` — Y2K × editorial DTC landings (SOLESHIFT° / SWIRL°)
 - `references/threeui.md` — 3D / WebGL Lego (ThreeUI catalog, mount, disposal)
+- `references/taste-dials.md` — Design Read, V/M/D knobs, extra tells, redesign audit (taste-skill)
 
 ---
 
@@ -58,8 +59,13 @@ tokens already defined in `src/styles.css`.
 ## 1. The Lego workflow (do this in order)
 
 Copied from the method that actually works in the wild (Peng, Machina, Rexan
-Wong, Greg Isenberg, Ole Lehmann):
+Wong, Greg Isenberg, Ole Lehmann, LexnLin / taste-skill):
 
+0. **Design Read.** One line before code: *Reading this as: \<kind> for
+   \<audience>, \<vibe>, leaning toward \<system>.* Ambiguous? Ask one
+   question, not five. Then set three knobs (`references/taste-dials.md`):
+   VARIANCE / MOTION / DENSITY. App interiors default `4 / 2 / 8`;
+   landings default `8 / 6 / 4`. Do not mix those baselines.
 1. **Positive reference.** Name one real product feel (Linear / Raycast /
    Stripe / Notion / a specific block library). Do not say "make it modern".
 2. **Negative reference.** Explicitly ban the slop tells (see §3). Treat them
@@ -103,6 +109,7 @@ This workspace is TanStack Start + React 19 + Tailwind v4 + Radix. Prefer
 | Landing-page structure | shadcnblocks / Tailark / ReUI blocks | Steal tracks, delete their theme |
 | Landing-page *effect* | Magic UI / Aceternity / Originkit / Skiper | **At most one.** These are the slop-risk kits |
 | Playful product explorer / Y2K campaign | `references/editorial-campaign.md` | Locked chrome + SKU-owned worlds. Not for dashboards |
+| Landing / portfolio *taste* (read the room) | `references/taste-dials.md` + [taste-skill](https://github.com/leonxlnx/taste-skill) | Dials + copy tells. They do not own app interiors |
 | Token / theme discipline | swagui idea: surfaces from `color-mix` of fg/bg | Dark mode for free; radius/type/shadow stay fixed |
 
 **Do not install** a second component library next to shadcn. One kit, restyle
@@ -130,6 +137,10 @@ list, rewrite the surface before calling UI done.
   **or** a SKU world in the campaign register
 - "Live" badges, shimmer on static text, decorative grain on every panel
 - AI inventing spacing like `p-[13px]` / `gap-[17px]` instead of the scale
+- Marketing copy tells: em-dash in UI strings, numbered eyebrows
+  (`001 · Capabilities`), div-fake screenshots, "Quietly in use at",
+  three equal feature cards, beige+brass as the silent luxury default
+  (full list: `taste-dials.md`)
 
 Comment that matters: **design systems beat vibe coding** — models hallucinate
 spacing tokens unless you give them one scale and refuse ad-hoc values.
@@ -191,6 +202,8 @@ them a skeleton.
 - Marketing and app interiors are two registers: marketing is generous
   (large type, big gaps); app interiors are compact (13–14px base, tight
   toolbars). Do not mix.
+- A **third register** for campaign/lookbook pages only:
+  `references/editorial-campaign.md`. Never carry bounce/blobs into app chrome.
 - A **fourth register** for a single GPU moment: `references/threeui.md`.
   One scene per view, seated behind HTML. Never a second WebGL toy.
 - Mobile (~390px) first. No horizontal overflow. Tap targets ≥ 44px.
@@ -199,9 +212,12 @@ them a skeleton.
 
 ## Finish checklist
 
+- [ ] Design Read + V/M/D declared; landing 8/6/4 not used on app chrome
 - [ ] Tokens exist in `@theme`; stolen blocks remapped onto them (no second kit)
 - [ ] Layout skeleton stolen, not invented; one max-width + grid
 - [ ] ≤ 5 colors, ≤ 2 fonts, concentric radii, no ad-hoc hex / arbitrary px
 - [ ] None of the §3 slop tells
 - [ ] Motion has a purpose and a frequency test; ≤ 300ms; reduced-motion safe
 - [ ] If a 3D/WebGL moment exists: one Community ThreeUI scene, disposed on unmount, reduced-motion still. Not a second GPU toy.
+- [ ] If it's an AI product: streaming / thinking / tools / composer are real primitives
+- [ ] Eyeballed in a real browser (AGENTS.md verification), not just curl

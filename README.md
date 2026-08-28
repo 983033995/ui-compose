@@ -7,8 +7,9 @@ Coding agents can write CSS and still ship random spacing, invented
 buttons, gradient-blob heroes, and motion on every click. This skill
 replaces "design it from a blank canvas" with a closed method:
 
-**positive reference → negative (slop) reference → steal a skeleton →
-pick 3–7 blocks → map onto one token set → restrain motion.**
+**Design Read → knobs → positive reference → negative (slop) reference →
+steal a skeleton → pick 3–7 blocks → map onto one token set → restrain
+motion.**
 
 ## Goals
 
@@ -49,16 +50,18 @@ The skill is `SKILL.md`. Depth is loaded on demand from `references/`.
 | [`references/motion-blocks.md`](references/motion-blocks.md) | Tilt, morphing panel, toast stack, when to ship zero motion |
 | [`references/editorial-campaign.md`](references/editorial-campaign.md) | Y2K × editorial DTC landings (SOLESHIFT° / SWIRL°) |
 | [`references/threeui.md`](references/threeui.md) | 3D / WebGL Lego — ThreeUI catalog, mount, disposal |
+| [`references/taste-dials.md`](references/taste-dials.md) | Design Read, V/M/D knobs, extra tells (taste-skill) |
 
 ## Method (short)
 
-1. Name a real product feel. Do not say "make it modern".
-2. Ban the slop tells (aurora hero, emoji icons, `transition: all`,
-   `p-[13px]`, purple as default accent).
-3. Steal layout tracks first. Color later.
-4. Pick 3–7 blocks from `sources.md`. One primitive kit.
-5. If the product talks to a model, implement the AI-native minimum set.
-6. Keyboard and high-frequency UI: no animation. Everything else ≤ 300ms.
+1. One-line Design Read. Set VARIANCE / MOTION / DENSITY.
+2. Name a real product feel. Do not say "make it modern".
+3. Ban the slop tells (aurora hero, emoji icons, `transition: all`,
+   `p-[13px]`, purple as default accent, em-dash in UI copy).
+4. Steal layout tracks first. Color later.
+5. Pick 3–7 blocks from `sources.md`. One primitive kit.
+6. If the product talks to a model, implement the AI-native minimum set.
+7. Keyboard and high-frequency UI: no animation. Everything else ≤ 300ms.
 
 ## Reverse-engineering
 
@@ -76,8 +79,8 @@ Per-site steal/skip: [`references/reverse-engineering.md`](references/reverse-en
 Catalog includes Beautiful UI, AICSS, AI Elements, Cult UI, LiveKit
 Agents UI, shadcn, ReUI, Kibo, coss, beUI, Rare UI, transitions.dev,
 Magic UI, Aceternity, Originkit, Canvas UI, Skiper, orbs, border-beam,
-swagui, ThreeUI (Meng To), SOLESHIFT°/SWIRL° campaign register, and
-the "you don't need animations" rule.
+swagui, ThreeUI (Meng To), SOLESHIFT°/SWIRL° campaign register,
+taste-skill (LexnLin) dials, and the "you don't need animations" rule.
 
 ## Pairing
 

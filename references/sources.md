@@ -100,5 +100,9 @@ not the links as a cargo cult.
 - Meng To (@MengTo): ThreeUI — copy-ready Three.js scenes, 100–200 KB
   procedural, "give the prompt to your agent". Same Lego method for GPU.
   See `threeui.md`.
+- LexnLin / @shao__meng: [taste-skill](https://github.com/leonxlnx/taste-skill)
+  — Design Read first, three knobs (variance / motion / density), AI-tell
+  catalog, redesign audit. Complements this skill; does not replace the
+  block catalog. See `taste-dials.md`.
 - Comment on Peng's post: models hallucinate spacing tokens.
   **Design systems > vibe coding.**

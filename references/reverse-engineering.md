@@ -240,6 +240,31 @@ pasting Pro source without a license.
 **Agent move:** `threeui.md` workflow. Background ≠ hero. One GPU scene
 per view.
 
+### taste-skill — [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill)
+
+Not a component library. A **taste compiler** for landings/portfolios.
+Distilled here: `taste-dials.md`. Full pre-flight stays upstream.
+
+**Fingerprints (of the method, not a site):**
+
+- Design Read one-liner before code; one clarifying question max
+- Dials `VARIANCE / MOTION / DENSITY` 1-10, landing baseline 8/6/4
+- Official DS map (Fluent, Carbon, Polaris, GOV.UK) vs honest
+  approximations (no `liquid-glass.css`)
+- LILA rule (no default AI purple) + beige/brass luxury ban
+- Hero: ≤2-line title, ≤20-word sub, max 4 text bits, no logo wall
+- Eyebrow cap: 1 per 3 sections
+- Em-dash banned in **product copy**; numbered eyebrows banned
+- Redesign: audit first; never silently change slugs / nav / forms /
+  logo / legal
+- Hard ban: `window.addEventListener("scroll")`
+
+**Steal:** the inference + knobs + tell catalog + redesign don't-touch
+list.
+**Skip:** their Next/Motion/GSAP stack as a new default in this
+workspace; their landing baseline on app chrome; vendoring 1200 lines.
+**Agent move:** landings load both skills. App interiors stay ui-lego.
+
 ### SOLESHIFT° / SWIRL° — Shams campaign landings
 
 Not a library. A **register**. Full recipe: `editorial-campaign.md`.
@@ -382,6 +407,11 @@ Need a real 3D / WebGL / shader scene (not a CSS orb)?
   yes → threeui.md — one Community item, mount behind HTML, dispose
   no  → CSS-first (orbs, beam, motion-blocks). Do not add Three.js
         "to look premium"
+
+Landing / portfolio / redesign (not an app interior)?
+  yes → taste-dials.md: Design Read + V/M/D, then steal blocks
+        load leonxlnx/taste-skill for the 60-item pre-flight
+  no  → do not use their 8/6/4 landing baseline on a dashboard
 
 Is it a playful product explorer / Y2K campaign / lookbook?
   yes → editorial-campaign.md (locked chrome + SKU worlds)
