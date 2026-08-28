@@ -12,8 +12,9 @@ withDefaults(
   },
 )
 
-defineEmits<{
+const emit = defineEmits<{
   inspect: [row: OrderRecord]
+  selectionChange: [rows: OrderRecord[]]
 }>()
 </script>
 
@@ -24,7 +25,8 @@ defineEmits<{
     row-key="id"
     stripe
     class="app-table"
-    @row-click="$emit('inspect', $event)"
+    @row-click="emit('inspect', $event)"
+    @selection-change="emit('selectionChange', $event)"
   >
     <slot />
   </ElTable>
