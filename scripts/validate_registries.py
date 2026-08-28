@@ -16,6 +16,10 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
 STALE_VERIFICATION_DAYS = 90
+# CI commonly runs in UTC while source verification may be recorded in a
+# maintainer's local timezone. Allow a one-day skew, but reject anything beyond
+# that as a genuine future-date error.
+MAX_FUTURE_DATE_SKEW_DAYS = 1
 
 REGISTRIES = {
     "sources": ROOT / "references/sources/registry.yaml",
@@ -127,7 +131,7 @@ def main() -> int:
                     f"[skeletons] {skeleton['id']} references missing pattern: {pattern_id}"
                 )
 
-    today = _dt.date.today()
+    today = _dt.datetime.now(_dt.timezone.utc).date()
     for source in collections["sources"]:
         if source.get("license", "").startswith("verify") and not source.get("canonical_url"):
             warnings.append(
@@ -149,9 +153,13 @@ def main() -> int:
                 )
             else:
                 age_days = (today - verified_date).days
-                if age_days < 0:
+                if age_days < -MAX_FUTURE_DATE_SKEW_DAYS:
                     errors.append(
-                        f"[sources] {source['id']} last_verified is in the future: {last_verified}"
+                        f"[sources] {source['id']} last_verified is too far in the future: {last_verified}"
+                    )
+                elif age_days < 0:
+                    warnings.append(
+                        f"[sources] {source['id']} last_verified is one local-timezone day ahead of UTC: {last_verified}"
                     )
                 elif age_days > STALE_VERIFICATION_DAYS:
                     warnings.append(
