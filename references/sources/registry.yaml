@@ -1,4 +1,4 @@
-version: 0.2
+version: 0.3
 updated: 2026-08-29
 principle: "Sources are evidence of good UI decisions, not default runtime dependencies."
 
@@ -6,12 +6,14 @@ sources:
   - id: shadcn
     name: shadcn/ui
     role: primitive-reference
+    canonical_url: https://ui.shadcn.com/
     frameworks: [react]
     jobs: [forms, dialogs, menus, tabs, sheets, cards]
     traits: [copy-own, accessible-primitives, composable-structure]
     integration: reference-or-copy-own
     license: MIT
     provenance: public-source
+    last_verified: 2026-08-29
     runtime_dependency_default: false
     risks: [react-specific]
 
@@ -51,11 +53,39 @@ sources:
     runtime_dependency_default: false
     risks: [competing-primitive-system]
 
+  - id: linear
+    name: Linear
+    role: product-interaction-reference
+    canonical_url: https://linear.app/
+    frameworks: [product]
+    jobs: [issue-triage, command-navigation, preview, display-options, favorites]
+    traits: [keyboard-first, peek-preview, view-customization, dense-information-hierarchy]
+    integration: observed-trait-reimplementation
+    license: not-applicable-to-observed-traits
+    provenance: observed-behavior-and-public-docs
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [brand-cloning, keyboard-without-pointer-fallback]
+
+  - id: raycast
+    name: Raycast
+    role: product-interaction-reference
+    canonical_url: https://www.raycast.com/
+    frameworks: [product]
+    jobs: [command-navigation, search, quick-actions, productivity]
+    traits: [command-first, ranked-results, shortcut-hints, compact-density]
+    integration: observed-trait-reimplementation
+    license: not-applicable-to-observed-traits
+    provenance: observed-behavior-and-public-site
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [brand-cloning, desktop-context-bias]
+
   - id: beautiful-ui
     name: Beautiful UI
     role: ai-native-reference
     frameworks: [web]
-    jobs: [streaming, agent-status, thinking-summary, tool-status, composer]
+    jobs: [streaming, agent-status, reasoning-summary, tool-status, composer]
     traits: [compact-ai-chrome, stream-tail, execution-state-visualization]
     integration: trait-reimplementation
     license: verify-upstream
@@ -78,14 +108,16 @@ sources:
   - id: ai-elements
     name: AI Elements
     role: ai-native-reference
+    canonical_url: https://vercel.com/ai
     frameworks: [react]
-    jobs: [ai-chat, ai-sdk, tools, sources]
-    traits: [ai-sdk-alignment, structured-agent-components]
+    jobs: [ai-chat, ai-sdk, tools, sources, composer, streaming]
+    traits: [ai-sdk-alignment, structured-agent-components, tool-state-ui, source-ui]
     integration: prefer-only-if-host-already-uses-stack
     license: verify-upstream
     provenance: public-source
+    last_verified: 2026-08-29
     runtime_dependency_default: false
-    risks: [react-specific, stack-coupling]
+    risks: [react-specific, stack-coupling, chain-of-thought-wording]
 
   - id: beui
     name: beUI
@@ -160,11 +192,11 @@ sources:
     risks: [scope-overlap]
 
   - id: editorial-campaign
-    name: SOLESHIFT / SWIRL campaign observations
+    name: Editorial campaign observations
     role: editorial-reference
     frameworks: [web]
     jobs: [dtc, lookbook, product-explorer, campaign]
-    traits: [sku-owned-worlds, locked-chrome, editorial-type, palette-switching]
+    traits: [item-owned-worlds, locked-chrome, editorial-type, palette-switching]
     integration: observed-trait-reimplementation
     license: not-applicable-to-observed-traits
     provenance: observed-behavior
