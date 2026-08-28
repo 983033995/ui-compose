@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ui-compose.dev/schemas/pattern-registry.schema.json",
+  "title": "UI Compose Pattern Registry",
+  "type": "object",
+  "required": ["version", "updated", "principle", "patterns"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "number" },
+    "updated": { "type": "string", "format": "date" },
+    "principle": { "type": "string", "minLength": 1 },
+    "patterns": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "surface", "jobs", "density", "motion", "structure", "states", "evidence", "risks"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "surface": { "$ref": "#/$defs/id" },
+          "jobs": { "$ref": "#/$defs/idList" },
+          "density": { "$ref": "#/$defs/range" },
+          "motion": { "$ref": "#/$defs/range" },
+          "structure": { "$ref": "#/$defs/idList" },
+          "states": { "$ref": "#/$defs/idList" },
+          "interaction": { "$ref": "#/$defs/idList" },
+          "accessibility": { "$ref": "#/$defs/idList" },
+          "adapters": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": {
+              "$ref": "#/$defs/idList"
+            }
+          },
+          "evidence": { "$ref": "#/$defs/idList" },
+          "risks": { "$ref": "#/$defs/idListAllowEmpty" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "idList": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/id" }
+    },
+    "idListAllowEmpty": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/id" }
+    },
+    "range": {
+      "type": "array",
+      "prefixItems": [
+        { "type": "integer", "minimum": 0, "maximum": 10 },
+        { "type": "integer", "minimum": 0, "maximum": 10 }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    }
+  }
+}
