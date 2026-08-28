@@ -15,6 +15,7 @@ import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
+STALE_VERIFICATION_DAYS = 90
 
 REGISTRIES = {
     "sources": ROOT / "references/sources/registry.yaml",
@@ -126,15 +127,36 @@ def main() -> int:
                     f"[skeletons] {skeleton['id']} references missing pattern: {pattern_id}"
                 )
 
+    today = _dt.date.today()
     for source in collections["sources"]:
         if source.get("license", "").startswith("verify") and not source.get("canonical_url"):
             warnings.append(
                 f"[sources] {source['id']} still needs canonical_url before license verification"
             )
-        if source.get("last_verified") and not source.get("canonical_url"):
+
+        last_verified = source.get("last_verified")
+        canonical_url = source.get("canonical_url")
+        if last_verified and not canonical_url:
             errors.append(
                 f"[sources] {source['id']} has last_verified but no canonical_url"
             )
+        elif last_verified:
+            try:
+                verified_date = _dt.date.fromisoformat(last_verified)
+            except ValueError:
+                errors.append(
+                    f"[sources] {source['id']} has invalid last_verified date: {last_verified}"
+                )
+            else:
+                age_days = (today - verified_date).days
+                if age_days < 0:
+                    errors.append(
+                        f"[sources] {source['id']} last_verified is in the future: {last_verified}"
+                    )
+                elif age_days > STALE_VERIFICATION_DAYS:
+                    warnings.append(
+                        f"[sources] {source['id']} verification is {age_days} days old; re-check upstream"
+                    )
 
     if warnings:
         print("Warnings:")
