@@ -30,6 +30,24 @@ Only copy source when the upstream project explicitly permits it and when copyin
 
 For proprietary, paid, unclear, or brand-heavy sources, use only high-level design/interaction insight. Do not reproduce protected assets, copy, illustrations, brand identity, or source code.
 
+## DESIGN.md corpora
+
+Agent-readable DESIGN.md catalogs (including Refero Styles) are **methodology references**.
+
+Allowed:
+
+- borrow the document shape: color roles, type roles, spacing, layout tracks, do/don’t
+- write that document from Host Read of the current repo
+
+Not allowed:
+
+- paste another product’s DESIGN.md into the host as its visual identity
+- treat “free to use” marketing copy as a copy-own license
+- install a paid research MCP/skill as a UI Compose runtime dependency
+- copy fonts, illustrations, product copy, or distinctive brand tokens from the catalog
+
+Until an authoritative license is recorded, keep these sources `verify-upstream`.
+
 ## Registry requirements
 
 Every source in `registry.yaml` should eventually record:

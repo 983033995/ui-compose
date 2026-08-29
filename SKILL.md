@@ -85,6 +85,8 @@ Treat values as directional, not a universal preset. Product interiors are usual
 
 Pick one positive reference and one negative reference. Do not clone brand identity, copy, illustrations, or proprietary source.
 
+If a model-readable design file helps later steps, compact Host Read into a **host** DESIGN.md-shaped contract (color, type, spacing, radius, layout tracks, do/don’t). The *shape* may follow public agent-readable DESIGN.md conventions. The *values* must come from the host. Never paste a third-party product DESIGN.md (Refero catalog, Linear, Stripe, etc.) in as the project identity. See `references/host-read.md`.
+
 ---
 
 ## 2. Choose a skeleton before styling
@@ -217,7 +219,7 @@ Then compare against positive and negative references: inherit useful structure/
 ## Finish checklist
 
 - [ ] Host Read completed; no framework/library was assumed
-- [ ] Design Read + V/M/D direction declared
+- [ ] Design Read + V/M/D direction declared; any DESIGN.md uses host tokens
 - [ ] One skeleton ID chosen from the skeleton registry before styling
 - [ ] Smallest coherent compatible pattern set selected; no quota-padding
 - [ ] Canonical patterns use host-neutral recipes where available

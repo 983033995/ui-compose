@@ -108,6 +108,27 @@ Only for source that explicitly permits it and when copying is architecturally c
 
 Last resort. Use when the behavior is substantial, maintained, accessible, and expensive to recreate safely.
 
+## Host DESIGN.md contract
+
+If a later step needs a model-readable design file, write it from **this host**, not from an external product catalog.
+
+Public DESIGN.md corpora (for example Refero Styles) are evidence of *how to structure* a contract: color roles, type roles, spacing/radius, layout tracks, motion stack, and do/don’t rules. They are not a skin pack.
+
+Capture only what Host Read actually found:
+
+```text
+Color roles: bg, surface, fg, muted, border, primary, danger
+Type roles: existing host font stack and size tokens
+Spacing / radius / elevation: existing host tokens
+Layout tracks: observed on representative pages
+Motion: existing stack + prefers-reduced-motion path
+Do / don't: host conventions that later steps must not invent around
+```
+
+Do not paste a Linear, Stripe, or catalog DESIGN.md into the repo and call it Design Read. That is host-identity substitution (brand-copy).
+
+If the host already has `tokens.css`, a theme file, or a design-system package, point at those files. Do not create a parallel theme that the rest of the product does not use.
+
 ## Red flags
 
 Stop and reconsider if an implementation would:
@@ -118,6 +139,7 @@ Stop and reconsider if an implementation would:
 - bypass existing tokens with arbitrary colors/spacing
 - replace accessible existing components with prettier but weaker custom HTML
 - create a parallel theme file that the rest of the product does not use
+- paste a third-party product DESIGN.md over the host token system
 
 ## Rule
 

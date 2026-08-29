@@ -178,6 +178,25 @@ An observation should enter the Pattern Registry only when most of these are tru
 
 If not, keep it as source research evidence rather than a canonical Pattern.
 
+## Shopping lists are not research
+
+A public thread of “best UI component libraries” is an input, not a Source Registry patch.
+
+Worked example (2026-08-28):
+
+```text
+Aceternity          → already aceternity (inspiration-only, high-slop)
+Cue / CollectUI     → no extractable host-neutral trait; promo / screenshot risk
+21st.dev / shadcnstudio → duplicate shadcn + block-kit slop
+React Bits / Fancy  → overlap magic-ui
+Motion Primitives   → named motion verb; add as motion-reference, reimplement
+Number Flow         → tabular number physics; not a Pattern
+Component Gallery   → cross-system anatomy; inspiration-only
+Refero DESIGN.md    → methodology for host DESIGN.md shape; never paste product identity
+```
+
+Only the last four improved a durable asset. The rest stayed out.
+
 ## Research quality bar
 
 Good reverse-engineering produces statements like:

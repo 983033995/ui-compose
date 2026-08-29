@@ -87,6 +87,12 @@ Before adding a source to the registry, answer:
 
 If the only reason is “the site looks cool,” keep researching until a reusable decision can be stated.
 
+Twitter/blog “best UI kit” lists are not research output. Expand every short link, check the Source Registry, and reject items that only duplicate `shadcn`, Magic UI, or Aceternity, or that have no extractable trait beyond “looks expensive.” A shopping list of 12 kits should not become 12 registry rows.
+
+## DESIGN.md catalogs
+
+A model-readable DESIGN.md is useful as a **host contract format**. It is not a license to adopt Linear, Stripe, or any catalog entry as the host identity. See `sources/provenance.md` and `host-read.md`.
+
 ## AI-specific rule
 
 AI sources may expose activity, progress, summarized reasoning, tool execution, approval and source/context state. UI Compose must never claim that hidden chain-of-thought is available or fabricate execution steps that the provider did not expose.

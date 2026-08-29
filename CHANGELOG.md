@@ -21,6 +21,19 @@
 - Repeatable eval case format plus a nine-case host/product diversity matrix.
 - Linear and Raycast as product-interaction evidence in the Source Registry.
 
+### Source research pass (2026-08-29)
+
+Folded from public DESIGN.md / UI-kit threads without turning UI Compose into a kit picker:
+
+- `refero-styles` as a methodology reference for model-readable DESIGN.md *shape*; values must come from Host Read, not from catalog product identities.
+- `component-gallery` as inspiration-only host-diversity evidence (same job, different anatomy across design systems).
+- `motion-primitives` (MIT) as a motion-reference for named, origin-aware verbs — reimplement on the host stack.
+- `number-flow` (MIT) as evidence for layout-stable tabular number motion, recorded in `physics.md` rather than as a new Pattern.
+- Provenance + composition-selection hard reject: ingesting a third-party DESIGN.md as the host identity.
+- Explicit rejection of shopping-list sources (Cue, CollectUI, 21st.dev, shadcnstudio, React Bits, Fancy Components, Aceternity-as-new-row).
+
+See `reviews/grok-2026-08-28-source-research.md` until those notes are folded and deleted.
+
 ### Second-opinion / recipe restoration
 
 Integrated the useful parts of Grok PR #2 without merging its older review branch directly:

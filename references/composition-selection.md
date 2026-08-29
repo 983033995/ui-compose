@@ -38,6 +38,7 @@ These override any ranking hint:
 - inaccessible primary interaction => reject
 - requires replacing the host primitive system without justification => reject
 - brand-copy strategy => reject
+- ingesting a third-party DESIGN.md (or catalog skin) as the host identity => reject
 - unjustified dependency with no substantial behavioral need => reject
 - mobile-breaking layout for a mobile-required task => reject
 

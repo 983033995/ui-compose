@@ -75,6 +75,19 @@ Reduced motion: no shimmer, no animated caret, no blur-based movement cue.
 
 See `ai-primitives.md` for the full state set.
 
+## Tabular numbers
+
+When a visible numeric value changes (KPI, price, remaining count), keep the layout stable. Animate only if the change is a continuous live update, not a keyboard-driven table sort.
+
+| Role | Fallback |
+| --- | --- |
+| Digit transition | 200–320ms ease-out, per digit, direction from sign of delta |
+| Layout | tabular nums / reserved width so adjacent digits do not shove the row |
+| Reduced motion | snap to the new value; no spin, no fade-per-glyph |
+| Density | app interiors usually skip this; marketing metrics may use it once |
+
+Do not add a number-animation library to format a static table cell. Prefer host typography (`font-variant-numeric: tabular-nums`) first. Number Flow is evidence for the trait, not a default dependency.
+
 ## Registers
 
 Use these as directional bands, not mathematical laws.

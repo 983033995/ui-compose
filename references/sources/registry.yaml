@@ -212,3 +212,59 @@ sources:
     provenance: observed-behavior
     runtime_dependency_default: false
     risks: [brand-cloning, touch-hover-mismatch]
+
+  - id: refero-styles
+    name: Refero Styles
+    role: direction-reference
+    canonical_url: https://styles.refero.design
+    frameworks: [agent-skill]
+    jobs: [design-read, token-contract, visual-research]
+    traits: [model-readable-design-md, token-and-type-inventory, host-identity-risk]
+    integration: methodology-reference
+    license: verify-upstream
+    provenance: public-catalog-with-paid-mcp
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [brand-cloning, paid-mcp-boundary, host-identity-substitution]
+
+  - id: component-gallery
+    name: The Component Gallery
+    role: composition-reference
+    canonical_url: https://component.gallery
+    frameworks: [design-system]
+    jobs: [component-anatomy, host-diversity, primitive-comparison]
+    traits: [cross-system-anatomy, job-over-pixels]
+    integration: inspiration-only-by-default
+    license: verify-upstream
+    provenance: public-index-of-third-party-systems
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [third-party-brand-material, screenshot-copy-risk]
+
+  - id: motion-primitives
+    name: Motion Primitives
+    role: motion-reference
+    canonical_url: https://github.com/ibelick/motion-primitives
+    frameworks: [react]
+    jobs: [named-motion-verb, morph, reveal]
+    traits: [origin-aware-motion, copy-paste-react, reduced-motion-path]
+    integration: trait-reimplementation
+    license: MIT
+    provenance: public-source
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [react-specific, motion-library-coupling, slop-if-stacked]
+
+  - id: number-flow
+    name: Number Flow
+    role: motion-reference
+    canonical_url: https://github.com/barvian/number-flow
+    frameworks: [react, vue, svelte]
+    jobs: [tabular-number, metric-update, counter]
+    traits: [digit-wise-transition, layout-stable-numerics, reduced-motion-default]
+    integration: trait-reimplementation
+    license: MIT
+    provenance: public-source
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [unnecessary-dependency, motion-on-keyboard-data]
