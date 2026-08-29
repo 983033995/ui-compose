@@ -21,7 +21,7 @@ A source may contribute evidence in one or more roles:
 | AI-native UI | streaming, tool lifecycle, approvals, source/context inspection, composer states |
 | Motion/effect catalog | interaction verbs, duration/easing relationships, spatial causality, reduced-motion strategy |
 | Marketing/editorial site | tracks, section rhythm, motif discipline, expressive transitions |
-| Design methodology | design-read process, constraints, evaluation heuristics |
+| Design methodology | design-read process, constraints, evaluation heuristics, host-contract structure |
 | 3D/WebGL catalog | scene roles, progressive enhancement, performance/disposal practices |
 
 ## Selection rule
@@ -32,14 +32,14 @@ Use this order:
 
 ```text
 Product job
-→ Host Read
+→ Host Read / Host Contract
 → Skeleton
 → Pattern needs
 → Source evidence when useful
 → Host-native implementation
 ```
 
-A source can support a Pattern without becoming a runtime dependency.
+A source can support a Pattern or Physics rule without becoming a runtime dependency.
 
 ## Dependency discipline
 
@@ -63,6 +63,8 @@ Good evidence describes durable decisions:
 - make tool execution state inspectable without showing raw payloads by default
 - keep a persistent composer reachable while the mobile keyboard is open
 - use one ambient visual moment rather than decorating every surface
+- keep numeric layout stable while live values change
+- express a host design contract in model-readable semantic roles
 
 Weak evidence is mostly visual fingerprinting:
 
@@ -74,12 +76,31 @@ Weak evidence is mostly visual fingerprinting:
 
 Those details should not become canonical Patterns.
 
+## Shopping lists are not research
+
+A thread, post, or directory titled “best UI libraries,” “best icons,” or “design inspiration” is an input to research, not a Source Registry patch.
+
+For every candidate:
+
+1. expand the actual upstream source
+2. check whether an equivalent source/trait already exists
+3. state the host-neutral decision it teaches
+4. classify provenance/license risk
+5. decide whether it improves Pattern, Recipe, Physics, Host Read, or an Eval hypothesis
+6. reject it if the only durable output is “this looks good”
+
+Do **not** turn ten UI-kit links into ten registry rows. Icon packs should usually improve Host Read’s icon-system detection rather than become sources. Screenshot galleries should usually remain research indexes rather than canonical evidence. A numeric animation library may improve `physics.md` without creating a new Pattern.
+
+## DESIGN.md catalogs
+
+Model-readable DESIGN.md catalogs are useful primarily as **contract-format methodology**. Their structure can inform Host Contract fields; their product-specific values must not replace the current host identity. See `sources/provenance.md` and `host-read.md`.
+
 ## Adding a new source
 
 Before adding a source to the registry, answer:
 
 1. What product decision does it teach?
-2. Does that decision already exist as a Pattern?
+2. Does that decision already exist as a Pattern or Physics rule?
 3. Does it add independent evidence or merely duplicate another source?
 4. What is the provenance/license mode?
 5. Is runtime dependency actually justified?
@@ -95,8 +116,10 @@ AI sources may expose activity, progress, summarized reasoning, tool execution, 
 
 Every meaningful source-research pass should improve at least one durable asset:
 
+- Host Read / Host Contract rule
 - Source Registry metadata
 - Pattern evidence
+- Recipe or Physics guidance
 - Skeleton evidence
 - risk/provenance guidance
 - Eval case or failure hypothesis
