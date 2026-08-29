@@ -39,6 +39,7 @@ These override any ranking hint:
 - requires replacing the host primitive system without justification => reject
 - brand-copy strategy => reject
 - ingesting a third-party DESIGN.md (or catalog skin) as the host identity => reject
+- adding a second icon family or an animated-icon kit on product chrome => reject
 - unjustified dependency with no substantial behavioral need => reject
 - mobile-breaking layout for a mobile-required task => reject
 

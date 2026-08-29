@@ -63,7 +63,7 @@ Before changing UI, inspect the repository and state the host contract in a shor
 
 Never assume React, Tailwind, Radix, or `src/styles.css`.
 
-If an existing design system exists, **adapt to it**. Do not install a second button/input/modal system merely because a reference library contains a good pattern.
+If an existing design system exists, **adapt to it**. Do not install a second button/input/modal system merely because a reference library contains a good pattern. Do not install a second icon family or an animated-icon kit when the host already has icons.
 
 If no design-system skill is available, enforce the fallback quality gates in §8 yourself.
 
@@ -156,6 +156,8 @@ Rewrite before calling a surface done when it exhibits these hard failures witho
 - glassmorphism on every panel
 - rainbow borders / neon glow without brand rationale
 - emoji used as product UI icons
+- a second icon family, or animated icons on nav/table/chrome
+- two filled primary buttons in one region
 - ad-hoc spacing that bypasses the host scale (`p-[13px]`, `gap-[17px]`)
 - identical radius everywhere regardless of nesting
 - floating elements with no shared grid/gutter logic

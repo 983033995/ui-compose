@@ -71,6 +71,14 @@ Find:
 
 Prefer semantic tokens already used by product surfaces.
 
+### Icons
+
+Find the icon package or SVG convention already in use (`@element-plus/icons-vue`, `lucide-react`, Phosphor, Font Awesome, inline SVG sprites).
+
+- If a set exists, **reuse it**. Do not add Lucide, Phosphor, Iconsax, Hugeicons, or a Lottie pack beside it.
+- Animated icon kits (lucide-animated, Lottie icon packs, hover-icon marketplaces) are a second motion stack. Default off for app chrome, tables, and navigation.
+- If the host has no icons, pick **one** stroke family that matches the primitive system and stop. Do not mix outline + filled + animated families in one surface.
+
 ### Existing patterns
 
 Inspect at least one representative implementation for each relevant class:
@@ -140,6 +148,7 @@ Stop and reconsider if an implementation would:
 - replace accessible existing components with prettier but weaker custom HTML
 - create a parallel theme file that the rest of the product does not use
 - paste a third-party product DESIGN.md over the host token system
+- add a second icon family or an animated-icon kit on product chrome
 
 ## Rule
 

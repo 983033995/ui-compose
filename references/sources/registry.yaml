@@ -268,3 +268,31 @@ sources:
     last_verified: 2026-08-29
     runtime_dependency_default: false
     risks: [unnecessary-dependency, motion-on-keyboard-data]
+
+  - id: refactoring-ui
+    name: Refactoring UI
+    role: direction-reference
+    canonical_url: https://www.refactoringui.com/
+    frameworks: [web]
+    jobs: [visual-hierarchy, spacing-rhythm, button-hierarchy, empty-state, elevation]
+    traits: [one-primary-per-region, de-emphasize-competitors, proximity-grouping, host-token-first]
+    integration: methodology-reference
+    license: verify-upstream
+    provenance: proprietary-book-plus-unaffiliated-all-rights-reserved-plugin
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [book-copyright, all-rights-reserved-plugin, tailwind-assumption]
+
+  - id: sixty-fps
+    name: 60fps.design
+    role: motion-reference
+    canonical_url: https://60fps.design
+    frameworks: [product]
+    jobs: [micro-interaction, observed-motion]
+    traits: [purpose-named-motion, product-native-detail]
+    integration: inspiration-only-by-default
+    license: not-applicable-to-observed-traits
+    provenance: observed-behavior-and-public-gallery
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [brand-cloning, screenshot-copy-risk, over-animation]

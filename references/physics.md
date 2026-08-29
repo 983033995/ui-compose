@@ -36,6 +36,28 @@ These are fallback ranges, not mandatory constants. Prefer host typography and s
 
 Refuse ad-hoc spacing (`p-[13px]`, `gap-[17px]`, `max-w-[847px]`) when it bypasses an existing host scale. If a role is genuinely missing, add a token once instead of scattering arbitrary values.
 
+Do not invent a new type scale when the host already has one. Prefer two to four host size roles and two to three weights. Hierarchy comes from weight, color, and space together — not from making the title larger until it wins.
+
+## Emphasis
+
+One region has one primary. Competitors get quieter color, lighter weight, or more space — not a second equally loud size.
+
+Empty/error/zero-data views still need a next action (clear filters, create, retry). A decorative illustration without an action is not an empty state.
+
+## Action hierarchy
+
+Map onto host button variants. Do not invent a second button kit.
+
+| Role | Typical host mapping | Use |
+| --- | --- | --- |
+| Primary | filled / `type="primary"` | one per region: save, submit, confirm |
+| Secondary | outlined / default | cancel, alternative |
+| Tertiary | text / link | optional, low-frequency |
+| Destructive | danger, not competing with primary | delete/reject; never the ambiguous default |
+| Disabled | host disabled token | keep label readable |
+
+If two filled primaries sit side by side, demote one.
+
 ## Radius nesting
 
 Keep concentric roles, not one radius for every node:

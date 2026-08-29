@@ -5,6 +5,7 @@ Use these recipes only after Host Read confirms they fit the product and stack. 
 Hard rules:
 
 - If the user will see it many times a day, or it follows the keyboard → **no animation**
+- Do not animate product icons on navigation, tables, or repeating chrome
 - UI motion is generally **≤ 300ms**
 - Name the purpose or delete the motion
 - provide `prefers-reduced-motion: reduce`

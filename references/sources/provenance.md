@@ -48,6 +48,20 @@ Not allowed:
 
 Until an authoritative license is recorded, keep these sources `verify-upstream`.
 
+## Books and unaffiliated plugins
+
+*Refactoring UI* is a proprietary book. Unaffiliated agent plugins that encode it (including `gnurio/refactoring-ui-plugin`, all rights reserved) are **methodology references**.
+
+Allowed:
+
+- host-neutral traits: one primary per region, de-emphasize competitors, spacing rhythm, button hierarchy mapped to host variants, empty states with a next action, elevation as function not decoration, grouping by proximity
+
+Not allowed:
+
+- copying plugin `SKILL.md` files or book diagrams/prose into this repository
+- installing that plugin as a UI Compose runtime or default sibling skill
+- assuming Tailwind/shadcn because a Refactoring UI plugin does
+
 ## Registry requirements
 
 Every source in `registry.yaml` should eventually record:

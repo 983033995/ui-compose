@@ -29,8 +29,12 @@ Folded from public DESIGN.md / UI-kit threads without turning UI Compose into a 
 - `component-gallery` as inspiration-only host-diversity evidence (same job, different anatomy across design systems).
 - `motion-primitives` (MIT) as a motion-reference for named, origin-aware verbs — reimplement on the host stack.
 - `number-flow` (MIT) as evidence for layout-stable tabular number motion, recorded in `physics.md` rather than as a new Pattern.
-- Provenance + composition-selection hard reject: ingesting a third-party DESIGN.md as the host identity.
+- Provenance + composition-selection hard reject: ingesting a third-party DESIGN.md as the host identity; adding a second icon family or animated-icon kit on chrome.
 - Explicit rejection of shopping-list sources (Cue, CollectUI, 21st.dev, shadcnstudio, React Bits, Fancy Components, Aceternity-as-new-row).
+- `refactoring-ui` as a methodology reference (proprietary book + unaffiliated all-rights-reserved plugin). Host-neutral traits only: one primary per region, action hierarchy on host buttons, empty states with a next action. Do not vendor plugin files.
+- `sixty-fps` as inspiration-only observed-motion evidence; brand-copy risk recorded.
+- Host Read icon-set detection: reuse the existing family; animated icon kits are a second motion stack and default off on product chrome.
+- Physics: emphasis + action hierarchy. Anti-slop: second icon family, two filled primaries in one region.
 
 See `reviews/grok-2026-08-28-source-research.md` until those notes are folded and deleted.
 

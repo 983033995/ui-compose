@@ -197,6 +197,16 @@ Refero DESIGN.md    → methodology for host DESIGN.md shape; never paste produc
 
 Only the last four improved a durable asset. The rest stayed out.
 
+Second pass (icon/gallery/Refactoring UI threads, 2026-08-29):
+
+```text
+Lucide/Phosphor/Iconsax lists → Host Read icon detection; do not add a second family
+lucide-animated / Lottie icons → animated-icon kit; slop on app chrome
+CollectUI / posts.design / ogfolio / seesaw → screenshot galleries; no new trait
+60fps.design → observed-motion gallery; inspiration-only, brand-copy risk
+Refactoring UI plugin (ARR) → methodology traits into physics; do not vendor SKILL.md files
+```
+
 ## Research quality bar
 
 Good reverse-engineering produces statements like:
