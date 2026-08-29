@@ -18,7 +18,7 @@ UI Compose is a **composition engine**, not a component library and not a licens
 
 Works with React, Vue, Svelte, Tailwind, UnoCSS, CSS/SCSS, and existing design systems through adapter guidance. The core contract is framework-agnostic.
 
-The goal is to extract useful traits of proven interfaces — information architecture, layout tracks, density, interaction models, motion physics, state patterns, and AI-native primitives — and re-express them using the host project's existing framework, tokens, components, and conventions.
+The goal is to extract useful traits of proven interfaces — information architecture, layout tracks, density, interaction models, motion physics, state patterns, and AI-native primitives — and re-express them using the host project's existing framework, tokens, components, icons, and conventions.
 
 > Taste decides the direction. UI Compose decides how to build it.
 
@@ -26,17 +26,19 @@ The goal is to extract useful traits of proven interfaces — information archit
 
 Do not begin by choosing a library. Begin by understanding the host.
 
-**Host Read → Design Read → Skeleton → Pattern Set → Adapter → Verify**
+**Host Read → Host Contract → Design Read → Skeleton → Pattern Set → Recipe → Adapter → Verify**
+
+`Host Contract` is the compact internal representation produced by Host Read. It may be a short note, structured object, or DESIGN.md-shaped summary; do not create a new file unless the task actually benefits from one.
 
 Read references only when needed:
 
-- `references/host-read.md` — framework/design-system detection protocol
+- `references/host-read.md` — framework/design-system detection protocol and Host Contract shape
 - `references/skeletons/registry.yaml` — page-level region relationships
 - `references/patterns/registry.yaml` — reusable product/UI decisions
 - `references/patterns/recipes.md` — host-neutral implementation recipes for canonical patterns
 - `references/composition-selection.md` — host-aware skeleton/pattern selection
 - `references/adapters/` — stack-specific integration
-- `references/physics.md` — shared motion/type/radius defaults
+- `references/physics.md` — shared motion/type/radius/action-hierarchy defaults
 - `references/layout-steal.md` — human expansion of skeletons
 - `references/ai-primitives.md` — AI-native UI states and recipes
 - `references/motion-blocks.md` — distinctive motion recipes
@@ -57,13 +59,17 @@ Before changing UI, inspect the repository and state the host contract in a shor
 2. **Styling system** — Tailwind, UnoCSS, CSS Modules, SCSS, CSS-in-JS, plain CSS.
 3. **Primitive/component system** — shadcn/Radix, Element Plus, Ant Design, Base UI, custom design system, or none.
 4. **Existing tokens** — colors, spacing, radius, typography, shadows, z-index.
-5. **Motion stack** — CSS only, Motion/Framer Motion, Vue transitions, GSAP, none.
-6. **Existing product patterns** — shell, cards, forms, tables, dialogs, loading, error/empty states, mobile behavior.
-7. **Constraints** — browser targets, accessibility rules, bundle budget, SSR/hydration, mobile/touch, existing architecture.
+5. **Typography roles** — active font stack, body/meta/title sizes and weight hierarchy.
+6. **Icon system** — existing package/SVG convention, stroke/fill family, size roles.
+7. **Motion stack** — CSS only, Motion/Framer Motion, Vue transitions, GSAP, none.
+8. **Existing product patterns** — shell, cards, forms, tables, dialogs, loading, error/empty states, mobile behavior.
+9. **Constraints** — browser targets, accessibility rules, bundle budget, SSR/hydration, mobile/touch, existing architecture.
 
 Never assume React, Tailwind, Radix, or `src/styles.css`.
 
-If an existing design system exists, **adapt to it**. Do not install a second button/input/modal system merely because a reference library contains a good pattern.
+If an existing design system exists, **adapt to it**. Do not install a second button/input/modal system merely because a reference library contains a good pattern. Do not add a second icon family merely because a reference screenshot uses one.
+
+If a model-readable design contract helps later steps, derive its **shape** from general conventions but derive its **values** from Host Read. Never paste a Linear, Stripe, Refero, or other external DESIGN.md/catalog identity into the project as if it were the host design system.
 
 If no design-system skill is available, enforce the fallback quality gates in §8 yourself.
 
@@ -116,7 +122,7 @@ Complex product surfaces will often use roughly 3–7 patterns. Narrow, speciali
 
 Start from the skeleton's `recommended_patterns`, then add only what the job or required states still lack. Consult `references/patterns/recipes.md` for host-neutral implementation guidance.
 
-Hard rejects beat any ranking hint: wrong surface, replacing the host primitive system, inaccessible primary interaction, brand-copy, unjustified dependency, or a mobile-breaking layout on a mobile-required task.
+Hard rejects beat any ranking hint: wrong surface, replacing the host primitive system, inaccessible primary interaction, third-party design-contract identity substitution, unjustified second icon family, brand-copy, unjustified dependency, or a mobile-breaking layout on a mobile-required task.
 
 Popular libraries are evidence for a pattern, not default runtime dependencies. Consult `references/sources/registry.yaml` only after pattern IDs are chosen, and only to check provenance / integration mode.
 
@@ -130,7 +136,7 @@ Prefer this order:
 4. copy-own source only when license and architecture make it appropriate
 5. add a dependency only when its behavior is substantial enough to justify it
 
-Do not mix competing primitive systems in one surface unless the repository already does so intentionally.
+Do not mix competing primitive or icon systems in one surface unless the repository already does so intentionally.
 
 ---
 
@@ -154,6 +160,8 @@ Rewrite before calling a surface done when it exhibits these hard failures witho
 - glassmorphism on every panel
 - rainbow borders / neon glow without brand rationale
 - emoji used as product UI icons
+- a second icon family introduced without a host/product reason
+- third-party DESIGN.md/catalog identity substituted for host tokens/primitives
 - ad-hoc spacing that bypasses the host scale (`p-[13px]`, `gap-[17px]`)
 - identical radius everywhere regardless of nesting
 - floating elements with no shared grid/gutter logic
@@ -165,11 +173,11 @@ Rewrite before calling a surface done when it exhibits these hard failures witho
 - three equal marketing cards simply because the model needs a section
 - copied visual identity from a reference product
 
-Treat these as **slop heuristics**, not universal bans: Inter-everywhere with no hierarchy, em-dash-heavy UI copy, numbered eyebrows such as `001 · Capabilities`, and silent purple/violet brand accents. Flag them when they appear by default with no product/brand rationale; allow them when they are intentional and coherent with the surface.
+Treat these as **slop heuristics**, not universal bans: Inter-everywhere with no hierarchy, em-dash-heavy UI copy, numbered eyebrows such as `001 · Capabilities`, silent purple/violet brand accents, animated icons across repeated product chrome, and two equally loud filled primary actions in one region. Flag them when they appear by default with no product/brand rationale; allow them when they are intentional and coherent with the surface.
 
 Campaign/editorial surfaces can be more expressive, but must still use one coherent motif family rather than an effect sampler.
 
-Shared defaults for time, radius, type, and streaming: `references/physics.md`.
+Shared defaults for time, radius, type, action hierarchy, tabular numbers, and streaming: `references/physics.md`.
 
 ---
 
@@ -185,6 +193,7 @@ Motion explains state, hierarchy, causality, or spatial change. Otherwise, delet
 - animations must be interruptible where repeated interaction is possible
 - always provide a `prefers-reduced-motion` path
 - do not add a motion library only to animate opacity/translate
+- repeated navigation/table/toolbar icons stay static by default unless animation communicates real state or brand behavior
 
 Use `references/physics.md` for shared defaults and `references/motion-blocks.md` for distinctive recipes.
 
@@ -202,7 +211,7 @@ See `references/ai-primitives.md`. Use the host-neutral recipes there and map co
 
 ## 8. Fallback quality gates
 
-Every finished implementation must pass semantic HTML/native-control correctness, keyboard operability, visible focus, accessible naming, contrast, reduced motion, mobile touch targets, no accidental horizontal overflow, responsive hierarchy, required loading/empty/error/disabled/success states, and reuse of host tokens/conventions.
+Every finished implementation must pass semantic HTML/native-control correctness, keyboard operability, visible focus, accessible naming, contrast, reduced motion, mobile touch targets, no accidental horizontal overflow, responsive hierarchy, required loading/empty/error/disabled/success states, useful recovery/next actions where applicable, and reuse of host tokens/conventions.
 
 ---
 
@@ -217,12 +226,14 @@ Then compare against positive and negative references: inherit useful structure/
 ## Finish checklist
 
 - [ ] Host Read completed; no framework/library was assumed
+- [ ] Host Contract captures active tokens, typography, icons, motion, layout and constraints
+- [ ] Any DESIGN.md-shaped contract uses host-derived values, not catalog identity
 - [ ] Design Read + V/M/D direction declared
 - [ ] One skeleton ID chosen from the skeleton registry before styling
 - [ ] Smallest coherent compatible pattern set selected; no quota-padding
 - [ ] Canonical patterns use host-neutral recipes where available
-- [ ] Existing host component/token system preserved
-- [ ] No competing primitive kit added without a strong reason
+- [ ] Existing host component/token/icon system preserved
+- [ ] No competing primitive or icon kit added without a strong reason
 - [ ] Anti-slop hard fails removed; heuristics judged in context
 - [ ] Motion passes purpose/frequency/reduced-motion tests
 - [ ] AI UI exposes activity summaries, not hidden chain-of-thought
