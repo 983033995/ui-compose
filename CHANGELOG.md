@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Renamed the GitHub repository and local project directory from `ui-lego` to `ui-compose`.
+- Refreshed Eval 02 baseline provenance against the strengthened browser capture gate.
+
+### Validation
+
+- Added repository-local Markdown and `SKILL.md` reference validation to CI.
+
+### Provenance
+
+- Verified coss against its official AGPL-3.0 repository and kept it reference-only by default.
+- Verified AICSS's MIT free-component boundary plus separate paid/locked component terms.
+
 ## 0.3.0 — Composition Intelligence foundation
 
 ### Added

@@ -152,6 +152,7 @@ ui-compose/
     eval-result.schema.json
   scripts/
     validate_skill.py
+    validate_links.py
     validate_registries.py
     validate_evals.py
   evals/
@@ -185,11 +186,12 @@ ui-compose/
 ```bash
 python -m pip install pyyaml jsonschema
 python scripts/validate_skill.py . --expected-install-name ui-compose
+python scripts/validate_links.py .
 python scripts/validate_registries.py
 python scripts/validate_evals.py
 ```
 
-CI currently checks Agent Skills metadata, OpenAI UI metadata, progressive-disclosure budget, registry schema/cross-references, source verification metadata/freshness, Fixture contracts, Eval Result references, rubric arithmetic, and desktop/mobile artifact requirements for passed rendered runs.
+CI currently checks Agent Skills metadata, OpenAI UI metadata, progressive-disclosure budget, local Markdown/Skill references, registry schema/cross-references, source verification metadata/freshness, Fixture contracts, Eval Result references, rubric arithmetic, and desktop/mobile artifact requirements for passed rendered runs.
 
 The Skill frontmatter intentionally uses a strict portable subset. Framework compatibility guidance lives in the Markdown body instead of a top-level `compatibility` field so stricter packagers do not reject the skill.
 

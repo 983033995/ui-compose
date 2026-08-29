@@ -48,14 +48,16 @@ sources:
   - id: coss
     name: coss ui
     role: primitive-reference
+    canonical_url: https://github.com/cosscom/coss
     frameworks: [react]
     jobs: [controls, primitives]
     traits: [base-ui-style-primitives, restrained-visuals]
     integration: reference-only-by-default
-    license: verify-upstream
+    license: AGPL-3.0
     provenance: public-source
+    last_verified: 2026-08-29
     runtime_dependency_default: false
-    risks: [competing-primitive-system]
+    risks: [competing-primitive-system, copyleft-license]
 
   - id: linear
     name: Linear
@@ -100,14 +102,16 @@ sources:
   - id: aicss
     name: AICSS
     role: ai-native-reference
+    canonical_url: https://github.com/lassejlv/aicss
     frameworks: [react, vue, svelte]
     jobs: [ai-interface, streaming, status]
     traits: [cross-framework-ai-patterns, lightweight-states]
     integration: trait-reimplementation
-    license: verify-upstream
-    provenance: public-source
+    license: MIT-free-components-with-pro-boundary
+    provenance: public-source-with-free-and-paid-tiers
+    last_verified: 2026-08-29
     runtime_dependency_default: false
-    risks: []
+    risks: [paid-catalog-boundary, marketplace-redeployment-restriction]
 
   - id: ai-elements
     name: AI Elements

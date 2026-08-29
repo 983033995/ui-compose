@@ -28,6 +28,9 @@ jobs:
       - name: Validate Agent Skill contract
         run: python scripts/validate_skill.py . --expected-install-name ui-compose
 
+      - name: Validate internal links and references
+        run: python scripts/validate_links.py .
+
       - name: Validate registries
         run: python scripts/validate_registries.py
 

@@ -9,11 +9,11 @@ This file records CI-observed evidence for the frozen host baseline only. It is 
 - Host fixture: `evals/harness/apps/agent-chat-baseline`
 - Fixture contract: `evals/harness/fixtures/agent-chat.yaml`
 - Case: `evals/cases/02-agent-chat.md`
-- Captured branch head: `e208c20b6175d5119442422b89e288f524e0a4f8`
-- Build Eval Fixtures run: `33242319428`
+- Captured branch head: `18aac44507ad176b84414f6c2d1b467b89dae6e9`
+- Build Eval Fixtures run: `33259084413`
 - Artifact: `eval-02-agent-chat-baseline`
-- Artifact id: `9711722658`
-- Artifact digest: `sha256:2fcdd076ccbd0bd7f3bec1efb5c65e2a0ff50a38ef81fc6b21b94fc970a7faea`
+- Artifact id: `9716718922`
+- Artifact digest: `sha256:73abbab36217d7946511d77d2cdf4c8f011b3216d5f09b382486a0219b4b888b`
 
 ## Rendered evidence
 
@@ -37,6 +37,9 @@ Observed metrics:
 | Retry keyboard activation | passed |
 | Approve keyboard activation | passed |
 | Focus outline on Stop/Retry/Approve | solid 2px |
+| Enter sends from composer | passed |
+| Shift+Enter inserts newline | passed |
+| Composer focus after send | preserved |
 | Mobile composer at 390×844 | reachable; top 689, bottom 844 |
 | Reduced-height keyboard simulation at 390×560 | composer reachable; top 405, bottom 560 |
 | Focus after keyboard simulation | `#message` textarea |

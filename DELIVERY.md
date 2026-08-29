@@ -123,4 +123,4 @@ A hard failure in build/runtime safety, primary accessibility, provenance, or ho
 
 ## Current state
 
-The architecture, registries, schema validation, initial CI and first eval contracts now exist. The largest remaining gap is **real rendered benchmark evidence**, followed by current Agent Skills validation and completion of source provenance verification.
+The architecture, registries, current Agent Skills validation, internal-reference CI, and first eval contracts now exist. Eval 01 has an observed comparison, and Eval 02 has a hardened rendered baseline with required-state, keyboard/focus, composer, mobile, reduced-motion, and runtime checks. The largest remaining gap is the pair of isolated **model-only vs UI Compose** transformed runs for Eval 02, followed by broader rendered host/product coverage and completion of source provenance verification.
