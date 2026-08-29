@@ -89,11 +89,19 @@ document.addEventListener('click', (event) => {
   }
 });
 
-document.querySelector('.composer').addEventListener('submit', (event) => {
+const composer = document.querySelector('.composer');
+
+composer.addEventListener('submit', (event) => {
   event.preventDefault();
   const input = document.querySelector('#message');
   if (!input.value.trim()) return;
   setNotice('Message queued.');
   input.value = '';
   input.focus();
+});
+
+document.querySelector('#message').addEventListener('keydown', (event) => {
+  if (event.key !== 'Enter' || event.shiftKey || event.isComposing) return;
+  event.preventDefault();
+  composer.requestSubmit();
 });

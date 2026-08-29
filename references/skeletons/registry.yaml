@@ -5,7 +5,7 @@ principle: "Choose page architecture before decorative styling. Skeletons encode
 skeletons:
   - id: master-detail-workspace
     surface: app-interior
-    jobs: [orders, customers, tickets, files, issues]
+    jobs: [search, filter, browse, inspect, bulk-action]
     regions: [topbar, collection-toolbar, collection-pane, detail-pane]
     desktop: split-pane
     mobile: list-then-detail-route-or-sheet
@@ -54,7 +54,7 @@ skeletons:
     regions: [task-header, progress-summary, execution-list, artifacts-or-output, approval-region]
     desktop: task-plus-output
     mobile: task-stack
-    recommended_patterns: [ai-activity-summary, ai-tool-execution-card, human-approval-gate, sticky-contextual-actions]
+    recommended_patterns: [ai-activity-summary, ai-tool-execution-card, human-approval-gate]
     risks: [fake-progress, hidden-errors]
 
   - id: marketing-proof-landing

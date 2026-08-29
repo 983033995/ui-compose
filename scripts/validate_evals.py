@@ -72,7 +72,7 @@ def main() -> int:
     fixture_files = sorted(FIXTURES_DIR.glob("*.yaml")) if FIXTURES_DIR.exists() else []
 
     errors: list[str] = []
-    fixture_ids: set[str] = set()
+    fixtures_by_id: dict[str, set[str]] = {}
     fixture_case_coverage: set[str] = set()
 
     for path in fixture_files:
@@ -89,9 +89,9 @@ def main() -> int:
 
         fixture_id = fixture.get("id")
         if fixture_id:
-            if fixture_id in fixture_ids:
+            if fixture_id in fixtures_by_id:
                 errors.append(f"[{rel}] duplicate fixture id: {fixture_id}")
-            fixture_ids.add(fixture_id)
+            fixtures_by_id[fixture_id] = set(fixture.get("case_ids", []))
 
         for case_id in fixture.get("case_ids", []):
             if case_id not in case_ids:
@@ -120,9 +120,23 @@ def main() -> int:
         if case_id and case_id not in case_ids:
             errors.append(f"[{rel}] references missing eval case: {case_id}")
 
+        mode = result.get("mode")
+        if case_id and rel.parent.name != case_id:
+            errors.append(
+                f"[{rel}] result directory must match case_id {case_id}"
+            )
+        if mode and not rel.name.startswith(f"{mode}-"):
+            errors.append(
+                f"[{rel}] result filename must start with mode {mode}-"
+            )
+
         host_fixture_ref = result.get("host_fixture_ref")
-        if host_fixture_ref and host_fixture_ref not in fixture_ids:
+        if host_fixture_ref and host_fixture_ref not in fixtures_by_id:
             errors.append(f"[{rel}] references missing fixture: {host_fixture_ref}")
+        elif host_fixture_ref and case_id not in fixtures_by_id[host_fixture_ref]:
+            errors.append(
+                f"[{rel}] fixture {host_fixture_ref} is not assigned to case {case_id}"
+            )
 
         skeleton_id = result.get("selected_skeleton")
         if skeleton_id and skeleton_id not in skeleton_ids:
@@ -148,10 +162,17 @@ def main() -> int:
             if all(isinstance(rubric.get(key), (int, float)) for key in keys):
                 calculated = round(sum(rubric[key] for key in keys), 4)
                 reported = rubric.get("total")
-                if isinstance(reported, (int, float)) and abs(calculated - reported) > 0.0001:
+                has_hard_failure = bool(result.get("hard_failures"))
+                build_failed = result.get("build_status") == "failed"
+                expected_total = min(calculated, 59) if has_hard_failure or build_failed else calculated
+                if isinstance(reported, (int, float)) and abs(expected_total - reported) > 0.0001:
                     errors.append(
-                        f"[{rel}] rubric.total={reported} does not equal component sum {calculated}"
+                        f"[{rel}] rubric.total={reported} does not equal expected total "
+                        f"{expected_total} (component sum {calculated})"
                     )
+
+        if result.get("build_status") == "failed" and not result.get("hard_failures"):
+            errors.append(f"[{rel}] failed build must record at least one hard failure")
 
         if result.get("build_status") == "passed":
             artifacts = result.get("artifacts", {})
@@ -159,6 +180,21 @@ def main() -> int:
                 errors.append(
                     f"[{rel}] passed rendered run requires desktop and mobile artifact references"
                 )
+            else:
+                for kind in ("desktop", "mobile"):
+                    artifact_ref = artifacts[kind]
+                    artifact_path = (ROOT / artifact_ref).resolve()
+                    try:
+                        artifact_path.relative_to(ROOT)
+                    except ValueError:
+                        errors.append(
+                            f"[{rel}] {kind} artifact escapes repository root: {artifact_ref}"
+                        )
+                    else:
+                        if not artifact_path.is_file():
+                            errors.append(
+                                f"[{rel}] {kind} artifact does not exist: {artifact_ref}"
+                            )
 
     if errors:
         print("Eval validation failed:")

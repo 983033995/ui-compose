@@ -38,6 +38,9 @@ A completed run should record:
 - exact model identifier
 - UI Compose/skill version or commit
 - timestamp
+- exact prompt path and immutable prompt revision
+- fixture ID and immutable fixture revision
+- package-lock (or equivalent dependency baseline) SHA-256
 - selected skeleton/patterns when available
 - dependency changes
 - build/runtime status
@@ -64,7 +67,7 @@ Do not alter one mode's brief after seeing its output unless the case version ch
 
 ## Score integrity
 
-The rubric total must equal the sum of its weighted dimensions:
+The rubric component subtotal is the sum of its weighted dimensions:
 
 - visual quality: 25
 - design consistency: 15
@@ -76,7 +79,7 @@ The rubric total must equal the sum of its weighted dimensions:
 - dependency discipline: 5
 - anti-slop: 5
 
-Hard failures remain explicit even if the arithmetic score is high. A delivery-readiness review must apply the score caps defined in `evals/rubric.md` and `DELIVERY.md`.
+Without a hard failure, `rubric.total` equals that component subtotal. When a run fails to build or records any hard failure, `rubric.total` is capped at 59 as defined in `evals/rubric.md`; the component values remain available for diagnosis.
 
 ## What counts as real benchmark evidence
 

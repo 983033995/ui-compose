@@ -9,9 +9,9 @@ This comparison records what was actually rendered and reviewed for the frozen V
 | Mode | Result record | Score | Build | Hard failures | Decision errors |
 | --- | --- | ---: | --- | --- | --- |
 | model-only | `model-only-2026-08-28-a.json` | 81 | passed | none | `wrong-skeleton` |
-| ui-compose | `ui-compose-2026-08-28-a.json` | 89 | passed | none | `accessibility-failure` |
+| ui-compose | `ui-compose-2026-08-28-a.json` | 59 (capped; raw 89) | passed | inaccessible primary row inspection | `accessibility-failure` |
 
-Observed delta: **+8 rubric points** for UI Compose on this fixture.
+Observed raw component delta: **+8 points** for UI Compose on this fixture. After the automatic hard-failure cap, the recorded total delta is **-22 points**.
 
 ## What improved
 

@@ -10,6 +10,11 @@
     "model",
     "skill_version",
     "run_at",
+    "prompt_ref",
+    "prompt_revision",
+    "host_fixture_ref",
+    "host_fixture_revision",
+    "dependency_baseline_sha256",
     "build_status",
     "selected_skeleton",
     "selected_patterns",
@@ -38,7 +43,19 @@
     "skill_version": { "type": "string", "minLength": 1 },
     "run_at": { "type": "string", "format": "date-time" },
     "prompt_ref": { "type": "string", "minLength": 1 },
+    "prompt_revision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
     "host_fixture_ref": { "type": "string", "minLength": 1 },
+    "host_fixture_revision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "dependency_baseline_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
     "selected_skeleton": { "type": ["string", "null"] },
     "selected_patterns": {
       "type": "array",

@@ -26,21 +26,50 @@ const desktop = await page.evaluate((states) => ({
 async function keyboardCheck(selector, expectedNotice) {
   await page.reload({ waitUntil: 'networkidle' });
   const locator = page.locator(selector);
-  await locator.focus();
+  let reachable = false;
+  for (let step = 0; step < 64; step += 1) {
+    await page.keyboard.press('Tab');
+    if (await locator.evaluate((element) => document.activeElement === element)) {
+      reachable = true;
+      break;
+    }
+  }
+  if (!reachable) return { reachable: false, visibleFocus: false, activated: false, notice: null };
   const focus = await locator.evaluate((element) => {
     const style = getComputedStyle(element);
-    return { tag: element.tagName, outlineStyle: style.outlineStyle, outlineWidth: style.outlineWidth };
+    const outlineWidth = Number.parseFloat(style.outlineWidth);
+    return {
+      tag: element.tagName,
+      outlineStyle: style.outlineStyle,
+      outlineWidth: style.outlineWidth,
+      visibleFocus: style.outlineStyle !== 'none' && outlineWidth > 0
+    };
   });
   await page.keyboard.press('Enter');
   await page.locator('.action-notice').waitFor({ state: 'visible' });
   const notice = await page.locator('.action-notice').innerText();
-  return { ...focus, activated: notice === expectedNotice, notice };
+  return { reachable, ...focus, activated: notice === expectedNotice, notice };
 }
 
 const keyboard = {
   stop: await keyboardCheck('[data-action="stop"]', 'Generation stopped.'),
   retry: await keyboardCheck('[data-action="retry"]', 'Retry requested.'),
   approve: await keyboardCheck('[data-action="approve"]', 'Credit approval recorded.')
+};
+
+await page.reload({ waitUntil: 'networkidle' });
+const messageInput = page.locator('#message');
+await messageInput.focus();
+await messageInput.fill('Keyboard message');
+await page.keyboard.press('Shift+Enter');
+const shiftEnterAddsNewline = (await messageInput.inputValue()).endsWith('\n');
+await page.keyboard.press('Enter');
+await page.locator('.action-notice').waitFor({ state: 'visible' });
+const composerKeyboard = {
+  shiftEnterAddsNewline,
+  enterSends: await page.locator('.action-notice').innerText() === 'Message queued.',
+  valueAfterSend: await messageInput.inputValue(),
+  focusPreserved: await messageInput.evaluate((element) => document.activeElement === element)
 };
 
 await page.setViewportSize({ width: 390, height: 844 });
@@ -82,6 +111,7 @@ const metrics = {
   pageErrors,
   desktop,
   keyboard,
+  composerKeyboard,
   mobile,
   keyboardViewport,
   reducedMotion,
@@ -89,7 +119,9 @@ const metrics = {
     ...(consoleErrors.length || pageErrors.length ? ['runtime-error'] : []),
     ...(desktop.horizontalOverflow || mobile.horizontalOverflow ? ['horizontal-overflow'] : []),
     ...(!mobile.composerReachable || !keyboardViewport.composerReachable ? ['mobile-composer-unreachable'] : []),
-    ...(!keyboard.stop.activated || !keyboard.retry.activated || !keyboard.approve.activated ? ['keyboard-action-failure'] : []),
+    ...(Object.values(desktop.states).some((present) => !present) ? ['missing-required-state'] : []),
+    ...(Object.values(keyboard).some((check) => !check.reachable || !check.visibleFocus || !check.activated) ? ['keyboard-action-failure'] : []),
+    ...(!composerKeyboard.shiftEnterAddsNewline || !composerKeyboard.enterSends || composerKeyboard.valueAfterSend || !composerKeyboard.focusPreserved ? ['composer-keyboard-failure'] : []),
     ...(!reducedMotion.matched || reducedMotion.caretAnimationName !== 'none' ? ['reduced-motion-failure'] : []),
     ...(desktop.hiddenReasoningCopyPresent ? ['hidden-reasoning-copy'] : [])
   ]

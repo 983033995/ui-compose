@@ -19,8 +19,8 @@ defineEmits<{
 
 <template>
   <ElTable
+    v-loading="loading"
     :data="rows"
-    :loading="loading"
     row-key="id"
     stripe
     class="app-table"

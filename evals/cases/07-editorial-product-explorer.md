@@ -35,7 +35,6 @@ Primary skeleton:
 Expected pattern candidates:
 
 - `editorial-world-switch`
-- `single-ambient-moment` only if it belongs to the selected world
 
 ## Host integration expectations
 

@@ -20,6 +20,7 @@ const checks = [
   [provider.includes('consequence') && provider.includes('scope'), 'approval provider contract must include consequence and scope'],
   [app.includes('Approve $24 credit') && app.includes('AC-2048'), 'approval UI must name action and scope'],
   [app.includes('data-action="stop"') && app.includes('data-action="retry"'), 'stop and retry actions required'],
+  [app.includes("event.key !== 'Enter'") && app.includes('event.shiftKey') && app.includes('composer.requestSubmit()'), 'composer must send on Enter and preserve Shift+Enter newline'],
   [button.includes('visible focus') && css.includes(':focus-visible'), 'focus-visible contract required'],
   [composer.includes('mobile widths') && css.includes('grid-template-rows: auto minmax(0, 1fr) auto') && css.includes('height: 100dvh'), 'persistent mobile composer layout contract required'],
   [css.includes('prefers-reduced-motion: reduce'), 'reduced motion rule required'],
