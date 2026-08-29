@@ -7,7 +7,7 @@
 - `references/patterns/registry.yaml` for reusable product/UI decisions independent of source libraries.
 - `references/skeletons/registry.yaml` for page-level composition structures.
 - `references/composition-selection.md` for host-aware skeleton/pattern selection and risk filtering.
-- `references/physics.md` for host-neutral fallback UI physics: timing, easing, type/measure, radius nesting, elevation, and AI-streaming behavior.
+- `references/physics.md` for host-neutral fallback UI physics: timing, easing, type/measure, radius nesting, elevation, action hierarchy, tabular-number behavior, and AI-streaming behavior.
 - `references/patterns/recipes.md` for host-neutral implementation recipes attached to mature canonical Pattern IDs.
 - Initial recipes for dense filter toolbar, master/detail preview, AI conversation thread, AI tool execution, human approval, persistent composer, and sticky contextual actions.
 - JSON Schemas for Source, Pattern, Skeleton, Fixture, and observed Eval Result records.
@@ -33,6 +33,22 @@ Integrated the useful parts of Grok PR #2 without merging its older review branc
 - fixed the streaming-caret completion bug: completed responses remove/hide active caret state;
 - demoted synthetic numeric composition scoring to qualitative ranking after authoritative hard rejects;
 - split anti-slop guidance into hard failures and contextual heuristics rather than banning editorial conventions globally.
+
+### Source-research / Host Contract pass
+
+Selectively integrated the durable parts of Grok PR #3 without merging that review branch wholesale:
+
+- formalized **Host Contract** as the output of Host Read, giving the pipeline `Host Read → Host Contract → Design Read → Skeleton → Pattern Set → Recipe → Adapter → Verify`;
+- added typography and icon-system detection to Host Read so the host implementation vocabulary includes active type and icon conventions, not only components/tokens;
+- allowed DESIGN.md-style structure only as a model-readable host-contract format; values must come from the current host rather than Linear, Stripe, Refero, or another catalog identity;
+- made third-party design-contract identity substitution and an unjustified second icon family authoritative reject conditions;
+- kept animated icons across repeated app chrome and two equally loud primary actions as **strong heuristics**, not universal hard failures;
+- added host-neutral emphasis/action hierarchy and actionable empty/error/zero-data guidance to shared Physics;
+- added tabular-number/layout-stability guidance without introducing a new Pattern or default animation dependency;
+- strengthened provenance boundaries around public DESIGN.md catalogs, proprietary design methods, and unaffiliated plugins;
+- added Refero Styles as design-contract methodology evidence, Number Flow as numeric-motion evidence, and Refactoring UI as proprietary methodology evidence;
+- deliberately did **not** promote Component Gallery, screenshot galleries, icon-pack lists, or ambiguous same-name Motion Primitives sources into the canonical Source Registry;
+- codified “shopping lists are not research”: a source-research pass must improve Host Read/Host Contract, Pattern/Recipe/Physics, provenance, or an Eval hypothesis rather than merely grow the registry.
 
 ### Validation
 
@@ -76,16 +92,16 @@ Verified and recorded canonical source/license metadata where authoritative evid
 - ThreeUI Community code and ThreeUI-authored Community assets — MIT, while external assets/fonts/Pro/Beta boundaries remain explicit
 - taste-skill — MIT
 
-Sources without sufficient authoritative evidence remain `verify-upstream` rather than being guessed into a copy-safe state.
+Sources without sufficient authoritative evidence remain `verify-upstream` rather than being guessed into a copy-safe state. Refero Styles and Number Flow remain conservative `verify-upstream` entries until authoritative licensing is recorded; Refactoring UI is recorded as proprietary methodology evidence rather than copy-own source.
 
 ### Research policy
 
-A research pass should no longer grow the canonical source list merely because a site looks interesting. It should improve at least one durable asset: Source metadata, Pattern evidence/recipe, Skeleton evidence, provenance/risk guidance, or an Eval hypothesis.
+A research pass should no longer grow the canonical source list merely because a site looks interesting. It should improve at least one durable asset: Host Read / Host Contract, Source metadata, Pattern evidence/recipe, shared Physics, Skeleton evidence, provenance/risk guidance, or an Eval hypothesis.
 
 ### Next
 
-- Build realistic executable fixture apps for the first high-information benchmark batch, especially eval 01 and 02.
-- Execute real rendered benchmark outputs and capture build results, desktop/mobile screenshots, keyboard/reduced-motion notes, dependency diffs, and rubric scores.
+- Finish and normalize the first rendered Eval 01 comparison before making measured-quality claims.
+- Execute eval 02 next with the same build/screenshot/keyboard/reduced-motion/dependency evidence discipline.
 - Record comparative results with the structured Eval Result schema.
 - Continue canonical-URL/license verification for remaining `verify-upstream` source entries.
 - Add adapters only when real eval failures demonstrate a host-integration gap.
