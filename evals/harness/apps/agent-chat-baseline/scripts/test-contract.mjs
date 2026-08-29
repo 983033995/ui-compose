@@ -21,7 +21,7 @@ const checks = [
   [app.includes('Approve $24 credit') && app.includes('AC-2048'), 'approval UI must name action and scope'],
   [app.includes('data-action="stop"') && app.includes('data-action="retry"'), 'stop and retry actions required'],
   [button.includes('visible focus') && css.includes(':focus-visible'), 'focus-visible contract required'],
-  [composer.includes('mobile widths') && css.includes('position: sticky'), 'persistent mobile composer contract required'],
+  [composer.includes('mobile widths') && css.includes('grid-template-rows: auto minmax(0, 1fr) auto') && css.includes('height: 100dvh'), 'persistent mobile composer layout contract required'],
   [css.includes('prefers-reduced-motion: reduce'), 'reduced motion rule required'],
   [css.includes('@media (max-width: 600px)'), 'mobile layout rule required']
 ];
