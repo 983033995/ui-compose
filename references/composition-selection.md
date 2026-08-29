@@ -9,6 +9,7 @@ Collect these from Host Read + Design Read:
 - surface: app-interior | ai-native | marketing | campaign
 - jobs: search, filter, edit, approve, compare, stream, tool-use, etc.
 - host framework/component system
+- host token, typography, and icon systems
 - density target
 - motion target
 - mobile/touch constraints
@@ -23,9 +24,9 @@ Collect these from Host Read + Design Read:
 2. **Pick one primary skeleton.** Prefer the simplest skeleton that satisfies the task.
 3. **Load recommended patterns** from that skeleton.
 4. **Add only the extra patterns** needed for missing jobs or required states.
-5. **Reject patterns** that require a competing primitive system, violate host constraints, or primarily copy source identity.
+5. **Reject patterns** that require a competing primitive/icon system, violate host constraints, or primarily copy source identity.
 6. **Load host-neutral recipes** for the selected canonical patterns from `patterns/recipes.md` when available.
-7. **Adapt the selected set** to the host stack.
+7. **Adapt the selected set** to the host stack and Host Contract.
 8. **Verify rendered behavior** before adding decorative patterns.
 
 Target the **smallest sufficient set**. Complex product surfaces often land around 3–7 patterns, but specialized surfaces may need only 1–2. Never pad a composition with irrelevant patterns to satisfy a numeric quota.
@@ -37,9 +38,15 @@ These override any ranking hint:
 - wrong surface => reject
 - inaccessible primary interaction => reject
 - requires replacing the host primitive system without justification => reject
+- substitutes a third-party DESIGN.md/catalog skin for the host identity => reject
+- adds a second icon family without a strong host/product reason => reject
 - brand-copy strategy => reject
 - unjustified dependency with no substantial behavioral need => reject
 - mobile-breaking layout for a mobile-required task => reject
+
+Animated icons across repeated product chrome are a **strong risk heuristic**, not an absolute ban. Require a clear interaction or brand reason and a reduced-motion path.
+
+Two equally loud filled primary actions in one region are also a **hierarchy warning**, not an automatic reject. Peer decisions such as Approve/Reject may justify it.
 
 ## Ranking hint (optional)
 
@@ -58,6 +65,7 @@ Useful dimensions:
 - mobile risk
 - slop risk
 - brand-copy risk
+- host-identity substitution risk
 
 Use labels such as **strong match / acceptable / weak match / reject**. Do not report a synthetic numeric confidence score unless a real eval system computes it.
 
@@ -69,6 +77,7 @@ More patterns do not mean a better design.
 - smallest sufficient functional pattern set
 - 0–1 ambient/decorative pattern family
 - 0 competing primitive kits by default
+- 0 second icon families by default
 - 0 new motion dependencies for simple opacity/transform transitions
 
 If two patterns solve the same job, keep the one with better host fit and lower risk.
@@ -99,7 +108,7 @@ adapter: vue-element-plus
 new UI dependencies: none
 ```
 
-Implementation consequence: preserve Element Plus behavioral primitives, improve composition around them, and use route/sheet fallback on mobile instead of forcing a desktop split pane.
+Implementation consequence: preserve Element Plus behavioral primitives and icon conventions, improve composition around them, and use route/sheet fallback on mobile instead of forcing a desktop split pane.
 
 ## Example: AI agent task runner
 
@@ -130,6 +139,8 @@ Pattern evidence may come from Linear, Raycast, AI Elements, ReUI, Kibo, or othe
 
 A useful observed example is Linear's Peek model: focused list items can be previewed without fully navigating away, while keyboard movement updates the preview. Treat that as evidence for `master-detail-preview`, not as a mandate to reproduce Linear's exact UI.
 
+Public DESIGN.md catalogs are evidence for how a model-readable host contract can be structured. Their values are not implementation input unless they were independently observed in the current host.
+
 ## Decision log
 
 For non-trivial work, leave a concise internal decision summary:
@@ -138,7 +149,7 @@ For non-trivial work, leave a concise internal decision summary:
 Skeleton: master-detail-workspace
 Patterns: dense-filter-toolbar, master-detail-preview, sticky-contextual-actions
 Why: high-frequency B2B browse/edit flow, high density, low motion
-Rejected: animated card grid (slop risk), second primitive kit (dependency cost)
+Rejected: animated card grid (slop risk), second primitive/icon kit (host-system cost)
 Adapter: Vue + Element Plus
 Verification focus: mobile detail flow, keyboard focus, bulk selection state
 ```
