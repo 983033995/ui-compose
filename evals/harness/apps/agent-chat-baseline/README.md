@@ -10,7 +10,7 @@ This fixture intentionally uses no public UI component kit. Its implementation v
 - tool queued / running / success / failure states with textual status
 - consequential approval naming both consequence and scope
 - disconnected and retryable-error states
-- persistent composer at desktop and ~390px mobile widths
+- persistent composer at desktop and ~390px mobile widths, including a reduced-height keyboard simulation
 - visible focus and reduced-motion fallback
 - provider-exposed events only; no fabricated hidden chain-of-thought
 
@@ -23,6 +23,8 @@ pnpm build
 pnpm dev
 ```
 
-`pnpm test` validates the fixture contract. `pnpm build` emits a dependency-free static `dist/` directory for later rendered capture.
+`pnpm test` validates the source contract. `pnpm build` emits a dependency-free static `dist/` directory.
 
-This fixture is a host baseline, not an Eval result. Model-only and UI Compose result records must only be added after actual rendered runs are captured and reviewed.
+CI additionally installs Playwright **ephemerally as benchmark infrastructure**, launches the built fixture, and captures desktop/mobile screenshots plus machine metrics for overflow, keyboard actions, focus outline, reduced motion, composer reachability, runtime errors, required states, and hidden-reasoning copy. Playwright is not part of the host UI dependency contract.
+
+This fixture is a host baseline, not an Eval result. Model-only and UI Compose result records must only be added after actual transformed runs are captured and reviewed.
