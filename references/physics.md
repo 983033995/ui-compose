@@ -36,6 +36,26 @@ These are fallback ranges, not mandatory constants. Prefer host typography and s
 
 Refuse ad-hoc spacing (`p-[13px]`, `gap-[17px]`, `max-w-[847px]`) when it bypasses an existing host scale. If a role is genuinely missing, add a token once instead of scattering arbitrary values.
 
+Do not invent a new type scale when the host already has one. Prefer a small set of host size roles and weights. Hierarchy should come from size, weight, color, and spacing together rather than escalating every heading.
+
+## Emphasis and action hierarchy
+
+A region should have a clear primary action or decision. Competing actions become quieter through the host's existing button variants, color, weight, or placement.
+
+Typical mapping:
+
+| Role | Host-native mapping | Use |
+| --- | --- | --- |
+| Primary | filled / primary variant | save, submit, confirm |
+| Secondary | default / outline | cancel, alternative |
+| Tertiary | text / ghost / link | optional low-frequency action |
+| Destructive | host danger variant | delete, reject, remove |
+| Disabled | host disabled state | unavailable action with readable label |
+
+Two equally loud filled actions in one region are a **strong hierarchy warning**, not an automatic failure. Keep both only when the product genuinely presents peer decisions such as Accept/Decline or Approve/Reject.
+
+Empty, error, and zero-data states should usually provide a meaningful next action when one exists: clear filters, retry, create, connect, or return. A decorative illustration alone is not a useful recovery state.
+
 ## Radius nesting
 
 Keep concentric roles, not one radius for every node:
@@ -74,6 +94,20 @@ When generation is complete, remove or hide the active caret. Do not leave a com
 Reduced motion: no shimmer, no animated caret, no blur-based movement cue.
 
 See `ai-primitives.md` for the full state set.
+
+## Tabular numbers
+
+When visible numeric values change, keep neighboring layout stable first and add motion only when the change itself communicates useful live state.
+
+| Role | Fallback |
+| --- | --- |
+| Layout | `font-variant-numeric: tabular-nums` or reserved width |
+| Live digit transition | ~200–320ms ease-out when appropriate |
+| Table sort / keyboard updates | instant; no per-digit motion |
+| Reduced motion | snap directly to the new value |
+| Density | product interiors usually skip decorative number motion |
+
+Do not add a number-animation library for static table cells or ordinary formatted amounts. Number-flow libraries are evidence for the trait, not default dependencies.
 
 ## Registers
 
