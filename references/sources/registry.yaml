@@ -212,3 +212,45 @@ sources:
     provenance: observed-behavior
     runtime_dependency_default: false
     risks: [brand-cloning, touch-hover-mismatch]
+
+  - id: refero-styles
+    name: Refero Styles
+    role: direction-reference
+    canonical_url: https://styles.refero.design/
+    frameworks: [agent-skill]
+    jobs: [design-read, token-contract, visual-research]
+    traits: [model-readable-design-contract, token-role-structure, design-rationale-shape]
+    integration: methodology-reference
+    license: verify-upstream
+    provenance: public-methodology-and-catalog
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [brand-copy, host-identity-substitution, paid-research-boundary]
+
+  - id: number-flow
+    name: Number Flow
+    role: motion-reference
+    canonical_url: https://github.com/barvian/number-flow
+    frameworks: [web, react, vue, svelte]
+    jobs: [live-number, metric, counter, price]
+    traits: [layout-stable-digits, directional-number-motion, reduced-motion-fallback]
+    integration: trait-reimplementation
+    license: verify-upstream
+    provenance: public-source
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [unnecessary-dependency, over-animation, browser-feature-support]
+
+  - id: refactoring-ui
+    name: Refactoring UI methodology
+    role: direction-reference
+    canonical_url: https://www.refactoringui.com/
+    frameworks: [methodology]
+    jobs: [visual-hierarchy, typography, spacing, action-hierarchy, empty-states]
+    traits: [clear-emphasis, grouping-by-proximity, action-hierarchy, actionable-empty-state, functional-elevation]
+    integration: methodology-reference
+    license: proprietary-methodology
+    provenance: proprietary-book-with-unaffiliated-plugin-evidence
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [proprietary-source, unaffiliated-plugin, tailwind-bias-if-vendored]
