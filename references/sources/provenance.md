@@ -6,7 +6,7 @@ UI Compose learns from public UI libraries, products, demos, and agent skills, b
 
 ### 1. Methodology reference
 
-Use ideas such as design-reading frameworks, density/motion controls, or evaluation heuristics. Do not copy prose wholesale.
+Use ideas such as design-reading frameworks, density/motion controls, evaluation heuristics, or model-readable design-contract structure. Do not copy prose wholesale.
 
 ### 2. Observed trait
 
@@ -30,6 +30,40 @@ Only copy source when the upstream project explicitly permits it and when copyin
 
 For proprietary, paid, unclear, or brand-heavy sources, use only high-level design/interaction insight. Do not reproduce protected assets, copy, illustrations, brand identity, or source code.
 
+## DESIGN.md / model-readable design contracts
+
+Public DESIGN.md catalogs are **methodology references**, not host identities.
+
+Allowed:
+
+- borrow the document shape: semantic color roles, type roles, spacing/radius/elevation, icon conventions, layout tracks, motion stack, and do/don't rules
+- populate that shape from Host Read of the current repository
+- point to existing host token/theme/design-system files instead of duplicating them
+
+Not allowed:
+
+- paste another product's DESIGN.md into the host as its visual identity
+- treat a catalog entry as a skin or theme preset
+- copy distinctive fonts, illustrations, product copy, brand tokens, or protected assets
+- install a paid research MCP/skill as a UI Compose runtime dependency
+
+Until authoritative licensing is recorded, keep catalog-style methodology sources `verify-upstream` and use only the abstract structure/traits.
+
+## Books and unaffiliated plugins
+
+Books, courses, and third-party plugins that encode proprietary design material are methodology references unless their own license clearly permits more.
+
+Allowed:
+
+- independently stated host-neutral traits such as clear primary-action hierarchy, grouping by proximity, spacing rhythm, functional elevation, and actionable empty states
+- mapping those traits onto the host's existing primitives and tokens
+
+Not allowed:
+
+- copying proprietary book diagrams/prose into this repository
+- vendoring unaffiliated plugin `SKILL.md` files merely because they summarize a book or design system
+- assuming Tailwind/shadcn/React because the external plugin does
+
 ## Registry requirements
 
 Every source in `registry.yaml` should eventually record:
@@ -51,6 +85,8 @@ The MIT license of UI Compose applies to original material in this repository. I
 ## Brand boundary
 
 Reference products are direction/evidence, not targets for cloning. A result should be recognizable as native to the host project, not as a disguised copy of Linear, Stripe, Notion, Apple, or any library showcase.
+
+Substituting a third-party design contract for the host's own token/primitive identity is a brand-copy failure even when no source code was copied.
 
 ## Maintenance rule
 
