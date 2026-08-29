@@ -43,6 +43,8 @@ These override any ranking hint:
 - brand-copy strategy => reject
 - unjustified dependency with no substantial behavioral need => reject
 - mobile-breaking layout for a mobile-required task => reject
+- prompt-catalog / template-pack default stack replacing the detected host => reject
+- cinematic scroll-tied media or WebGL hero on an app-interior surface => reject
 
 Animated icons across repeated product chrome are a **strong risk heuristic**, not an absolute ban. Require a clear interaction or brand reason and a reduced-motion path.
 
@@ -109,6 +111,32 @@ new UI dependencies: none
 ```
 
 Implementation consequence: preserve Element Plus behavioral primitives and icon conventions, improve composition around them, and use route/sheet fallback on mobile instead of forcing a desktop split pane.
+
+Rejected: Aceternity/MotionSites cinematic scroll-video, Framer Motion, a second icon family, `immersive-hero`. Wrong surface + prompt-catalog stack.
+
+## Example: B2B SaaS marketing landing
+
+Input:
+
+```text
+surface: marketing
+jobs: value-prop, proof, workflow-explain, trust, cta
+density: 3
+motion: 3
+host: existing product tokens + button/link primitives (framework unspecified)
+```
+
+Selection:
+
+```text
+skeleton: marketing-proof-landing
+patterns:
+  - single-ambient-moment
+adapter: host primitives
+new UI dependencies: none
+```
+
+Rejected: `immersive-hero` + scroll-tied 300-frame video + Framer Motion. Eval 06 asks for restrained proof, not a prompt-catalog cinematic. Upgrade to scroll-scrubbed media only when the brief's product demo *is* the media and Host Read has a motion stack that can bind scroll without a new library.
 
 ## Example: AI agent task runner
 

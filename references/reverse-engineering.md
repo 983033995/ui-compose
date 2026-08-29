@@ -164,6 +164,34 @@ Useful evidence:
 
 Avoid cloning logos, copy, product imagery, distinctive illustrations or signature brand identity.
 
+### Prompt catalogs and cinematic template packs
+
+Useful evidence:
+
+- named motion verbs (scroll-scrubbed media, not autoplay)
+- surface eligibility (marketing/hero vs app interior)
+- reduced-motion poster / pause-when-offscreen
+
+Do not capture:
+
+- the prompt text
+- the baked stack (React + Tailwind + Framer Motion + lucide)
+- 300-frame PNG sequences, liquid-glass kits, or “$5,000 website” chrome
+- a new Source Registry row for the catalog itself
+
+Worked example (MotionSites / ScrollTide, 2026-08-29):
+
+```text
+Paid “copy into Lovable/Claude” cinematic packs
+→ not sources
+Scroll-tied hero video, progress = scrollY / range, lerp ~0.12, no autoplay
+→ motion-blocks §9, marketing/immersive-hero only
+React+Vite+Tailwind+Framer Motion baked into every prompt
+→ prompt-catalog register bleed; Host Read wins
+Eval 06 using that stack
+→ unnecessary-dependency + wrong-skeleton + accessibility-failure
+```
+
 ## Promotion criteria
 
 An observation should enter the Pattern Registry only when most of these are true:

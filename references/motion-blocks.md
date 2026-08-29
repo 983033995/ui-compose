@@ -5,7 +5,7 @@ Use these recipes only after Host Read confirms they fit the product and stack. 
 Hard rules:
 
 - If the user will see it many times a day, or it follows the keyboard → **no animation**
-- UI motion is generally **≤ 300ms**
+- UI motion is generally **≤ 300ms** (scroll-tied media is an exception: duration is scroll distance, not a timer)
 - Name the purpose or delete the motion
 - provide `prefers-reduced-motion: reduce`
 - never `transition: all`; never enter ordinary UI from `scale(0)`
@@ -157,6 +157,7 @@ Do not imply hidden chain-of-thought. Animate only provider-exposed activity/pro
 | Primary button press | Optional subtle press |
 | Rare modal/sheet | Yes, restrained |
 | First-run hero / rare success | Yes, once |
+| Scroll-tied media (marketing only) | Yes, progress-mapped; poster on reduced motion |
 | Streaming tokens | Tail/caret only |
 
 ---
@@ -166,3 +167,51 @@ Do not imply hidden chain-of-thought. Animate only provider-exposed activity/pro
 Menus/dropdowns should appear from their trigger/spatial origin. Centered dialogs stay center-origin. Exit is usually quicker than enter.
 
 Animate the smallest node that communicates the state change; do not move the entire page just to make a badge or icon feel alive.
+
+---
+
+## 9. Scroll-scrubbed media
+
+Eligible only on `marketing` / `immersive-hero` surfaces when the media **is** the product demo. This is a motion verb, not a new Pattern and not a reason to install Framer Motion.
+
+Observed behavior (prompt catalogs and cinematic landings): bind media progress to scroll, keep HTML copy above the media, do not autoplay-loop the hero.
+
+Host-neutral behavior:
+
+1. Map scroll to progress: `progress = clamp(scrollY / (scrollHeight - innerHeight), 0, 1)`.
+2. Optionally lerp: `smoothed += (target - smoothed) * 0.08–0.15` on `requestAnimationFrame`.
+3. Drive **one** media element (`video.currentTime = progress * duration`, or the host equivalent). Prefer a video/poster over a 300-frame PNG sequence.
+4. Pause when offscreen. Do not loop autoplay; motion is scroll-driven only.
+5. Keep heading, CTA, and navigation in the DOM. Media is a background layer, never the only copy.
+6. `prefers-reduced-motion: reduce` → static poster, no scrub, no lerp.
+
+```css
+.scrub-stage {
+  position: relative;
+  min-height: 100svh;
+}
+.scrub-media {
+  position: sticky;
+  inset: 0;
+  width: 100%;
+  height: 100svh;
+  object-fit: cover;
+}
+.scrub-copy {
+  position: relative;
+  z-index: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scrub-media { /* poster only; do not bind currentTime */ }
+}
+```
+
+Usually reject it for dashboards, tables, settings, forms, chat, CRUD workspaces, and high-frequency navigation.
+
+Do not:
+
+- add Framer Motion / GSAP only to bind `scrollY`
+- ship hundreds of extracted frames when one video will do
+- upgrade `marketing-proof-landing` to a cinematic scroll-video because a prompt catalog did
+- leave an autoplaying hero with no pause/reduced-motion path
+

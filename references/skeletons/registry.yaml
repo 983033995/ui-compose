@@ -64,7 +64,7 @@ skeletons:
     desktop: bounded-reading-tracks
     mobile: single-priority-column
     recommended_patterns: [single-ambient-moment]
-    risks: [three-equal-card-default, decorative-dashboard-mockup]
+    risks: [three-equal-card-default, decorative-dashboard-mockup, cinematic-scroll-default, prompt-catalog-stack]
 
   - id: editorial-product-explorer
     surface: campaign
@@ -82,4 +82,4 @@ skeletons:
     desktop: full-bleed-stage-with-content-grid
     mobile: poster-or-lightweight-scene
     recommended_patterns: [single-webgl-stage]
-    risks: [gpu-cost, content-readability, mobile-performance]
+    risks: [gpu-cost, content-readability, mobile-performance, frame-sequence-payload, autoplay-hero]

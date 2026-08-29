@@ -20,6 +20,8 @@ High-frequency and keyboard-driven interaction: no motion.
 
 Always ship `prefers-reduced-motion: reduce`. Never `transition: all`. Enumerate only the properties that actually change.
 
+Scroll-tied media (marketing / immersive-hero only) is not a timed animation. Map `progress` to scroll, optionally lerp `0.08–0.15` per frame, and snap to a poster under reduced motion. Do not use this physics on app interiors. See `motion-blocks.md` §9.
+
 ## Type and measure
 
 These are fallback ranges, not mandatory constants. Prefer host typography and spacing tokens first.
@@ -122,4 +124,4 @@ Use these as directional bands, not mathematical laws.
 | Editorial campaign | 2–6 | 4–8 |
 | WebGL moment | 1–4 | 4–8 |
 
-Marketing baselines do not belong on dashboards. Campaign bounce does not belong on nav, tables, or checkout.
+Marketing baselines do not belong on dashboards. Campaign bounce does not belong on nav, tables, or checkout. Scroll-tied video / 300-frame sequences belong on `immersive-hero` when the media is the demo — not on `marketing-proof-landing` by default, and never on app interiors.
