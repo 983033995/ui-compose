@@ -1,0 +1,48 @@
+id: custom-design-system
+case_ids:
+  - 09-custom-design-system
+framework: intentionally unfamiliar internal web framework surface
+runtime: browser application
+styling: semantic CSS variables + internal utility classes
+primitive_system: internal Button Input Select Dialog Drawer Table and Form primitives
+tokens: internal color spacing type radius elevation and state scales
+motion: existing host transitions only
+package_manager: pnpm
+dependencies:
+  - internal-design-system
+forbidden_default_dependencies:
+  - tailwindcss
+  - shadcn
+  - radix-ui
+  - element-plus
+  - antd
+commands:
+  install: pnpm install --frozen-lockfile
+  build: pnpm build
+  test: pnpm test
+  dev: pnpm dev
+representative_files:
+  - package.json
+  - src/design-system/tokens.css
+  - src/design-system/Button.ts
+  - src/design-system/Table.ts
+  - src/design-system/Drawer.ts
+  - src/views/SupportBaseline.ts
+required_states:
+  - loading
+  - empty
+  - error
+  - permission-restricted
+  - filtered
+  - selected
+  - assigned
+accessibility_contract:
+  - The benchmark must inspect and preserve the host design system accessibility conventions before modifying UI.
+  - Primary controls remain keyboard-operable with visible focus and existing semantic contracts.
+  - Permission-restricted state is explicitly communicated and not silently hidden.
+mobile_contract:
+  - Around 390px, queue and ticket detail use a deliberate navigation or sheet strategy rather than a compressed split pane.
+  - No page-level horizontal overflow is allowed.
+  - Assignment and status actions remain reachable at touch sizes.
+snapshot_ref: null
+notes: This is the strongest portability fixture. Installing a familiar public UI kit because the internal API is unfamiliar is a hard failure even if the visual result is polished.

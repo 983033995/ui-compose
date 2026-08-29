@@ -1,265 +1,155 @@
-# ThreeUI — 3D / WebGL Lego
+# ThreeUI / WebGL evidence adapter
 
-Sources:
+ThreeUI is a useful research source for a narrow job: **one intentional 3D/WebGL moment** such as a hero scene, product stage, shader field, or generative visual mark.
 
-- Site: [threeui.com](https://threeui.com)
-- Community (MIT, 160+): [github.com/MengTo/threeui](https://github.com/MengTo/threeui)
-- npm: `@designcodeio/threeui`
-- Meng To: [open-source announcement](https://x.com/MengTo/status/2090817187900780961)
+It is not a default dependency, a primitive kit, or a reason to put GPU effects inside ordinary product UI.
 
-This is the **3D register** of the same Lego idea. Do not invent a
-WebGL hero, particle field, liquid-metal button, or kinetic type from a
-blank canvas. Steal a ThreeUI block, then retune palette / lighting /
-copy. That is the whole skill, applied to GPU.
+## Source boundary
 
-Florin on the launch post: *this solves one of the harder parts of
-agent-built UI: starting with good taste.* Josh: *hand it over, change
-the theme and motion, never touch the procedural JS.*
+Canonical sources should be recorded in `references/sources/registry.yaml` and verified before source-level reuse.
 
-Use when the user asked for a **real 3D moment** (hero scene, shader
-background, 3D product stage, WebGL button). Skip for dashboards,
-settings, chat, CRUD. Those stay CSS + shadcn.
+Treat ThreeUI in one of two modes:
 
----
+1. **Observed-trait evidence** — learn scene composition, DOM/canvas layering, performance constraints, reduced-motion behavior, and visual restraint.
+2. **Copy-own upstream source** — only when the exact upstream item/license permits it and the host architecture benefits from reuse.
 
-## What it actually is
+Do not assume that every site asset, thumbnail, paid component, MCP result, or Pro implementation is covered by the Community license. Verify the exact item before copying source.
 
-Not a second shadcn. A **catalog of copy-ready procedural scenes**:
+## When this pattern is eligible
 
-| Layer | Count (Community, Aug 2026) |
-| --- | --- |
-| Parent components | 50 |
-| Routes | 111 |
-| Free variants + singletons | 164 browse results |
-| Typical scene | 100–200 KB, procedural JS, no glTF required |
+Use WebGL only when the product job explicitly benefits from a scene:
 
-Pro adds 50+ extra, MCP, and per-item skills/prompts. Community is
-enough for the method. Do not scrape Pro source.
+- marketing hero
+- 3D product presentation
+- generative brand mark
+- immersive editorial stage
+- shader-backed visualization
 
-Categories (steal by job, not by "it looks cool"):
+Usually reject it for:
 
-| Job | Category | Community starting points |
-| --- | --- | --- |
-| Opening hero (scene + HTML chrome) | Hero | Sylva — Living Green, Complete Shelf, Bestsellers Book |
-| Full marketing page | Landing Pages | Sketchbook, Kage |
-| Atmosphere behind HTML | Backgrounds | Predictive Arc, CRT, Liquid Form, Constellation Field, Portal Field, Warp Field |
-| Reusable 3D object | Three.js | Structure Flow, Landscape, Bookshelf, Woven Cloth, Temple Night |
-| One fancy control | Buttons | Liquid Metal, Circle/Rectangle, Shader, Thinking, Launch, Tactile |
-| Kinetic type | Text Animation | Text Path Studies, Gallery Heading, Semantic Bloom, Typography Vortex |
-| Chrome flourish | UI Elements | Brand Orbs, Character Carousel, Diagnostics Panel, Animated Top Dock |
-| CSS-only cousin | CSS / Motion Design | Use only if WebGL is overkill |
+- dashboards
+- tables
+- settings
+- forms
+- chat threads
+- CRUD workspaces
+- high-frequency navigation
 
-A **background** is the visual layer. A **hero** is that layer plus
-nav, copy, CTA. Do not drop a full landing template into an app shell.
+The Pattern Registry owns the canonical decision: `single-webgl-stage`.
 
----
+## Host Read first
 
-## Agent workflow (do this, in order)
+Before introducing any WebGL implementation, inspect:
 
-1. **Name the job** in one sentence: "shader field behind a quiet hero"
-   or "one liquid-metal generate button". If you cannot name it, you do
-   not need ThreeUI.
-2. **Pick one Community item** from the table. Open
-   [threeui.com/browse](https://threeui.com/browse) or the GitHub
-   `src/shaders/` / `src/package-components/` tree. Prefer an item whose
-   *interaction* matches, not just the thumbnail.
-3. **Copy source, don't rewrite GLSL.** Install
-   `@designcodeio/threeui` **or** paste the component folder. Subpath
-   import to keep the graph small:
+- whether Three.js or another renderer already exists
+- framework and lifecycle model
+- existing motion stack
+- route/view mounting behavior
+- performance budget
+- SSR/hydration constraints
+- mobile requirements
+- reduced-motion expectations
+- existing visual/brand system
 
-   ```tsx
-   import { AtTheHorizon } from "@designcodeio/threeui/components/AtTheHorizon";
-   import "@designcodeio/threeui/style.css";
-   ```
+A React/Three.js example is evidence, not a portable implementation for a Vue, Svelte, native-canvas, or custom-renderer host.
 
-   Full-document scenes need their runtime files at the same
-   root-relative URLs. Copy from
-   `node_modules/@designcodeio/threeui/lib-dist/assets/` into `public/`,
-   or pass `sourceUrl` / `assetBaseUrl`.
-4. **Retune, don't restyle from zero.** Change copy, CSS variables /
-   palette, lights, camera distance, particle count. Keep the
-   interaction (cursor field, dock magnification, CRT scan). Meng To's
-   promise: *skills your agent can use to customize them while keeping
-   them looking amazing.*
-5. **Seat it behind real HTML.** Canvas is a layer. Links, type, and
-   CTAs stay DOM. See the mount recipe below.
-6. **Cap: one GPU scene per view.** Do not stack Predictive Arc +
-   Liquid Metal + Typography Vortex + Magic UI particles.
+## Composition rule
 
-If the user has ThreeUI Pro, the MCP at `https://threeui.com/api/mcp`
-is the catalog API: `search_catalog` → `get_item_prompt` →
-`get_item_source`. Still one item. MCP does not license carnival.
+One GPU scene should normally correspond to one visual responsibility.
 
----
-
-## Mount recipe (every scene)
-
-Reverse-engineered from `src/shaders/community.css`. Every Community
-mount shares this shell. Copy it; do not invent a new one.
-
-```css
-.threeui-mount {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  width: 100%;
-  min-height: 100%;
-  background: var(--scene-paper, #030304);
-}
-.threeui-mount > canvas,
-.threeui-mount iframe {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 180ms ease-out;
-  pointer-events: none; /* HTML on top stays clickable */
-}
-.threeui-mount > canvas.is-ready,
-.threeui-mount iframe.is-ready {
-  opacity: 1;
-}
-.threeui-mount .chrome {
-  position: relative;
-  z-index: 2;
-}
-@media (prefers-reduced-motion: reduce) {
-  .threeui-mount > canvas { transition: none; }
-}
+```text
+real HTML chrome
+  ↓
+accessible heading / copy / CTA / navigation
+  ↓
+canvas scene as progressive visual layer
 ```
 
-Paper tones from the catalog (pick the one that matches the scene,
-then map onto `@theme`):
+The page must remain understandable and operable if the canvas fails or is removed.
 
-| Scene family | Paper |
-| --- | --- |
-| Dark fields (CRT, vortex, temple, predictive-arc default) | `#030304` / `#05070a` / `#08090a` |
-| Light fields (predictive-arc light, type vortex light) | `#f3f5f8` / `#f3f6f1` / `#eef1f6` |
-| Warm analog (landscape, Japanese tower, sketchbook) | `#ecdcbc` / `#ece7dc` |
+Do not put essential text, forms, navigation, approvals, or primary product controls exclusively inside the canvas.
 
-HTML chrome on top of a dark field must keep contrast. Do not put
-`--fg` gray-on-gray over a shader.
+## Adaptation order
 
-Pointer events: **none** on the canvas unless the scene *is* the
-control (OrbitControls product viewer, liquid-metal button). Backgrounds
-must never steal scroll or clicks.
+1. Reuse an existing host scene/renderer if one already solves the job.
+2. Reimplement a small observed trait using the host renderer.
+3. Reuse a permitted upstream Community item when license and architecture justify it.
+4. Add a new renderer/dependency only when the interaction genuinely requires it.
 
----
+Do not add Three.js just to reproduce grain, a glow, a simple orb, a gradient, or a basic text reveal that CSS/canvas-2D can handle.
 
-## Fingerprints (site + components)
+## Performance contract
 
-ThreeUI's own chrome is a quiet product-docs shell. Steal the
-discipline, not a clone.
+Any `single-webgl-stage` implementation should address:
 
-**Appearance machine** (`src/theme.ts`):
+- device pixel ratio cap where appropriate
+- resize handling
+- off-screen pause or throttling
+- animation frame cleanup
+- geometry/material/texture disposal where the renderer requires it
+- listener cleanup
+- lower-cost mobile behavior
+- graceful WebGL failure
+- reduced-motion fallback, ideally a still poster or static state
 
-- Mode: `light | dark | system`
-- Palette, stored separately per scheme: `mono | sepia | azure | moss | mauve`
-- Default stored theme: **dark**, palette **mono**
-- Applied as `data-theme`, `data-scheme`, `data-palette` on `<html>`
+SPA route changes are part of the test. A scene that leaks renderer resources is a product bug, not merely a performance optimization opportunity.
 
-**Type**
+## Interaction contract
 
-- Display / UI: Geist
-- Meta: Fragment Mono, 8–10px, tracking `0.10–0.12em`, weight 400
-- Headings in article-list: 18–44px (container-query `cqw`), weight 600,
-  tracking `-0.02em`, line-height 1.08
+Background canvas should usually use no pointer capture so HTML controls remain operable.
 
-**Surfaces**
+Enable direct canvas input only when the scene itself is the intended control, for example:
 
-- Hairline borders `#292929` / `#2a2a28` (dark), `#d9dce3` (light)
-- Dock: `border-radius: 11px` outer, `7px` items, `rgba(14,14,14,.86)` +
-  `backdrop-filter: blur(18px) saturate(75%)`
-- Soft inset highlight `inset 0 1px rgba(255,255,255,.035)`
-- Optional 12% fractal-noise overlay, `mix-blend-mode: soft-light`
-  (one overlay, not grain on every card)
+- product orbit viewer
+- interactive 3D configurator
+- deliberately interactive hero stage
 
-**Motion**
+Keyboard and screen-reader access must remain available for any equivalent product action.
 
-- Ready-fade: **180ms ease-out** (universal)
-- Dock hover: 150–180ms on color/border, magnification via width/height
-- Reduced motion: dock transform none; button frame transition none
-- Mobile ≤ 600px: kill dock magnification (`transform: none !important`)
+## Visual restraint
 
-**Container queries** on article headings and the top dock. Prefer
-`cqw` over viewport for anything inside a preview frame.
+A WebGL scene is already a high-salience motif. Do not stack it with several unrelated decorative systems such as particles, glow beams, cursor trails, animated grids and multiple ambient orbs.
 
-Map these onto existing `@theme` tokens. Do not add Geist + Fragment
-Mono if the app already has a pair; keep the *roles* (display vs 8–10px
-tracked meta).
+Prefer:
 
----
+> one scene + restrained host-native chrome
 
-## Performance and disposal (non-optional)
+rather than:
 
-From ThreeUI's own FAQ and from Sebastian on the launch thread
-(agent edits leak GPU memory):
+> one scene + every motion/effect library discovered during research
 
-- `renderer.setPixelRatio(Math.min(devicePixelRatio, 2))`
-- Pause RAF when the canvas is off-screen (`IntersectionObserver`)
-- On unmount: `geometry.dispose()`, `material.dispose()`,
-  `texture.dispose()`, `renderer.dispose()`, cancel RAF, remove
-  listeners. SPAs that skip this crash after a few route changes.
-- Lower particle / marching counts on mobile. Provide a **still
-  poster** (`<img>` or first frame) when WebGL fails or
-  `prefers-reduced-motion: reduce`.
-- Test contrast of HTML over the live shader, not over the thumbnail.
+## What to extract from ThreeUI-like sources
 
-Decorative 3D is a progressive enhancement. The page must read with
-the canvas deleted.
+Good reusable evidence includes:
 
----
+- one GPU stage per view
+- DOM chrome above/beside canvas
+- progressive scene readiness
+- reduced-motion/static fallback
+- renderer cleanup discipline
+- interaction-specific pointer capture
+- scene/job matching
 
-## Hard rules
+Brand-specific fonts, exact palettes, thumbnails, proprietary assets and paid-source implementations should not become canonical UI Compose patterns.
 
-- **One GPU scene per view.** Same cap as Rare UI / orbs / beam.
-- ThreeUI does **not** replace shadcn. Buttons that are actually
-  buttons (submit, dialog, menu) stay in the primitive kit. Liquid-metal
-  is a marketing CTA, not a form control.
-- Do not mix ThreeUI + Magic UI + Aceternity + Rare orbs on one page.
-  Pick **one** decorative family.
-- Do not use ThreeUI inside app interiors (chat, table, settings).
-  Canvas UI / Beautiful UI already cover "mark over live HTML" for
-  product chrome.
-- Do not rewrite a 200 KB procedural scene "to make it ours". Retune
-  parameters. If the interaction is wrong, pick a different catalog item.
-- Community is MIT. Remote thumbnails on threeui.com are **not**
-  redistributable; use the source, not hotlinked previews.
-- Pro MCP/CLI is entitled. Do not paste Pro implementation into this
-  repo or a client app unless the user has a license.
+## Eval failures
 
----
+Treat these as significant failures:
 
-## When CSS is enough
+- WebGL added to an app interior without product justification
+- new heavyweight renderer for a CSS-level effect
+- essential content inaccessible without canvas
+- no reduced-motion/failure fallback
+- resource leak across route mounts
+- mobile frame cost ignored
+- multiple high-salience decorative systems competing in one view
+- copied source without verified permission
 
-Reach for ThreeUI only after this filter fails:
+## Agent move
 
-| Want | CSS / canvas-2d first |
-| --- | --- |
-| Thinking orb as status | AICSS / `ai-primitives.md` / orbs.jakubantalik.com |
-| One beam on a selected card | beam.jakubantalik.com (8px / 3px blur / 200ms) |
-| Grid-reveal, tilt card, toast stack | `motion-blocks.md` (beUI / Rare UI) |
-| Kinetic type that is just a heading | CSS clip / mask; Text Path Studies only if the type *is* the piece |
-| Grain overlay | One SVG turbulence, already in ThreeUI chrome — don't add a scene for grain |
-
-Three.js when the user asked for a **scene**: product spin, living
-landscape, CRT terminal, liquid metal, cloth, bookshelf. Otherwise it
-is slop with a GPU bill.
-
----
-
-## Pairing
-
-| Concern | Owner |
-| --- | --- |
-| Tokens, type, radii, anti-slop | `design-ui` + this skill §3 |
-| App / docs skeleton | `layout-steal.md` |
-| Campaign / Y2K explorer | `editorial-campaign.md` (2D). ThreeUI can be the *hero product stage* under that chrome, not a second motif family |
-| 3D / WebGL moment | **this file** |
-| Distinctive CSS motion | `motion-blocks.md` |
-
-Quiet landing + one Structure Flow or Predictive Arc is the default
-tasteful move. Loud landing + Sylva + liquid-metal + vortex type is a
-demo reel, not a product.
+1. Confirm the user/product job actually needs a 3D scene.
+2. Perform Host Read.
+3. Select `single-webgl-stage` only if it survives dependency/performance/accessibility risk checks.
+4. Use ThreeUI or similar projects as evidence; verify license before source reuse.
+5. Keep meaningful UI in the DOM.
+6. Verify mobile, reduced motion, failure fallback and lifecycle cleanup.

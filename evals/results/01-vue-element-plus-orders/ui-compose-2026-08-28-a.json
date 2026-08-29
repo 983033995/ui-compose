@@ -1,0 +1,51 @@
+{
+  "case_id": "01-vue-element-plus-orders",
+  "mode": "ui-compose",
+  "model": "grok-build",
+  "skill_version": "0.3.0+a8e4b341f36662c8",
+  "run_at": "2026-08-28T19:08:02.140Z",
+  "prompt_ref": "evals/cases/01-vue-element-plus-orders.md",
+  "prompt_revision": "a8e4b341f36662c8f86c4e5306654e3b2cdd4f73",
+  "host_fixture_ref": "vue-element-plus-orders",
+  "host_fixture_revision": "a8e4b341f36662c8f86c4e5306654e3b2cdd4f73",
+  "dependency_baseline_sha256": "b0b3b3bc840557255f97c4642630b9077147a6b6b671524c7bbdd7b36187b633",
+  "selected_skeleton": "master-detail-workspace",
+  "selected_patterns": [
+    "dense-filter-toolbar",
+    "master-detail-preview",
+    "sticky-contextual-actions"
+  ],
+  "dependency_changes": [],
+  "build_status": "passed",
+  "runtime_notes": "GitHub Actions Capture Eval 01 (run 33202431954, job 98954942239) built the frozen Vue 3 + Element Plus 2.9.5 fixture at commit a8e4b341f36662c8f86c4e5306654e3b2cdd4f73, served vite preview on :4173, and captured desktop 1440x1000 plus mobile 390x844. metrics.json reports evidenceLevel rendered-ci, no console/page errors, no page-level overflow, table visible, Tab focus on Export with 2px solid outline, detailMode inline-preview. After row click, desktop keeps the table beside a 340px preview pane; mobile hides the list, shows the preview, and exposes .mobile-back. Capture hardFailures array was empty.",
+  "keyboard_notes": "Tab from load lands on the Export button with a 2px solid focus outline. Search, status, date, bulk buttons, and table checkboxes are Element Plus and remain keyboard-operable. Row inspection is pointer-only: AppTable is a thin ElTable wrapper with @row-click and no row tabIndex / Enter-Space handler, and the preview pane has no keyboard next/prev. This misses the fixture contract that row inspection stay keyboard-operable and the master-detail-preview interaction (keyboard-next-prev, escape-close). Because row inspection is a primary interaction, this is recorded as an accessibility hard failure.",
+  "reduced_motion_notes": "prefers-reduced-motion: reduce emulation matched. Composition uses CSS layout and Vue class toggles for list-then-detail; no extra motion library and no decorative animation stack.",
+  "artifacts": {
+    "desktop": "evals/results/01-vue-element-plus-orders/ui-compose-2026-08-28-a-desktop.png",
+    "mobile": "evals/results/01-vue-element-plus-orders/ui-compose-2026-08-28-a-mobile.png",
+    "extra": [
+      "evals/results/01-vue-element-plus-orders/ui-compose-2026-08-28-a-desktop-detail.png",
+      "evals/results/01-vue-element-plus-orders/ui-compose-2026-08-28-a-mobile-detail.png",
+      "evals/harness/artifacts/eval-01/ui-compose-2026-08-28-a-metrics.json"
+    ]
+  },
+  "rubric": {
+    "visual_quality": 21,
+    "design_consistency": 14,
+    "task_fit": 14,
+    "host_stack_compliance": 10,
+    "accessibility": 6,
+    "responsive": 9,
+    "build_runtime_success": 5,
+    "dependency_discipline": 5,
+    "anti_slop": 5,
+    "total": 59
+  },
+  "hard_failures": [
+    "inaccessible-primary-row-inspection"
+  ],
+  "decision_errors": [
+    "accessibility-failure"
+  ],
+  "review_notes": "Scored from CI-rendered screenshots and metrics, plus source review of OrdersBaseline.vue / AppTable.vue / App.vue at a8e4b341. Composition matches the expected skeleton: dense filter toolbar with live count, collection pane + 340px detail pane, sticky bulk bar scoped to selection, loading/empty/error states, and a deliberate mobile list-then-detail (empty preview pane hidden until a row is chosen; Back returns to the list). Host tokens and Element Plus wrappers are reused; no Tailwind/Radix/shadcn/second table library; package.json unchanged. view-options-control was a case candidate and was not implemented \u2014 not scored as a decision error because it is optional. The raw rubric components sum to 89, but inaccessible primary row inspection triggers the automatic hard-failure cap, so the recorded total is 59."
+}

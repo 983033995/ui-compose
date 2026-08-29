@@ -1,0 +1,256 @@
+version: 0.3
+updated: 2026-08-29
+principle: "Sources are evidence of good UI decisions, not default runtime dependencies."
+
+sources:
+  - id: shadcn
+    name: shadcn/ui
+    role: primitive-reference
+    canonical_url: https://github.com/shadcn-ui/ui
+    frameworks: [react]
+    jobs: [forms, dialogs, menus, tabs, sheets, cards]
+    traits: [copy-own, accessible-primitives, composable-structure]
+    integration: reference-or-copy-own
+    license: MIT
+    provenance: public-source
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [react-specific]
+
+  - id: reui
+    name: ReUI
+    role: composition-reference
+    canonical_url: https://github.com/keenthemes/reui
+    frameworks: [react]
+    jobs: [dashboard, data-grid, filters, kanban, gantt, stepper]
+    traits: [dense-app-layout, data-toolbars, workflow-composition]
+    integration: trait-reimplementation
+    license: MIT
+    provenance: public-source-free-catalog
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [react-specific, bundle-growth, paid-catalog-boundary]
+
+  - id: kibo
+    name: Kibo UI
+    role: composition-reference
+    canonical_url: https://github.com/shadcnblocks/kibo
+    frameworks: [react]
+    jobs: [dashboard, data-heavy, workflow]
+    traits: [dense-controls, compound-components, application-patterns]
+    integration: trait-reimplementation
+    license: MIT
+    provenance: public-source
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [react-specific, overlaps-with-reui]
+
+  - id: coss
+    name: coss ui
+    role: primitive-reference
+    frameworks: [react]
+    jobs: [controls, primitives]
+    traits: [base-ui-style-primitives, restrained-visuals]
+    integration: reference-only-by-default
+    license: verify-upstream
+    provenance: public-source
+    runtime_dependency_default: false
+    risks: [competing-primitive-system]
+
+  - id: linear
+    name: Linear
+    role: product-interaction-reference
+    canonical_url: https://linear.app/
+    frameworks: [product]
+    jobs: [issue-triage, command-navigation, preview, display-options, favorites]
+    traits: [keyboard-first, peek-preview, view-customization, dense-information-hierarchy]
+    integration: observed-trait-reimplementation
+    license: not-applicable-to-observed-traits
+    provenance: observed-behavior-and-public-docs
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [brand-cloning, keyboard-without-pointer-fallback]
+
+  - id: raycast
+    name: Raycast
+    role: product-interaction-reference
+    canonical_url: https://www.raycast.com/
+    frameworks: [product]
+    jobs: [command-navigation, search, quick-actions, productivity]
+    traits: [command-first, ranked-results, shortcut-hints, compact-density]
+    integration: observed-trait-reimplementation
+    license: not-applicable-to-observed-traits
+    provenance: observed-behavior-and-public-site
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [brand-cloning, desktop-context-bias]
+
+  - id: beautiful-ui
+    name: Beautiful UI
+    role: ai-native-reference
+    frameworks: [web]
+    jobs: [streaming, agent-status, reasoning-summary, tool-status, composer]
+    traits: [compact-ai-chrome, stream-tail, execution-state-visualization]
+    integration: trait-reimplementation
+    license: verify-upstream
+    provenance: observed-behavior
+    runtime_dependency_default: false
+    risks: [proprietary-identity, chain-of-thought-wording]
+
+  - id: aicss
+    name: AICSS
+    role: ai-native-reference
+    frameworks: [react, vue, svelte]
+    jobs: [ai-interface, streaming, status]
+    traits: [cross-framework-ai-patterns, lightweight-states]
+    integration: trait-reimplementation
+    license: verify-upstream
+    provenance: public-source
+    runtime_dependency_default: false
+    risks: []
+
+  - id: ai-elements
+    name: AI Elements
+    role: ai-native-reference
+    canonical_url: https://github.com/vercel/ai-elements
+    frameworks: [react]
+    jobs: [ai-chat, ai-sdk, tools, sources, composer, streaming]
+    traits: [ai-sdk-alignment, structured-agent-components, tool-state-ui, source-ui]
+    integration: prefer-only-if-host-already-uses-stack
+    license: Apache-2.0
+    provenance: public-source
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [react-specific, stack-coupling, chain-of-thought-wording]
+
+  - id: beui
+    name: beUI
+    role: motion-reference
+    frameworks: [web]
+    jobs: [tilt, morphing-panel, toast-stack]
+    traits: [css-first-motion, tactile-feedback, restrained-duration]
+    integration: trait-reimplementation
+    license: verify-upstream
+    provenance: observed-behavior
+    runtime_dependency_default: false
+    risks: [over-animation]
+
+  - id: rare-ui
+    name: Rare UI
+    role: ambient-reference
+    frameworks: [web]
+    jobs: [ambient-mark, reveal, decorative-accent]
+    traits: [single-accent-moment, lightweight-ornament]
+    integration: trait-reimplementation
+    license: verify-upstream
+    provenance: observed-behavior
+    runtime_dependency_default: false
+    risks: [slop-if-stacked]
+
+  - id: magic-ui
+    name: Magic UI
+    role: effect-reference
+    canonical_url: https://github.com/magicuidesign/magicui
+    frameworks: [react]
+    jobs: [landing-effect, hero-accent]
+    traits: [high-salience-effects]
+    integration: inspiration-only-by-default
+    license: MIT
+    provenance: public-source
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [high-slop-risk, react-specific]
+
+  - id: aceternity
+    name: Aceternity UI
+    role: effect-reference
+    frameworks: [react]
+    jobs: [landing-effect, hero]
+    traits: [dramatic-interaction, display-effects]
+    integration: inspiration-only-by-default
+    license: verify-upstream
+    provenance: public-source
+    runtime_dependency_default: false
+    risks: [high-slop-risk, react-specific]
+
+  - id: threeui
+    name: ThreeUI
+    role: webgl-reference
+    canonical_url: https://github.com/MengTo/threeui
+    frameworks: [webgl]
+    jobs: [3d-hero, shader-field, gpu-accent]
+    traits: [single-gpu-scene, dom-over-canvas, disposal-discipline]
+    integration: reference-or-copy-when-explicitly-permitted
+    license: MIT-community-code-and-authored-assets
+    provenance: public-community-source-with-tier-and-asset-boundaries
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [gpu-cost, accessibility, bundle-growth, external-asset-boundary, pro-beta-boundary]
+
+  - id: taste-skill
+    name: taste-skill
+    role: direction-reference
+    canonical_url: https://github.com/Leonxlnx/taste-skill
+    frameworks: [agent-skill]
+    jobs: [landing, portfolio, redesign, design-read]
+    traits: [variance-motion-density, anti-slop, design-inference]
+    integration: methodology-reference
+    license: MIT
+    provenance: public-source
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [scope-overlap]
+
+  - id: editorial-campaign
+    name: Editorial campaign observations
+    role: editorial-reference
+    frameworks: [web]
+    jobs: [dtc, lookbook, product-explorer, campaign]
+    traits: [item-owned-worlds, locked-chrome, editorial-type, palette-switching]
+    integration: observed-trait-reimplementation
+    license: not-applicable-to-observed-traits
+    provenance: observed-behavior
+    runtime_dependency_default: false
+    risks: [brand-cloning, touch-hover-mismatch]
+
+  - id: refero-styles
+    name: Refero Styles
+    role: direction-reference
+    canonical_url: https://styles.refero.design/
+    frameworks: [agent-skill]
+    jobs: [design-read, token-contract, visual-research]
+    traits: [model-readable-design-contract, token-role-structure, design-rationale-shape]
+    integration: methodology-reference
+    license: verify-upstream
+    provenance: public-methodology-and-catalog
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [brand-copy, host-identity-substitution, paid-research-boundary]
+
+  - id: number-flow
+    name: Number Flow
+    role: motion-reference
+    canonical_url: https://github.com/barvian/number-flow
+    frameworks: [web, react, vue, svelte]
+    jobs: [live-number, metric, counter, price]
+    traits: [layout-stable-digits, directional-number-motion, reduced-motion-fallback]
+    integration: trait-reimplementation
+    license: verify-upstream
+    provenance: public-source
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [unnecessary-dependency, over-animation, browser-feature-support]
+
+  - id: refactoring-ui
+    name: Refactoring UI methodology
+    role: direction-reference
+    canonical_url: https://www.refactoringui.com/
+    frameworks: [methodology]
+    jobs: [visual-hierarchy, typography, spacing, action-hierarchy, empty-states]
+    traits: [clear-emphasis, grouping-by-proximity, action-hierarchy, actionable-empty-state, functional-elevation]
+    integration: methodology-reference
+    license: proprietary-methodology
+    provenance: proprietary-book-with-unaffiliated-plugin-evidence
+    last_verified: 2026-08-29
+    runtime_dependency_default: false
+    risks: [proprietary-source, unaffiliated-plugin, tailwind-bias-if-vendored]

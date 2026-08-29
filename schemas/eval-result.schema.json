@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ui-compose.dev/schemas/eval-result.schema.json",
+  "title": "UI Compose Eval Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "mode",
+    "model",
+    "skill_version",
+    "run_at",
+    "prompt_ref",
+    "prompt_revision",
+    "host_fixture_ref",
+    "host_fixture_revision",
+    "dependency_baseline_sha256",
+    "build_status",
+    "selected_skeleton",
+    "selected_patterns",
+    "dependency_changes",
+    "artifacts",
+    "rubric",
+    "hard_failures",
+    "decision_errors"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "pattern": "^[0-9]{2}-[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "model-only",
+        "generic-frontend-design",
+        "taste-oriented",
+        "ui-compose",
+        "taste-plus-ui-compose"
+      ]
+    },
+    "model": { "type": "string", "minLength": 1 },
+    "skill_version": { "type": "string", "minLength": 1 },
+    "run_at": { "type": "string", "format": "date-time" },
+    "prompt_ref": { "type": "string", "minLength": 1 },
+    "prompt_revision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "host_fixture_ref": { "type": "string", "minLength": 1 },
+    "host_fixture_revision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "dependency_baseline_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "selected_skeleton": { "type": ["string", "null"] },
+    "selected_patterns": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string" }
+    },
+    "dependency_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "change", "reason"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "change": { "type": "string", "enum": ["added", "removed", "updated"] },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "build_status": {
+      "type": "string",
+      "enum": ["passed", "failed", "not-run"]
+    },
+    "runtime_notes": { "type": "string" },
+    "keyboard_notes": { "type": "string" },
+    "reduced_motion_notes": { "type": "string" },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["desktop", "mobile"],
+      "properties": {
+        "desktop": { "type": ["string", "null"] },
+        "mobile": { "type": ["string", "null"] },
+        "extra": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "rubric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "visual_quality",
+        "design_consistency",
+        "task_fit",
+        "host_stack_compliance",
+        "accessibility",
+        "responsive",
+        "build_runtime_success",
+        "dependency_discipline",
+        "anti_slop",
+        "total"
+      ],
+      "properties": {
+        "visual_quality": { "$ref": "#/$defs/score25" },
+        "design_consistency": { "$ref": "#/$defs/score15" },
+        "task_fit": { "$ref": "#/$defs/score15" },
+        "host_stack_compliance": { "$ref": "#/$defs/score10" },
+        "accessibility": { "$ref": "#/$defs/score10" },
+        "responsive": { "$ref": "#/$defs/score10" },
+        "build_runtime_success": { "$ref": "#/$defs/score5" },
+        "dependency_discipline": { "$ref": "#/$defs/score5" },
+        "anti_slop": { "$ref": "#/$defs/score5" },
+        "total": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "hard_failures": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "decision_errors": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "wrong-skeleton",
+          "wrong-pattern",
+          "wrong-density",
+          "wrong-motion",
+          "ignored-host-system",
+          "unnecessary-dependency",
+          "missing-state",
+          "accessibility-failure",
+          "mobile-failure",
+          "runtime-failure",
+          "brand-copy-risk",
+          "provenance-risk"
+        ]
+      }
+    },
+    "review_notes": { "type": "string" }
+  },
+  "$defs": {
+    "score25": { "type": "number", "minimum": 0, "maximum": 25 },
+    "score15": { "type": "number", "minimum": 0, "maximum": 15 },
+    "score10": { "type": "number", "minimum": 0, "maximum": 10 },
+    "score5": { "type": "number", "minimum": 0, "maximum": 5 }
+  }
+}

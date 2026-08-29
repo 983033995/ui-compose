@@ -1,0 +1,48 @@
+id: vue-element-plus-orders
+case_ids:
+  - 01-vue-element-plus-orders
+framework: Vue 3 + Vite + TypeScript
+runtime: browser SPA
+styling: host CSS variables + scoped CSS
+primitive_system: Element Plus + existing local wrappers
+tokens: existing semantic CSS variables for color, spacing, radius, typography
+motion: Vue Transition + CSS only unless the fixture already contains another motion system
+package_manager: pnpm
+dependencies:
+  - vue
+  - element-plus
+  - typescript
+  - vite
+forbidden_default_dependencies:
+  - tailwindcss
+  - radix-ui
+  - shadcn
+  - antd
+commands:
+  install: pnpm install --frozen-lockfile
+  build: pnpm build
+  test: pnpm test
+  dev: pnpm dev
+representative_files:
+  - package.json
+  - src/styles/tokens.css
+  - src/components/AppTable.vue
+  - src/components/AppDialog.vue
+  - src/views/OrdersBaseline.vue
+required_states:
+  - loading
+  - empty
+  - error
+  - filtered
+  - selected
+  - bulk-selection
+accessibility_contract:
+  - Primary controls have programmatic labels and visible focus.
+  - Table/list selection is communicated without relying on color alone.
+  - Row inspection and bulk actions remain keyboard-operable.
+mobile_contract:
+  - Around 390px, the desktop split layout must convert to a deliberate list-then-detail or sheet strategy.
+  - No page-level horizontal overflow is allowed.
+  - Filters remain reachable without forcing every control into one line.
+snapshot_ref: null
+notes: Preserve Element Plus as the behavioral primitive layer while adapting composition to the host tokens and wrappers. The benchmark should reject a second UI primitive system.

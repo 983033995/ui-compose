@@ -1,0 +1,77 @@
+name: Build Eval Fixtures
+
+on:
+  push:
+    paths:
+      - 'evals/harness/apps/**'
+      - '.github/workflows/build-eval-fixtures.yml'
+  pull_request:
+    paths:
+      - 'evals/harness/apps/**'
+      - '.github/workflows/build-eval-fixtures.yml'
+
+jobs:
+  vue-element-plus-orders:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: evals/harness/apps/vue-element-plus-orders-baseline
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Activate pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.15.4 --activate
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Check fixture contract
+        run: pnpm test
+      - name: Build fixture
+        run: pnpm build
+
+  agent-chat:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: evals/harness/apps/agent-chat-baseline
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Activate pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.15.4 --activate
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Check fixture contract
+        run: pnpm test
+      - name: Build fixture
+        run: pnpm build
+      - name: Install capture browser
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Start fixture server
+        run: |
+          node scripts/serve.mjs > /tmp/agent-chat-server.log 2>&1 &
+          echo $! > /tmp/agent-chat-server.pid
+      - name: Capture rendered baseline
+        run: node scripts/capture.mjs
+      - name: Upload Agent Chat baseline evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-02-agent-chat-baseline
+          path: evals/harness/artifacts/eval-02/agent-chat-baseline
+          if-no-files-found: error
