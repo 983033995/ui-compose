@@ -71,6 +71,22 @@ Minimum machine-observed checks:
 - reduced-motion disables transient caret animation
 - no rendered hidden-chain-of-thought/reasoning-claim copy
 
+## AI-native lifecycle assertions
+
+Review product-visible lifecycle rather than protocol compliance. AG-UI, assistant-ui/tool-ui and similar projects are evidence, not required runtime dependencies. See `references/ai-native-evidence-2026-08-31.md`.
+
+For both transformed runs verify:
+
+- queued/running/success/failure presentation is derived from actual host/runtime state rather than a decorative timer or fabricated progress;
+- failed tool execution never reuses success presentation or collapses into an indistinguishable generic card;
+- structured tool output uses the smallest task-appropriate host primitive (text, table, form, diff, approval surface) rather than raw JSON by default;
+- approval identifies the action, affected scope and consequence before commit;
+- provider-visible activity can be summarized, but hidden chain-of-thought is neither claimed nor rendered;
+- incremental updates preserve stable visible state instead of visually resetting the entire thread/tool surface unnecessarily;
+- adding an AI UI/protocol dependency requires a concrete behavioral need that the frozen host cannot already satisfy.
+
+These checks strengthen the existing Pattern hypotheses; they do not change the frozen task or make any specific protocol/library part of the fixture contract.
+
 ## Hard failures
 
 Use the case/fixture contract as authoritative. In particular:
