@@ -57,7 +57,7 @@ jobs:
     env:
       EVAL_RUN_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.eval02_run_id || 'agent-chat-baseline' }}
       EVAL_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.eval02_mode || 'baseline' }}
-      EVAL_SOURCE_SHA: ${{ github.sha }}
+      EVAL_SOURCE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
     defaults:
       run:
         working-directory: evals/harness/apps/agent-chat-baseline
