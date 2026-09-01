@@ -27,4 +27,8 @@ pnpm dev
 
 CI additionally installs Playwright **ephemerally as benchmark infrastructure**, launches the built fixture, and captures desktop/mobile screenshots plus machine metrics for overflow, keyboard actions, focus outline, reduced motion, composer reachability, runtime errors, required states, and hidden-reasoning copy. Playwright is not part of the host UI dependency contract.
 
+The capture layer uses semantic `data-state`, `data-action`, and `data-eval` hooks rather than incidental CSS classes or exact visible copy. See `CAPTURE-CONTRACT.md`. These hooks are evaluation instrumentation only: transformed runs may freely change layout, styling, component boundaries and user-facing wording while preserving observable product semantics.
+
+For isolated evidence, `.github/workflows/build-eval-fixtures.yml` can be run manually against the transformed branch with an `eval02_run_id` and one of `baseline`, `model-only`, or `ui-compose`. Each run writes to its own artifact directory and records the source SHA in `metrics.json`.
+
 This fixture is a host baseline, not an Eval result. Model-only and UI Compose result records must only be added after actual transformed runs are captured and reviewed.

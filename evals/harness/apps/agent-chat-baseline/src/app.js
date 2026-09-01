@@ -31,7 +31,7 @@ app.innerHTML = `
 
       <article class="message message--assistant" data-state="streaming" aria-live="polite">
         <p class="message__role">Assistant · generating</p>
-        <p>I found a recent billing mismatch. I’m checking the account history and policy before suggesting a change.<span class="stream-caret" aria-hidden="true"></span></p>
+        <p>I found a recent billing mismatch. I’m checking the account history and policy before suggesting a change.<span class="stream-caret" data-eval="stream-caret" aria-hidden="true"></span></p>
         ${button('Stop', 'secondary', 'data-action="stop"')}
       </article>
 
@@ -56,21 +56,23 @@ app.innerHTML = `
       </article>
     </section>
 
-    <form class="composer" aria-label="Message composer">
+    <form class="composer" data-eval="composer" aria-label="Message composer">
       <label for="message">Message</label>
-      <textarea id="message" rows="2" placeholder="Ask a follow-up…"></textarea>
+      <textarea id="message" data-eval="message-input" rows="2" placeholder="Ask a follow-up…"></textarea>
       <div class="composer__footer"><span>Enter to send · Shift+Enter for newline</span>${button('Send', 'primary', 'type="submit"')}</div>
     </form>
   </main>`;
 
-const setNotice = (text) => {
-  let notice = document.querySelector('.action-notice');
+const setNotice = (result, text) => {
+  let notice = document.querySelector('[data-eval="action-notice"]');
   if (!notice) {
     notice = document.createElement('div');
     notice.className = 'action-notice';
+    notice.dataset.eval = 'action-notice';
     notice.setAttribute('role', 'status');
     document.body.appendChild(notice);
   }
+  notice.dataset.evalResult = result;
   notice.textContent = text;
 };
 
@@ -80,27 +82,27 @@ document.addEventListener('click', (event) => {
   const messages = {
     reconnect: 'Reconnect requested.', stop: 'Generation stopped.', approve: 'Credit approval recorded.', reject: 'Credit rejected.', retry: 'Retry requested.'
   };
-  setNotice(messages[action]);
+  setNotice(action, messages[action]);
   if (action === 'stop') {
     const streaming = document.querySelector('[data-state="streaming"]');
     streaming.dataset.state = 'stopped';
     streaming.querySelector('.message__role').textContent = 'Assistant · stopped';
-    streaming.querySelector('.stream-caret')?.remove();
+    streaming.querySelector('[data-eval="stream-caret"]')?.remove();
   }
 });
 
-const composer = document.querySelector('.composer');
+const composer = document.querySelector('[data-eval="composer"]');
 
 composer.addEventListener('submit', (event) => {
   event.preventDefault();
-  const input = document.querySelector('#message');
+  const input = document.querySelector('[data-eval="message-input"]');
   if (!input.value.trim()) return;
-  setNotice('Message queued.');
+  setNotice('send', 'Message queued.');
   input.value = '';
   input.focus();
 });
 
-document.querySelector('#message').addEventListener('keydown', (event) => {
+document.querySelector('[data-eval="message-input"]').addEventListener('keydown', (event) => {
   if (event.key !== 'Enter' || event.shiftKey || event.isComposing) return;
   event.preventDefault();
   composer.requestSubmit();

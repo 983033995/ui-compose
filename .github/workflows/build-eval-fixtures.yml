@@ -1,6 +1,22 @@
 name: Build Eval Fixtures
 
 on:
+  workflow_dispatch:
+    inputs:
+      eval02_run_id:
+        description: Stable Eval 02 evidence id (for example model-only-2026-09-01-a)
+        required: true
+        default: agent-chat-baseline
+        type: string
+      eval02_mode:
+        description: Eval 02 capture mode
+        required: true
+        default: baseline
+        type: choice
+        options:
+          - baseline
+          - model-only
+          - ui-compose
   push:
     paths:
       - 'evals/harness/apps/**'
@@ -12,6 +28,7 @@ on:
 
 jobs:
   vue-element-plus-orders:
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -37,6 +54,10 @@ jobs:
 
   agent-chat:
     runs-on: ubuntu-latest
+    env:
+      EVAL_RUN_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.eval02_run_id || 'agent-chat-baseline' }}
+      EVAL_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.eval02_mode || 'baseline' }}
+      EVAL_SOURCE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
     defaults:
       run:
         working-directory: evals/harness/apps/agent-chat-baseline
@@ -66,12 +87,12 @@ jobs:
         run: |
           node scripts/serve.mjs > /tmp/agent-chat-server.log 2>&1 &
           echo $! > /tmp/agent-chat-server.pid
-      - name: Capture rendered baseline
+      - name: Capture rendered Eval 02 evidence
         run: node scripts/capture.mjs
-      - name: Upload Agent Chat baseline evidence
+      - name: Upload Agent Chat evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: eval-02-agent-chat-baseline
-          path: evals/harness/artifacts/eval-02/agent-chat-baseline
+          name: eval-02-${{ env.EVAL_RUN_ID }}
+          path: evals/harness/artifacts/eval-02/${{ env.EVAL_RUN_ID }}
           if-no-files-found: error
