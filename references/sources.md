@@ -78,7 +78,7 @@ Those details should not become canonical Patterns.
 
 ## Shopping lists are not research
 
-A thread, post, or directory titled “best UI libraries,” “best icons,” or “design inspiration” is an input to research, not a Source Registry patch.
+A thread, post, or directory titled “best UI libraries,” “best icons,” “design inspiration,” or “AI website prompts” is an input to research, not a Source Registry patch.
 
 For every candidate:
 
@@ -89,7 +89,7 @@ For every candidate:
 5. decide whether it improves Pattern, Recipe, Physics, Host Read, or an Eval hypothesis
 6. reject it if the only durable output is “this looks good”
 
-Do **not** turn ten UI-kit links into ten registry rows. Icon packs should usually improve Host Read’s icon-system detection rather than become sources. Screenshot galleries should usually remain research indexes rather than canonical evidence. A numeric animation library may improve `physics.md` without creating a new Pattern.
+Do **not** turn ten UI-kit links into ten registry rows. Icon packs should usually improve Host Read’s icon-system detection rather than become sources. Screenshot galleries should usually remain research indexes rather than canonical evidence. A numeric animation library may improve `physics.md` without creating a new Pattern. Paid prompt catalogs (MotionSites, ScrollTide, “paste into Lovable”) should usually improve motion-surface gates rather than become sources.
 
 ## DESIGN.md catalogs
 

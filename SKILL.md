@@ -122,7 +122,7 @@ Complex product surfaces will often use roughly 3–7 patterns. Narrow, speciali
 
 Start from the skeleton's `recommended_patterns`, then add only what the job or required states still lack. Consult `references/patterns/recipes.md` for host-neutral implementation guidance.
 
-Hard rejects beat any ranking hint: wrong surface, replacing the host primitive system, inaccessible primary interaction, third-party design-contract identity substitution, unjustified second icon family, brand-copy, unjustified dependency, or a mobile-breaking layout on a mobile-required task.
+Hard rejects beat any ranking hint: wrong surface, replacing the host primitive system, inaccessible primary interaction, third-party design-contract identity substitution, unjustified second icon family, brand-copy, unjustified dependency, a mobile-breaking layout on a mobile-required task, a prompt-catalog default stack replacing the detected host, or cinematic scroll-tied media on an app interior.
 
 Popular libraries are evidence for a pattern, not default runtime dependencies. Consult `references/sources/registry.yaml` only after pattern IDs are chosen, and only to check provenance / integration mode.
 
@@ -173,7 +173,7 @@ Rewrite before calling a surface done when it exhibits these hard failures witho
 - three equal marketing cards simply because the model needs a section
 - copied visual identity from a reference product
 
-Treat these as **slop heuristics**, not universal bans: Inter-everywhere with no hierarchy, em-dash-heavy UI copy, numbered eyebrows such as `001 · Capabilities`, silent purple/violet brand accents, animated icons across repeated product chrome, and two equally loud filled primary actions in one region. Flag them when they appear by default with no product/brand rationale; allow them when they are intentional and coherent with the surface.
+Treat these as **slop heuristics**, not universal bans: Inter-everywhere with no hierarchy, em-dash-heavy UI copy, numbered eyebrows such as `001 · Capabilities`, silent purple/violet brand accents, animated icons across repeated product chrome, two equally loud filled primary actions in one region, and a scroll-tied cinematic video on a proof landing that did not ask for it. Flag them when they appear by default with no product/brand rationale; allow them when they are intentional and coherent with the surface.
 
 Campaign/editorial surfaces can be more expressive, but must still use one coherent motif family rather than an effect sampler.
 
@@ -194,6 +194,7 @@ Motion explains state, hierarchy, causality, or spatial change. Otherwise, delet
 - always provide a `prefers-reduced-motion` path
 - do not add a motion library only to animate opacity/translate
 - repeated navigation/table/toolbar icons stay static by default unless animation communicates real state or brand behavior
+- scroll-tied media is marketing/`immersive-hero` only; bind one video/poster to scroll with the host stack, never a 300-frame dump or a new motion library for `scrollY`
 
 Use `references/physics.md` for shared defaults and `references/motion-blocks.md` for distinctive recipes.
 

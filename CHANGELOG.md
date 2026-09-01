@@ -16,6 +16,19 @@
 - Verified coss against its official AGPL-3.0 repository and kept it reference-only by default.
 - Verified AICSS's MIT free-component boundary plus separate paid/locked component terms.
 
+### Motion prompt-catalog pass (2026-08-29)
+
+Folded from MotionSites / ScrollTide threads without turning UI Compose into a cinematic prompt picker:
+
+- Scroll-scrubbed media as a host-neutral motion verb (`motion-blocks.md` §9): bind one video/poster to scroll progress, optional lerp, no autoplay loop, poster on reduced motion. Marketing / `immersive-hero` only.
+- Physics: scroll-tied media is distance-mapped, not a 300ms timer; never on app interiors.
+- Provenance: paid prompt catalogs are inspiration-only. Do not vendor prompt text or adopt their baked React + Tailwind + Framer Motion + lucide stack.
+- Composition hard rejects: prompt-catalog default stack replacing the host; cinematic scroll-tied media on an app interior.
+- Eval 06 hard failures for prompt-catalog stack, scroll-video default, and autoplaying hero without a reduced-motion poster.
+- Explicitly did **not** add MotionSites, ScrollTide, or leaked prompt dumps to the Source Registry.
+
+See `reviews/grok-2026-08-29-motion-prompt-catalogs.md` until those notes are folded and deleted.
+
 ## 0.3.0 — Composition Intelligence foundation
 
 ### Added

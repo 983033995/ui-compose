@@ -51,6 +51,9 @@ Expected pattern candidates:
 - fake dashboard blocks with no meaningful product state
 - adds animation/effect libraries for simple CSS-level motion
 - mobile reordering weakens the value proposition or CTA path
+- prompt-catalog stack (React + Tailwind + Framer Motion + lucide, or equivalent) replacing the host fixture
+- cinematic scroll-tied video / 300-frame sequence / liquid-glass hero on a restrained proof landing
+- autoplaying hero media with no poster or `prefers-reduced-motion` path
 
 ## Review notes
 

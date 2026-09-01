@@ -88,6 +88,22 @@ Reference products are direction/evidence, not targets for cloning. A result sho
 
 Substituting a third-party design contract for the host's own token/primitive identity is a brand-copy failure even when no source code was copied.
 
+## Paid prompt catalogs
+
+Libraries that sell or give away “copy this prompt into Lovable / Bolt / Cursor / Claude” packs (MotionSites, ScrollTide, motionprompts.dev, and similar) are **inspiration-only**. They are not Source Registry rows and not a Host Contract.
+
+Allowed:
+
+- extract a host-neutral motion *verb* already observed independently (scroll-scrubbed media, one ambient moment, poster fallback)
+- use that verb only on the matching surface, implemented with the host motion stack
+
+Not allowed:
+
+- vendoring prompt text, paid blueprints, or leaked prompt dumps into this repository
+- adopting the catalog's baked stack (typically React + Vite + Tailwind + Framer Motion + lucide) as if Host Read had found it
+- treating cinematic scroll-video / liquid-glass / 3D-hero as the default landing for every product
+- installing a prompt catalog, MCP, or unlimited-prompt SKU as a UI Compose runtime dependency
+
 ## Maintenance rule
 
 When upstream terms or licenses are unclear, mark the source `verify-upstream` and default to **trait reimplementation** or **inspiration only** until verified.
