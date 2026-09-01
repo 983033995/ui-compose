@@ -15,11 +15,22 @@ for (const forbidden of ['ai-elements','shadcn','radix-ui','framer-motion']) {
   if (pkg.includes(forbidden)) throw new Error(`forbidden default dependency: ${forbidden}`);
 }
 
+const captureHooks = [
+  'data-eval="composer"',
+  'data-eval="message-input"',
+  'data-eval="stream-caret"',
+  "notice.dataset.eval = 'action-notice'",
+  'notice.dataset.evalResult = result'
+];
+for (const hook of captureHooks) {
+  if (!app.includes(hook)) throw new Error(`missing Eval 02 capture hook: ${hook}`);
+}
+
 const checks = [
   [provider.includes('hidden chain-of-thought'), 'provider contract must state hidden-CoT boundary'],
   [provider.includes('consequence') && provider.includes('scope'), 'approval provider contract must include consequence and scope'],
   [app.includes('Approve $24 credit') && app.includes('AC-2048'), 'approval UI must name action and scope'],
-  [app.includes('data-action="stop"') && app.includes('data-action="retry"'), 'stop and retry actions required'],
+  [app.includes('data-action="stop"') && app.includes('data-action="retry"') && app.includes('data-action="approve"'), 'stop retry and approval action hooks required'],
   [app.includes("event.key !== 'Enter'") && app.includes('event.shiftKey') && app.includes('composer.requestSubmit()'), 'composer must send on Enter and preserve Shift+Enter newline'],
   [button.includes('visible focus') && css.includes(':focus-visible'), 'focus-visible contract required'],
   [composer.includes('mobile widths') && css.includes('grid-template-rows: auto minmax(0, 1fr) auto') && css.includes('height: 100dvh'), 'persistent mobile composer layout contract required'],
