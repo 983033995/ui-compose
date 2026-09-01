@@ -58,6 +58,10 @@ Record explicitly:
 
 Both transformed runs must pass through the same browser capture checks used by the baseline. Do not weaken checks per mode.
 
+The fixture also carries a stable evaluator-only observability contract in `evals/harness/apps/agent-chat-baseline/CAPTURE-CONTRACT.md`. Preserve the semantic `data-state`, `data-action`, and `data-eval` hooks while allowing layout, CSS classes, component boundaries and visible copy to change freely. Removing those hooks makes the automated comparison non-reproducible; treat that as an **invalid benchmark run**, restore the instrumentation without changing visible product behavior, and recapture. Do not score missing evaluator hooks as a product-quality hard failure.
+
+For CI evidence, run `.github/workflows/build-eval-fixtures.yml` against the transformed branch with a unique `eval02_run_id` and the matching `eval02_mode` (`model-only` or `ui-compose`). The capture script writes each run to a separate artifact directory and records its source SHA in `metrics.json`.
+
 Minimum machine-observed checks:
 
 - no console/page errors
