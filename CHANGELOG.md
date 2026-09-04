@@ -27,7 +27,17 @@ Folded from MotionSites / ScrollTide threads without turning UI Compose into a c
 - Eval 06 hard failures for prompt-catalog stack, scroll-video default, and autoplaying hero without a reduced-motion poster.
 - Explicitly did **not** add MotionSites, ScrollTide, or leaked prompt dumps to the Source Registry.
 
-See `reviews/grok-2026-08-29-motion-prompt-catalogs.md` until those notes are folded and deleted.
+### Interface-review / Brand Lock pass (2026-09-04)
+
+Folded from public interface-skill and branding-workflow threads without installing sibling skills:
+
+- Reverse-engineering evidence grades: Measured / Derived / Inferred. Do not present inferred CSS as measured.
+- Design Read reference roles: identity vs composition vs scene (Brand Lock as methodology, not a Lovart runtime).
+- Verify: accessibility/layout before color/polish; stress long text, empty, and ~320px.
+- `interfaces-skills` (`jakubkrehel/skills`, MIT) as methodology evidence. Do not vendor their `SKILL.md` files or `npx skills add` as a default.
+- GetLayers classified with MotionSites/ScrollTide as a paid prompt catalog. curated.design / swiped.design stay out of the registry.
+
+See `reviews/grok-2026-09-04-interface-review.md` until those notes are folded and deleted.
 
 ## 0.3.0 — Composition Intelligence foundation
 

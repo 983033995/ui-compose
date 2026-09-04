@@ -90,7 +90,7 @@ Substituting a third-party design contract for the host's own token/primitive id
 
 ## Paid prompt catalogs
 
-Libraries that sell or give away “copy this prompt into Lovable / Bolt / Cursor / Claude” packs (MotionSites, ScrollTide, motionprompts.dev, and similar) are **inspiration-only**. They are not Source Registry rows and not a Host Contract.
+Libraries that sell or give away “copy this prompt into Lovable / Bolt / Cursor / Claude” packs (MotionSites, ScrollTide, GetLayers, motionprompts.dev, and similar) are **inspiration-only**. They are not Source Registry rows and not a Host Contract.
 
 Allowed:
 
@@ -103,6 +103,23 @@ Not allowed:
 - adopting the catalog's baked stack (typically React + Vite + Tailwind + Framer Motion + lucide) as if Host Read had found it
 - treating cinematic scroll-video / liquid-glass / 3D-hero as the default landing for every product
 - installing a prompt catalog, MCP, or unlimited-prompt SKU as a UI Compose runtime dependency
+
+## Sibling agent skills
+
+Public interface-review / branding skills (MIT `jakubkrehel/skills`, CC-BY Lovart brand packs, and similar) are **methodology references**.
+
+Allowed:
+
+- host-neutral process traits: evidence grades, accessibility-first review order, state stress-pass, single-axis variants, reference-role lock
+
+Not allowed:
+
+- vendoring their `SKILL.md` files into this repository
+- `npx skills add …` as a UI Compose default or required sibling
+- assuming Lovart, Claude Code plugins, or their stack because the skill does
+- treating a branding-agent canvas workflow as Host Read
+
+UI Compose remains the composition engine. Overlapping polish skills are evidence, not a second runtime.
 
 ## Maintenance rule
 

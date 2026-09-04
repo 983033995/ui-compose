@@ -1,5 +1,5 @@
 version: 0.3
-updated: 2026-08-29
+updated: 2026-09-04
 principle: "Sources are evidence of good UI decisions, not default runtime dependencies."
 
 sources:
@@ -258,3 +258,17 @@ sources:
     last_verified: 2026-08-29
     runtime_dependency_default: false
     risks: [proprietary-source, unaffiliated-plugin, tailwind-bias-if-vendored]
+
+  - id: interfaces-skills
+    name: Jakub Krehel interface skills
+    role: direction-reference
+    canonical_url: https://github.com/jakubkrehel/skills
+    frameworks: [agent-skill]
+    jobs: [interface-review, reverse-engineering, accessibility, layout, typography]
+    traits: [evidence-graded-observation, accessibility-first-review, state-stress-pass, single-axis-variants]
+    integration: methodology-reference
+    license: MIT
+    provenance: public-source
+    last_verified: 2026-09-04
+    runtime_dependency_default: false
+    risks: [scope-overlap, sibling-skill-install]
