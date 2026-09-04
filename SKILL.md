@@ -89,7 +89,7 @@ Then set three dials from `references/taste-dials.md`:
 
 Treat values as directional, not a universal preset. Product interiors are usually denser and calmer than campaigns/marketing pages.
 
-Pick one positive reference and one negative reference. Do not clone brand identity, copy, illustrations, or proprietary source.
+Pick one positive reference and one negative reference. Give each reference a role (identity vs composition vs scene) so it cannot rewrite the Host Contract. Do not clone brand identity, copy, illustrations, or proprietary source.
 
 ---
 
@@ -212,15 +212,15 @@ See `references/ai-primitives.md`. Use the host-neutral recipes there and map co
 
 ## 8. Fallback quality gates
 
-Every finished implementation must pass semantic HTML/native-control correctness, keyboard operability, visible focus, accessible naming, contrast, reduced motion, mobile touch targets, no accidental horizontal overflow, responsive hierarchy, required loading/empty/error/disabled/success states, useful recovery/next actions where applicable, and reuse of host tokens/conventions.
+Every finished implementation must pass semantic HTML/native-control correctness, keyboard operability, visible focus, accessible naming, contrast, reduced motion, mobile touch targets, no accidental horizontal overflow, responsive hierarchy, required loading/empty/error/disabled/success states, useful recovery/next actions where applicable, and reuse of host tokens/conventions. Check accessibility and layout before color and ornament.
 
 ---
 
 ## 9. Verification
 
-Never finish from source inspection alone. Verify desktop, ~390px mobile, keyboard navigation, interactive states, loading/empty/error, reduced motion, console/hydration errors, overflow, layout jumps, and dependency changes.
+Never finish from source inspection alone. Verify desktop, ~390px mobile, keyboard navigation, interactive states, loading/empty/error, reduced motion, console/hydration errors, overflow, layout jumps, and dependency changes. Stress long text, empty, and a ~320px width when the surface can receive them.
 
-Then compare against positive and negative references: inherit useful structure/behavior without inheriting source identity, and keep the result native to the host project.
+Then compare against positive and negative references: inherit useful structure/behavior without inheriting source identity, and keep the result native to the host project. Report Measured vs Derived vs Inferred; do not present taste as measurement.
 
 ---
 

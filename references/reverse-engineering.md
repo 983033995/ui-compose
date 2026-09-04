@@ -39,6 +39,16 @@ Candidate Pattern ID:
 
 The canonical source belongs in `references/sources/registry.yaml`.
 
+Grade every observation:
+
+| Grade | Means | Example |
+| --- | --- | --- |
+| Measured | read from the live page, computed style, or sampled pixels | `filter: blur(50px)` |
+| Derived | computed from measurements | “1496px wide in a 1440 viewport” |
+| Inferred | intent, never stated as fact | “oversized so no edge sits in view” |
+
+Do not present inferred values as measured. Do not invent CSS from a screenshot beyond sampled color/contrast. Do not dump a whole design system when the question was one effect.
+
 ### 3. Extract the trait
 
 Convert brand-specific implementation into an independent design decision.
@@ -164,6 +174,29 @@ Useful evidence:
 
 Avoid cloning logos, copy, product imagery, distinctive illustrations or signature brand identity.
 
+Assign each reference a **role** before using it:
+
+- identity (tokens, type, logo, motif) — Host Contract / approved brand kit owns this
+- composition (tracks, split, hierarchy) — may inform skeleton
+- scene / lighting / mood — campaign only; must not rewrite identity
+
+A reference teaches the *logic*, not the output. One approved anchor beats twenty disconnected generations.
+
+### Sibling interface-review skills
+
+Useful evidence (MIT `jakubkrehel/skills`):
+
+- accessibility → layout → writing → type → color → polish, not the reverse
+- findings capped, evidence not taste, one root cause per row
+- stress-render long text / empty / ~320px and observe before judging
+- variants differ on **one** axis; a tradeoff table, not a favourite
+
+Do not capture:
+
+- their `SKILL.md` files as a UI Compose runtime
+- `npx skills add jakubkrehel/skills` as a default sibling
+- a second review pipeline that fights Host Read
+
 ### Prompt catalogs and cinematic template packs
 
 Useful evidence:
@@ -190,6 +223,17 @@ React+Vite+Tailwind+Framer Motion baked into every prompt
 → prompt-catalog register bleed; Host Read wins
 Eval 06 using that stack
 → unnecessary-dependency + wrong-skeleton + accessibility-failure
+```
+
+Worked example (GetLayers / curated.design / swiped.design / 60fps, 2026-09-04):
+
+```text
+GetLayers.ai          → paid cinematic prompt catalog; same class as MotionSites
+curated.design        → live-site screenshot gallery; no new trait
+swiped.design         → design-content gallery; no new trait
+60fps.design          → observed-motion index; already rejected as a registry row
+jakubkrehel/skills    → MIT methodology; evidence grades + review order; do not vendor files
+Lovart Brand Skill    → CC-BY-4.0 + Lovart runtime; Brand Lock roles only, do not install
 ```
 
 ## Promotion criteria
